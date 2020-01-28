@@ -1,3 +1,4 @@
+import { COLORS } from './../../../constants/theme';
 import styled from 'styled-components/native';
 
 export const Map = styled.View`
@@ -7,3 +8,11 @@ export const Map = styled.View`
   left: 0;
   right: 0;
 `;
+
+export const KhabarContainer = styled.View`
+  margin-bottom: 8px;
+  border-bottom-width: 2px;
+  border-bottom-color: ${COLORS.text_color};
+`;
+
+export const KhabarName = styled.Button``;

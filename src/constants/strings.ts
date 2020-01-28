@@ -1,5 +1,8 @@
 export const STRINGS = {
   login: {
-    field: 'value',
+    email_field: 'E-mail',
+    password_field: 'Password',
+    submit_button: 'Submit',
+    clean_button: 'Clean',
   },
 };

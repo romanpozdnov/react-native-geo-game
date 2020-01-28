@@ -7,16 +7,26 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "start:json-server": "json-server db.json -p 4000"
   },
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.6",
     "@types/react-navigation": "^3.4.0",
+    "axios": "^0.19.2",
+    "json-server": "^0.15.1",
     "react": "16.9.0",
     "react-hook-form": "^4.7.1",
     "react-native": "0.61.5",
     "react-native-fingerprint-scanner": "^3.0.2",
-    "react-native-maps": "^0.26.1",
+    "react-native-gesture-handler": "^1.5.3",
+    "react-native-maps": "0.26.1",
+    "react-native-reanimated": "^1.7.0",
+    "react-native-safe-area-context": "^0.6.2",
+    "react-native-screens": "^2.0.0-alpha.32",
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-webview": "^8.0.5",
     "react-navigation-stack": "^2.0.16"
   },
   "devDependencies": {
