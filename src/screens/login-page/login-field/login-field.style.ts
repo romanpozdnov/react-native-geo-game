@@ -1,4 +1,4 @@
-import { COLORS } from '../../../constant/theme';
+import { COLORS } from '../../../constants/theme';
 import styled from 'styled-components/native';
 
 export const Label = styled.Text`
