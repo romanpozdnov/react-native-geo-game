@@ -9,4 +9,9 @@ export const STRINGS = {
   ITEMS_PAGE: {
     title: 'Items page',
   },
+
+  CREATE_ITEM_PAGE: {
+    item_name_field: 'Item name',
+    submite_button_text: 'Create item',
+  },
 };

@@ -3,20 +3,20 @@ import { useFormContext } from 'react-hook-form';
 
 import { Label, Input, ErrorText } from './field.style';
 
-export interface IAuntFieldProps {
-  nameField: string;
+export interface IAuntFieldProps<T> {
+  nameField: T;
   labelText: string;
   required?: boolean;
   isHideError?: boolean;
   children?: ReactNode;
 }
 
-export const Field = ({
+export const Field = <T extends string>({
   nameField,
   labelText,
   isHideError,
   required,
-}: IAuntFieldProps) => {
+}: IAuntFieldProps<T>) => {
   const { register, setValue, errors, watch } = useFormContext();
   const { [nameField]: value } = watch();
   const reg = () => register({ name: nameField }, { required });
