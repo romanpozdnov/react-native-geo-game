@@ -3,37 +3,37 @@ import { IItem } from './item/item';
 export const EXAMPLE_LIST_ITEMS: IItem[] = [
   {
     itemCoordinate: {
-      latitude: 180,
-      longitude: 180,
+      latitude: 50.005702,
+      longitude: 36.229222,
     },
-    itemName: 'A',
+    itemName: 'In window',
   },
   {
     itemCoordinate: {
-      latitude: 180,
-      longitude: 180,
+      latitude: 50.007795,
+      longitude: 36.224676,
     },
-    itemName: 'A',
+    itemName: 'In blue box',
   },
   {
     itemCoordinate: {
-      latitude: 180,
-      longitude: 180,
+      latitude: 50.002928,
+      longitude: 36.224924,
     },
-    itemName: 'A',
+    itemName: 'Between three tree',
   },
   {
     itemCoordinate: {
-      latitude: 180,
-      longitude: 180,
+      latitude: 49.994489,
+      longitude: 36.230638,
     },
-    itemName: 'A',
+    itemName: 'Under yellow door',
   },
   {
     itemCoordinate: {
-      latitude: 180,
-      longitude: 180,
+      latitude: 49.997526,
+      longitude: 36.241674,
     },
-    itemName: 'A',
+    itemName: 'Car',
   },
 ];

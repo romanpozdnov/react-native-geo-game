@@ -1,33 +1,41 @@
-import { COLORS } from './../../constants/theme';
-import { StyleSheet } from 'react-native';
-export const STYLE = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: 'relative',
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  buttonRight: {
-    position: 'absolute',
-    right: '10%',
-    bottom: '10%',
-    borderRadius: 50,
-    width: 50,
-    height: 50,
-    backgroundColor: COLORS.move_to_item_button,
-  },
-  buttonLeft: {
-    position: 'absolute',
-    left: '10%',
-    bottom: '10%',
-    borderRadius: 50,
-    width: 50,
-    height: 50,
-    backgroundColor: COLORS.move_to_user_button,
-  },
-  title: {
-    position: 'absolute',
-    top: 0,
-  },
-});
+import MapView from 'react-native-maps';
+import styled from 'styled-components/native';
+
+export const Map = styled(MapView)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`;
+
+export const MapPageContainer = styled.View`
+  flex: 1;
+  position: relative;
+`;
+
+type IButtonPosition = 'right' | 'left';
+interface IButtonParameter {
+  backgroundColor: string;
+  position: IButtonPosition;
+}
+
+export const Button = styled.TouchableOpacity<IButtonParameter>`
+  position: absolute;
+  bottom: 5%;
+  border-radius: 50;
+  width: 50px;
+  height: 50px;
+  background-color: ${(props) => props.backgroundColor};
+  ${(props) => (props.position === 'left' ? 'left: 15%;' : 'right: 15%')};
+`;
+
+export const Title = styled.Text`
+  position: absolute;
+  top: 5%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+`;
