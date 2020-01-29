@@ -29,13 +29,3 @@ export const Button = styled.TouchableOpacity<IButtonParameter>`
   background-color: ${(props) => props.backgroundColor};
   ${(props) => (props.position === 'left' ? 'left: 15%;' : 'right: 15%')};
 `;
-
-export const Title = styled.Text`
-  position: absolute;
-  top: 5%;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
-`;

@@ -1,13 +1,5 @@
-import { COLORS } from '../../../constants/theme';
 import styled from 'styled-components/native';
-
-export const Map = styled.View`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-`;
+import { COLORS } from '@constants/theme';
 
 export const ItemContainer = styled.View`
   margin-bottom: 8px;

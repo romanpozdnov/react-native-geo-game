@@ -2,10 +2,10 @@ import React, { FC, ReactNode } from 'react';
 import { useForm, FormContext } from 'react-hook-form';
 import { NavigationInjectedProps } from 'react-navigation';
 
-import { Field } from '../../components/field';
+import { Field } from '@components/field';
 
-import { ROUTES } from '../../constants/routes';
-import { STRINGS } from '../../constants/strings';
+import { ROUTES } from '@constants/routes';
+import { STRINGS } from '@constants/strings';
 import { LOGIN_FIELDS } from './login-page.constants';
 
 import { TSubmitFormData } from './login-page.type';
@@ -20,16 +20,12 @@ export const LoginPage: FC<ILoginPageProps> = ({ navigation }) => {
   const formMethods = useForm<TSubmitFormData>();
   const { handleSubmit, setValue } = formMethods;
 
-  // * Clean field
   const onReset = () => {
     setValue(LOGIN_FIELDS.password, '');
     setValue(LOGIN_FIELDS.email, '');
   };
 
-  // * On send data
-  const onSubmit = handleSubmit(({ email, password }) => {
-    console.log(email, password);
-    // * Navigate to data page
+  const onSubmit = handleSubmit((formData) => {
     navigation.navigate(ROUTES.ItemsPage);
   });
 
@@ -38,15 +34,15 @@ export const LoginPage: FC<ILoginPageProps> = ({ navigation }) => {
       <FormContext {...formMethods}>
         <Field
           nameField={LOGIN_FIELDS.email}
-          labelText={STRINGS.login.email_field}
+          labelText={STRINGS.LOGIN_PAGE.email_field}
         />
         <Field
           nameField={LOGIN_FIELDS.password}
-          labelText={STRINGS.login.password_field}
+          labelText={STRINGS.LOGIN_PAGE.password_field}
         />
         <ButtonBar>
-          <Submit title={STRINGS.login.submit_button} onPress={onSubmit} />
-          <Submit title={STRINGS.login.clean_button} onPress={onReset} />
+          <Submit title={STRINGS.LOGIN_PAGE.submit_button} onPress={onSubmit} />
+          <Submit title={STRINGS.LOGIN_PAGE.clean_button} onPress={onReset} />
         </ButtonBar>
       </FormContext>
     </Container>

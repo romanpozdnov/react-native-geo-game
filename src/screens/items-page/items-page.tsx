@@ -1,23 +1,20 @@
-import React, { FC, useState, useEffect, ReactNode } from 'react';
-import { View, Text } from 'react-native';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
+import { NavigationInjectedProps } from 'react-navigation';
 
 import { IItem, Item } from './item';
 
+import { ROUTES } from '@constants/routes';
+import { STRINGS } from '@constants/strings';
 import { EXAMPLE_LIST_ITEMS } from './items-page.constants';
-import { ROUTES } from '../../constants/routes';
-import { STRINGS } from '../../constants/strings';
 
-import { NavigationInjectedProps } from 'react-navigation';
+import { Container, Title } from '@constants/style';
+import { ItemList } from './items-page.style';
 
-import { Title } from './items-page.style';
-
-export interface IItemPageProps {
+interface IItemPageProps extends NavigationInjectedProps {
   children?: ReactNode;
 }
 
-export const ItemsPage: FC<IItemPageProps & NavigationInjectedProps> = ({
-  navigation,
-}) => {
+export const ItemsPage: FC<IItemPageProps> = ({ navigation }) => {
   const [itemsList, setItemsList] = useState<IItem[]>([]);
 
   useEffect(() => {
@@ -35,9 +32,9 @@ export const ItemsPage: FC<IItemPageProps & NavigationInjectedProps> = ({
   ));
 
   return (
-    <View>
-      <Title>{STRINGS.items.title}</Title>
-      <View>{ItemsList}</View>
-    </View>
+    <Container>
+      <Title>{STRINGS.ITEMS_PAGE.title}</Title>
+      <ItemList>{ItemsList}</ItemList>
+    </Container>
   );
 };

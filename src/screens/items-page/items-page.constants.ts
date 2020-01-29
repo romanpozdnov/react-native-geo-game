@@ -1,4 +1,4 @@
-import { IItem } from './item/item';
+import { IItem } from './item';
 
 export const EXAMPLE_LIST_ITEMS: IItem[] = [
   {

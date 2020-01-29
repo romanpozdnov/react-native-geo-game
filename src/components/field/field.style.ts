@@ -1,5 +1,5 @@
-import { COLORS } from '../../constants/theme';
 import styled from 'styled-components/native';
+import { COLORS } from '@constants/theme';
 
 export const Label = styled.Text`
   color: ${COLORS.text_color};
