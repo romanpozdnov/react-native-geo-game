@@ -2,14 +2,16 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import { LoginPage } from './screens/login-page';
-import { KhabarPage } from './screens/khabar-page';
+import { ItemsPage } from './screens/items-page/items-page';
+import { MapPage } from './screens/map-page/map-page';
 
 import { ROUTES } from './constants/routes';
 
 const AppNavigator = createStackNavigator(
   {
     [ROUTES.LoginPage]: LoginPage,
-    [ROUTES.KhabarPage]: KhabarPage,
+    [ROUTES.ItemsPage]: ItemsPage,
+    [ROUTES.MapPage]: MapPage,
   },
   {
     initialRouteName: ROUTES.LoginPage,

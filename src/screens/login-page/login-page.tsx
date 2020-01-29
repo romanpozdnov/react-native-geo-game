@@ -2,11 +2,11 @@ import React, { FC, ReactNode } from 'react';
 import { useForm, FormContext } from 'react-hook-form';
 import { NavigationInjectedProps } from 'react-navigation';
 
-import { Field } from '../field';
+import { Field } from '../../components/field';
 
 import { ROUTES } from '../../constants/routes';
 import { STRINGS } from '../../constants/strings';
-import { LOGIN_FIELDS } from './login-page.const';
+import { LOGIN_FIELDS } from './login-page.constants';
 
 import { TSubmitFormData } from './login-page.type';
 
@@ -30,7 +30,7 @@ export const LoginPage: FC<ILoginPageProps> = ({ navigation }) => {
   const onSubmit = handleSubmit(({ email, password }) => {
     console.log(email, password);
     // * Navigate to data page
-    navigation.navigate(ROUTES.KhabarPage);
+    navigation.navigate(ROUTES.ItemsPage);
   });
 
   return (

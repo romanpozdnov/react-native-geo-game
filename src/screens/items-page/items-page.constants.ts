@@ -1,39 +1,39 @@
-import { IKhabarProps } from './khabar/khabar';
+import { IItem } from './item/item';
 
-export const EXAMPLE_LIST_KHABARS: IKhabarProps[] = [
+export const EXAMPLE_LIST_ITEMS: IItem[] = [
   {
-    coordinate: {
+    itemCoordinate: {
       latitude: 180,
       longitude: 180,
     },
-    name: 'A',
+    itemName: 'A',
   },
   {
-    coordinate: {
+    itemCoordinate: {
       latitude: 180,
       longitude: 180,
     },
-    name: 'A',
+    itemName: 'A',
   },
   {
-    coordinate: {
+    itemCoordinate: {
       latitude: 180,
       longitude: 180,
     },
-    name: 'A',
+    itemName: 'A',
   },
   {
-    coordinate: {
+    itemCoordinate: {
       latitude: 180,
       longitude: 180,
     },
-    name: 'A',
+    itemName: 'A',
   },
   {
-    coordinate: {
+    itemCoordinate: {
       latitude: 180,
       longitude: 180,
     },
-    name: 'A',
+    itemName: 'A',
   },
 ];

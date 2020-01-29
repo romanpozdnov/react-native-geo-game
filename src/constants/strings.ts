@@ -5,4 +5,7 @@ export const STRINGS = {
     submit_button: 'Submit',
     clean_button: 'Clean',
   },
+  items: {
+    title: 'Items page',
+  },
 };

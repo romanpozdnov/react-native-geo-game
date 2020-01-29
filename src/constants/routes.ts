@@ -1,5 +1,5 @@
 export const ROUTES = {
   LoginPage: 'LoginPage',
-  KhabarPage: 'KhabarPage',
+  ItemsPage: 'ItemsPage',
   MapPage: 'MapPage',
 };

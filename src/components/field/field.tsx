@@ -11,7 +11,6 @@ export interface IAuntFieldProps {
   children?: ReactNode;
 }
 
-// TODO: rename
 export const Field = ({
   nameField,
   labelText,
@@ -22,7 +21,7 @@ export const Field = ({
   const { [nameField]: value } = watch();
   const reg = () => register({ name: nameField }, { required });
   const updateValue = (text: string) => setValue(nameField, text);
-  // todo always false
+
   const isError: boolean = !!isHideError && !!errors[nameField];
 
   return (
