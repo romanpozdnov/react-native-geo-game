@@ -6,10 +6,12 @@ import navigator from '@react-native-community/geolocation';
 import { IItem } from '../items-page/item';
 import { NavigationInjectedProps } from 'react-navigation';
 
-import { KHARKOV_REGION, createDefaultRegion } from './map-page.constants';
 import { COLORS } from '@constants/theme';
-// TODO move default position coordinate
-import { DEFAULT_USER_COORDINATE } from '@constants/coordinates';
+import {
+  DEFAULT_USER_COORDINATE,
+  KHARKOV_REGION,
+  createDefaultRegion,
+} from '@constants/coordinates';
 
 import { Button, Map, MapPageContainer } from './map-page.style';
 import { Title } from '@constants/style';
