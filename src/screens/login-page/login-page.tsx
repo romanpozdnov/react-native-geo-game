@@ -35,10 +35,14 @@ export const LoginPage: FC<ILoginPageProps> = ({ navigation }) => {
         <Field
           nameField={LOGIN_FIELDS.email}
           labelText={STRINGS.LOGIN_PAGE.email_field}
+          isShowError={false}
+          required
         />
         <Field
           nameField={LOGIN_FIELDS.password}
           labelText={STRINGS.LOGIN_PAGE.password_field}
+          isShowError={true}
+          required
         />
         <ButtonBar>
           <Submit title={STRINGS.LOGIN_PAGE.submit_button} onPress={onSubmit} />

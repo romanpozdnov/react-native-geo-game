@@ -1,5 +1,6 @@
 import { LatLng } from 'react-native-maps';
 
+// TODO: d.ts
 // TODO refactore
 export interface IItem {
   name: string;

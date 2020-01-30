@@ -1,11 +1,10 @@
 import React, { FC, ReactNode } from 'react';
-import { CHECK_ICON, CROSS_ICON } from '@constants/icons';
+import { FontAwesomeIcon } from '@constants/icons';
 
 import { IItem } from '@constants/types';
 
-import { ICON_SIZE } from './item.constants';
-
 import { ItemContainer, ItemName } from './item.style';
+import { COLORS } from '@constants/theme';
 
 interface IItemProps {
   item: IItem;
@@ -20,9 +19,17 @@ export const Item: FC<IItemProps> = ({ item, navigateToItemMap }) => {
     <ItemContainer>
       <ItemName onPress={navigateToMap} title={name} />
       {isFound ? (
-        <CHECK_ICON size={ICON_SIZE} />
+        <FontAwesomeIcon
+          iconName="check"
+          color={COLORS.ICONS.check_icon}
+          size={20}
+        />
       ) : (
-        <CROSS_ICON size={ICON_SIZE} />
+        <FontAwesomeIcon
+          iconName="times"
+          color={COLORS.ICONS.cross_icon}
+          size={20}
+        />
       )}
     </ItemContainer>
   );

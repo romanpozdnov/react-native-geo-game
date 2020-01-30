@@ -1,20 +1,22 @@
 import React, { ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { Label, Input, ErrorText } from './field.style';
+// TODO: create styled object
+import { FieldStyle } from './field.style';
 
+// TODO: remove aunt
 export interface IAuntFieldProps {
   nameField: string;
   labelText: string;
   required?: boolean;
-  isHideError?: boolean;
+  isShowError?: boolean;
   children?: ReactNode;
 }
 
 export const Field = ({
   nameField,
   labelText,
-  isHideError,
+  isShowError,
   required,
 }: IAuntFieldProps) => {
   const { register, setValue, errors, watch } = useFormContext();
@@ -22,13 +24,15 @@ export const Field = ({
   const reg = () => register({ name: nameField }, { required });
   const updateValue = (text: string) => setValue(nameField, text);
 
-  const isError: boolean = !!isHideError && !!errors[nameField];
+  const isError: boolean = !!isShowError && !!errors[nameField];
 
   return (
     <>
-      <Label>{labelText}</Label>
-      <Input ref={reg} onChangeText={updateValue} value={value} />
-      {isError && <ErrorText>This is required.</ErrorText>}
+      <FieldStyle.Label>{labelText}</FieldStyle.Label>
+      <FieldStyle.Input ref={reg} onChangeText={updateValue} value={value} />
+      {isError && (
+        <FieldStyle.ErrorText>This is required.</FieldStyle.ErrorText>
+      )}
     </>
   );
 };

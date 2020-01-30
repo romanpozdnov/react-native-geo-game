@@ -2,16 +2,17 @@ import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { NavigationInjectedProps } from 'react-navigation';
 
 import { Item } from './item';
-import { ARCHIVE_ICON } from '@constants/icons';
 
 import { IItem } from '@constants/types';
 
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
-import { EXAMPLE_LIST_ITEMS, ICONS_SIZE } from './items-page.constants';
+import { EXAMPLE_LIST_ITEMS } from './items-page.constants';
 
 import { Container } from '@constants/style';
 import { ItemList, Title, CreateItemButton } from './items-page.style';
+import { FontAwesomeIcon } from '@constants/icons';
+import { COLORS } from '@constants/theme';
 
 interface IItemPageProps extends NavigationInjectedProps {
   children?: ReactNode;
@@ -43,7 +44,11 @@ export const ItemsPage: FC<IItemPageProps> = ({ navigation }) => {
       <Title>{STRINGS.ITEMS_PAGE.title}</Title>
       <ItemList>{ItemsList}</ItemList>
       <CreateItemButton onPress={navigateToCreateItemPage}>
-        <ARCHIVE_ICON size={ICONS_SIZE} />
+        <FontAwesomeIcon
+          color={COLORS.ITEM_PAGE.create_icon_but}
+          iconName="archive"
+          size={25}
+        />
       </CreateItemButton>
     </Container>
   );

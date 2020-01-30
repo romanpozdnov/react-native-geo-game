@@ -1,34 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { COLORS } from './theme';
-import { FC } from 'react';
 
+type TIconNames = 'times' | 'check' | 'archive' | 'running';
 interface IIcon {
+  iconName: TIconNames;
+  color: string;
   size: number;
+  children?: null;
 }
 
-export const CHECK_ICON: FC<IIcon> = ({ size }) => (
-  <FontAwesome5
-    name="check"
-    solid
-    size={size}
-    color={COLORS.ICONS.check_icon}
-  />
-);
-export const CROSS_ICON: FC<IIcon> = ({ size }) => (
-  <FontAwesome5
-    name="times"
-    solid
-    size={size}
-    color={COLORS.ICONS.cross_icon}
-  />
-);
-
-export const ARCHIVE_ICON: FC<IIcon> = ({ size }) => (
-  <FontAwesome5
-    name="archive"
-    solid
-    size={size}
-    color={COLORS.ICONS.archive_icon}
-  />
+export const FontAwesomeIcon: FC<IIcon> = ({ color, iconName, size }) => (
+  <FontAwesome5 name={iconName} solid size={size} color={color} />
 );

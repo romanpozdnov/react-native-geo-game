@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 
+// TODO: CommonStyle
 export const Title = styled.Text`
   position: absolute;
   top: 5%;

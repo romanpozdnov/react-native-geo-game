@@ -1,7 +1,5 @@
 import { IItem } from '@constants/types';
 
-export const ICONS_SIZE: number = 25;
-
 export const EXAMPLE_LIST_ITEMS: IItem[] = [
   {
     coordinates: {

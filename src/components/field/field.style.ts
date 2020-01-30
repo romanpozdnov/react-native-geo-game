@@ -1,17 +1,24 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { COLORS } from '@constants/theme';
 
-export const Label = styled.Text`
+const textStyles = css`
   color: ${COLORS.text_color};
   font-size: 16px;
   margin: 16px 0;
 `;
-export const Input = styled.TextInput`
-  min-width: 50%;
-  padding: 4px;
-  border-bottom-color: ${COLORS.text_color};
-  border-bottom-width: 2px;
-`;
-export const ErrorText = styled(Label)`
-  color: ${COLORS.error_color};
-`;
+
+export const FieldStyle = {
+  Label: styled.Text`
+    ${textStyles}
+  `,
+  Input: styled.TextInput`
+    min-width: 50%;
+    padding: 4px;
+    border-bottom-color: ${COLORS.text_color};
+    border-bottom-width: 2px;
+  `,
+  ErrorText: styled.Text`
+    ${textStyles}
+    color: ${COLORS.error_color};
+  `,
+};

@@ -14,6 +14,7 @@ import {
 import { Button, Map, MapPageContainer } from './map-page.style';
 import { Title } from '@constants/style';
 import { STRINGS } from '@constants/strings';
+import { FontAwesomeIcon } from '@constants/icons';
 
 export interface IMapPageProps extends NavigationInjectedProps {}
 
@@ -21,6 +22,9 @@ export const MapPage: FC<IMapPageProps> = ({ navigation }) => {
   const [userCoordinates, setUserCoordinates] = useState<LatLng>(
     DEFAULT_USER_COORDINATE
   );
+
+  const ICONS_SIZE: number = 20;
+
   // TODO FORGOT COORDINATE ALWAYS
   const { coordinates, name }: IItem = navigation.getParam('item');
   const [region, setRegion] = useState<Region>(KHARKOV_REGION);
@@ -33,17 +37,31 @@ export const MapPage: FC<IMapPageProps> = ({ navigation }) => {
   const moveToUser = () => goToCoordinate(userCoordinates);
   const moveToItem = () => goToCoordinate(coordinates);
 
+  // TODO: replace user/item marker
   return (
     <MapPageContainer>
       <Map initialRegion={region}>
         <Marker
           coordinate={coordinates}
           title={STRINGS.MAP_PAGE.user_marker_text}
-        />
+          pinColor="green"
+        >
+          <FontAwesomeIcon
+            color={COLORS.MAP_PAGE.user_icon}
+            iconName="running"
+            size={ICONS_SIZE}
+          />
+        </Marker>
         <Marker
           coordinate={userCoordinates}
           title={STRINGS.MAP_PAGE.item_marker_text}
-        />
+        >
+          <FontAwesomeIcon
+            color={COLORS.MAP_PAGE.item_icon}
+            iconName="archive"
+            size={ICONS_SIZE}
+          />
+        </Marker>
       </Map>
       <Title>{name}</Title>
       <Button
