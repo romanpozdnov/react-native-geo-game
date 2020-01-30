@@ -1,8 +1,20 @@
-import { Region } from 'react-native-maps';
+import { Region, LatLng } from 'react-native-maps';
 
-export const KHARKOV_REGION: Region = {
+export const createDefaultRegion = (coordinates: LatLng): Region => {
+  const { latitude, longitude } = coordinates;
+  return {
+    latitude,
+    longitude,
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.05,
+  };
+};
+
+export const KHARKOV_CENTER_COORDINATES: LatLng = {
   latitude: 49.988358,
   longitude: 36.232845,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
 };
+
+export const KHARKOV_REGION: Region = createDefaultRegion(
+  KHARKOV_CENTER_COORDINATES
+);
