@@ -10,8 +10,13 @@ export const STRINGS = {
     title: 'Items page',
   },
 
+  MAP_PAGE: {
+    user_marker_text: 'User',
+    item_marker_text: 'Item',
+  },
+
   CREATE_ITEM_PAGE: {
     item_name_field: 'Item name',
-    submite_button_text: 'Create item',
+    submit_button_text: 'Create item',
   },
 };

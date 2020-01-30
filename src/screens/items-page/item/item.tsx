@@ -1,8 +1,11 @@
 import React, { FC, ReactNode } from 'react';
+import { CHECK_ICON, CROSS_ICON } from '@constants/icons';
 
-import { IItem } from './item.type';
+import { IItem } from '@constants/types';
 
-import { ItemButton, ItemContainer } from './item.style';
+import { ICON_SIZE } from './item.constants';
+
+import { ItemContainer, ItemName } from './item.style';
 
 interface IItemProps {
   item: IItem;
@@ -11,11 +14,16 @@ interface IItemProps {
 }
 
 export const Item: FC<IItemProps> = ({ item, navigateToItemMap }) => {
-  const { itemName } = item;
+  const { name, isFound } = item;
   const navigateToMap = () => navigateToItemMap(item);
   return (
     <ItemContainer>
-      <ItemButton onPress={navigateToMap} title={itemName} />
+      <ItemName onPress={navigateToMap} title={name} />
+      {isFound ? (
+        <CHECK_ICON size={ICON_SIZE} />
+      ) : (
+        <CROSS_ICON size={ICON_SIZE} />
+      )}
     </ItemContainer>
   );
 };

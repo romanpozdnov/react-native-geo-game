@@ -12,6 +12,7 @@ export const Title = styled.Text`
 
 export const Container = styled.View`
   position: relative;
+  flex: 1;
 `;
 
 export const AbsoluteView = styled.View`

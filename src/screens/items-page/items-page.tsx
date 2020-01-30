@@ -1,14 +1,17 @@
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { NavigationInjectedProps } from 'react-navigation';
 
-import { IItem, Item } from './item';
+import { Item } from './item';
+import { ARCHIVE_ICON } from '@constants/icons';
+
+import { IItem } from '@constants/types';
 
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
-import { EXAMPLE_LIST_ITEMS } from './items-page.constants';
+import { EXAMPLE_LIST_ITEMS, ICONS_SIZE } from './items-page.constants';
 
-import { Container, Title } from '@constants/style';
-import { ItemList } from './items-page.style';
+import { Container } from '@constants/style';
+import { ItemList, Title, CreateItemButton } from './items-page.style';
 
 interface IItemPageProps extends NavigationInjectedProps {
   children?: ReactNode;
@@ -27,6 +30,10 @@ export const ItemsPage: FC<IItemPageProps> = ({ navigation }) => {
     });
   };
 
+  const navigateToCreateItemPage = () => {
+    navigation.navigate(ROUTES.CreateItemPage);
+  };
+
   const ItemsList = itemsList.map((item, index) => (
     <Item key={index} item={item} navigateToItemMap={navigateToItemMap} />
   ));
@@ -35,6 +42,9 @@ export const ItemsPage: FC<IItemPageProps> = ({ navigation }) => {
     <Container>
       <Title>{STRINGS.ITEMS_PAGE.title}</Title>
       <ItemList>{ItemsList}</ItemList>
+      <CreateItemButton onPress={navigateToCreateItemPage}>
+        <ARCHIVE_ICON size={ICONS_SIZE} />
+      </CreateItemButton>
     </Container>
   );
 };

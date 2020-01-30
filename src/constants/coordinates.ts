@@ -1,4 +1,4 @@
-import { Region, LatLng } from 'react-native-maps';
+import { Region, LatLng, AnimatedRegion } from 'react-native-maps';
 
 export const createDefaultRegion = (coordinates: LatLng): Region => {
   const { latitude, longitude } = coordinates;
@@ -9,6 +9,8 @@ export const createDefaultRegion = (coordinates: LatLng): Region => {
     longitudeDelta: 0.05,
   };
 };
+
+export const createAnimateRegion = (coordinates: LatLng): AnimatedRegion => new AnimatedRegion(createDefaultRegion(coordinates));
 
 export const DEFAULT_USER_COORDINATE: LatLng = {
   latitude: 49.988358,

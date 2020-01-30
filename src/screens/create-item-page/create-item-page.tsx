@@ -21,7 +21,7 @@ export const CreateItemPage: FC<ICreateItemPage> = ({}) => {
   // TODO send item to server
   const formMethods = useForm<IItem>();
   const { handleSubmit, setValue, watch } = formMethods;
-  const { isFound, itemCoordinate, name } = watch();
+  const { isFound, coordinates, name } = watch();
 
   const onReset = () => {
     setValue(CRETE_ITEM_FIELD.name, '');
@@ -38,7 +38,7 @@ export const CreateItemPage: FC<ICreateItemPage> = ({}) => {
           required
         />
         <Button
-          title={STRINGS.CREATE_ITEM_PAGE.submite_button_text}
+          title={STRINGS.CREATE_ITEM_PAGE.submit_button_text}
           onPress={onReset}
         />
       </FormContext>

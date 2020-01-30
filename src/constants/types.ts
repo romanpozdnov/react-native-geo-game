@@ -3,7 +3,7 @@ import { LatLng } from 'react-native-maps';
 // TODO refactore
 export interface IItem {
   name: string;
-  itemCoordinate: LatLng;
+  coordinates: LatLng;
   isFound: boolean;
 }
 

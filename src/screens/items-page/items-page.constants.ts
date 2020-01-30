@@ -1,39 +1,46 @@
-import { IItem } from './item';
+import { IItem } from '@constants/types';
+
+export const ICONS_SIZE: number = 25;
 
 export const EXAMPLE_LIST_ITEMS: IItem[] = [
   {
-    itemCoordinate: {
+    coordinates: {
       latitude: 50.005702,
       longitude: 36.229222,
     },
-    itemName: 'In window',
+    name: 'In window',
+    isFound: false,
   },
   {
-    itemCoordinate: {
+    coordinates: {
       latitude: 50.007795,
       longitude: 36.224676,
     },
-    itemName: 'In blue box',
+    name: 'In blue box',
+    isFound: false,
   },
   {
-    itemCoordinate: {
+    coordinates: {
       latitude: 50.002928,
       longitude: 36.224924,
     },
-    itemName: 'Between three tree',
+    name: 'Between three tree',
+    isFound: true,
   },
   {
-    itemCoordinate: {
+    coordinates: {
       latitude: 49.994489,
       longitude: 36.230638,
     },
-    itemName: 'Under yellow door',
+    name: 'Under yellow door',
+    isFound: true,
   },
   {
-    itemCoordinate: {
+    coordinates: {
       latitude: 49.997526,
       longitude: 36.241674,
     },
-    itemName: 'Car',
+    name: 'Car',
+    isFound: false,
   },
 ];
