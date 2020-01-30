@@ -10,7 +10,7 @@ import { LOGIN_FIELDS } from './login-page.constants';
 
 import { TSubmitFormData } from './login-page.type';
 
-import { Container, Submit, ButtonBar } from './login-page.style';
+import { LoginPageStyle } from './login-page.style';
 
 export interface ILoginPageProps extends NavigationInjectedProps {
   children?: ReactNode;
@@ -30,7 +30,7 @@ export const LoginPage: FC<ILoginPageProps> = ({ navigation }) => {
   });
 
   return (
-    <Container>
+    <LoginPageStyle.Container>
       <FormContext {...formMethods}>
         <Field
           nameField={LOGIN_FIELDS.email}
@@ -44,11 +44,17 @@ export const LoginPage: FC<ILoginPageProps> = ({ navigation }) => {
           isShowError={true}
           required
         />
-        <ButtonBar>
-          <Submit title={STRINGS.LOGIN_PAGE.submit_button} onPress={onSubmit} />
-          <Submit title={STRINGS.LOGIN_PAGE.clean_button} onPress={onReset} />
-        </ButtonBar>
+        <LoginPageStyle.ButtonBar>
+          <LoginPageStyle.Submit
+            title={STRINGS.LOGIN_PAGE.submit_button}
+            onPress={onSubmit}
+          />
+          <LoginPageStyle.Submit
+            title={STRINGS.LOGIN_PAGE.clean_button}
+            onPress={onReset}
+          />
+        </LoginPageStyle.ButtonBar>
       </FormContext>
-    </Container>
+    </LoginPageStyle.Container>
   );
 };

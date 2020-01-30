@@ -11,8 +11,8 @@ import {
   createDefaultRegion,
 } from '@constants/coordinates';
 
-import { Button, Map, MapPageContainer } from './map-page.style';
-import { Title } from '@constants/style';
+import { MapPageStyle } from './map-page.style';
+import { Title } from '@components/style';
 import { STRINGS } from '@constants/strings';
 import { FontAwesomeIcon } from '@constants/icons';
 
@@ -39,8 +39,8 @@ export const MapPage: FC<IMapPageProps> = ({ navigation }) => {
 
   // TODO: replace user/item marker
   return (
-    <MapPageContainer>
-      <Map initialRegion={region}>
+    <MapPageStyle.MapPageContainer>
+      <MapPageStyle.Map initialRegion={region}>
         <Marker
           coordinate={coordinates}
           title={STRINGS.MAP_PAGE.user_marker_text}
@@ -62,18 +62,18 @@ export const MapPage: FC<IMapPageProps> = ({ navigation }) => {
             size={ICONS_SIZE}
           />
         </Marker>
-      </Map>
+      </MapPageStyle.Map>
       <Title>{name}</Title>
-      <Button
+      <MapPageStyle.Button
         onPress={moveToUser}
         backgroundColor={COLORS.MAP_PAGE.move_to_user_button}
         position="left"
       />
-      <Button
+      <MapPageStyle.Button
         onPress={moveToItem}
         backgroundColor={COLORS.MAP_PAGE.move_to_item_button}
         position="right"
       />
-    </MapPageContainer>
+    </MapPageStyle.MapPageContainer>
   );
 };

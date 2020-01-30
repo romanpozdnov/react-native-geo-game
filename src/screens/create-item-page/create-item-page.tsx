@@ -6,10 +6,9 @@ import { Field } from '@components/field';
 import { IItem } from '@constants/types';
 
 import { STRINGS } from '@constants/strings';
-import { DEFAULT_USER_COORDINATE } from '@constants/coordinates';
 import { CRETE_ITEM_FIELD } from './create-item-page.constant';
 
-import { FullPageView } from '@constants/style';
+import { FullPageView } from '@components/style';
 
 interface ICreateItemPage {
   children?: ReactNode;

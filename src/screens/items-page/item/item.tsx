@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@constants/icons';
 
 import { IItem } from '@constants/types';
 
-import { ItemContainer, ItemName } from './item.style';
+import { ItemStyle } from './item.style';
 import { COLORS } from '@constants/theme';
 
 interface IItemProps {
@@ -16,8 +16,8 @@ export const Item: FC<IItemProps> = ({ item, navigateToItemMap }) => {
   const { name, isFound } = item;
   const navigateToMap = () => navigateToItemMap(item);
   return (
-    <ItemContainer>
-      <ItemName onPress={navigateToMap} title={name} />
+    <ItemStyle.ItemContainer>
+      <ItemStyle.ItemName onPress={navigateToMap} title={name} />
       {isFound ? (
         <FontAwesomeIcon
           iconName="check"
@@ -31,6 +31,6 @@ export const Item: FC<IItemProps> = ({ item, navigateToItemMap }) => {
           size={20}
         />
       )}
-    </ItemContainer>
+    </ItemStyle.ItemContainer>
   );
 };

@@ -9,8 +9,8 @@ import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 import { EXAMPLE_LIST_ITEMS } from './items-page.constants';
 
-import { Container } from '@constants/style';
-import { ItemList, Title, CreateItemButton } from './items-page.style';
+import { Container } from '@components/style';
+import { ItemPageStyle } from './items-page.style';
 import { FontAwesomeIcon } from '@constants/icons';
 import { COLORS } from '@constants/theme';
 
@@ -41,15 +41,15 @@ export const ItemsPage: FC<IItemPageProps> = ({ navigation }) => {
 
   return (
     <Container>
-      <Title>{STRINGS.ITEMS_PAGE.title}</Title>
-      <ItemList>{ItemsList}</ItemList>
-      <CreateItemButton onPress={navigateToCreateItemPage}>
+      <ItemPageStyle.Title>{STRINGS.ITEMS_PAGE.title}</ItemPageStyle.Title>
+      <ItemPageStyle.ItemList>{ItemsList}</ItemPageStyle.ItemList>
+      <ItemPageStyle.CreateItemButton onPress={navigateToCreateItemPage}>
         <FontAwesomeIcon
           color={COLORS.ITEM_PAGE.create_icon_but}
           iconName="archive"
           size={25}
         />
-      </CreateItemButton>
+      </ItemPageStyle.CreateItemButton>
     </Container>
   );
 };
