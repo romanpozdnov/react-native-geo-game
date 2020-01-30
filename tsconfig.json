@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     // ! PATH SETTING
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "paths": {
       "@constants/*": ["constants/*"],
       "@screens/*": ["screens/*"],
