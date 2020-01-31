@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "start:json-server": "json-server db.json -p 4000"
+    "start:json-server": "json-server db.json -p 4000",
+    "clean": "watchman watch-del-all && rm -rf node_modules/ && yarn cache clean && yarn install && yarn start -- --reset-cache"
   },
   "proxy": "http://localhost:4000",
   "dependencies": {

@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 type TNavigatorLocation = 'right' | 'left';
 interface INavigatorProps {
-  backgroundCollor: string;
+  backgroundColor: string;
   location: TNavigatorLocation;
 }
 
@@ -25,10 +25,10 @@ export const MapStyle = {
   Navigator: styled.TouchableOpacity<INavigatorProps>`
     position: absolute;
     bottom: 5%;
-    width: 50;
-    height: 50;
-    border: 50;
-    background-color: ${(props) => props.backgroundCollor};
+    width: 50px;
+    height: 50px;
+    border-radius: 50;
+    background-color: ${(props) => props.backgroundColor};
     ${(props) => createNavigatorLocation(props.location)}
   `,
 };

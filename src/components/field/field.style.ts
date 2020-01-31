@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { COLORS } from '@constants/color';
 
 const Label = styled.Text`
   color: ${COLORS.text_color};
@@ -6,15 +7,12 @@ const Label = styled.Text`
   font-weight: bold;
 `;
 
-export const LogInStyle = {
-  Container: styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-  `,
+export const FieldStyle = {
+  Container: styled.View``,
   TextInput: styled.TextInput`
     border-bottom-color: ${COLORS.text_color};
-    border-bottom-width: 2;
+    border-bottom-width: 2px;
+    width: 100%;
   `,
   Label,
   Error: styled(Label)`

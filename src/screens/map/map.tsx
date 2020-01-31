@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Marker } from 'react-native-maps';
 import navigator from '@react-native-community/geolocation';
 
-import { COLORS } from '@constants/colore';
+import { COLORS } from '@constants/color';
 import { ASYNC_FIELD } from '@constants/async-storage';
 
 import { NavigationInjectedProps } from 'react-navigation';
@@ -12,7 +12,7 @@ import { MapStyle } from './map.style';
 import { getData } from '@services/async-storage';
 
 interface IMapProps extends NavigationInjectedProps {
-  chieldren?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const DEFAULT_COORDINATES: LatLng = {
@@ -22,15 +22,19 @@ const DEFAULT_COORDINATES: LatLng = {
 
 export const Map: React.FC<IMapProps> = ({ navigation }) => {
   const [region, setRegion] = React.useState<Region>();
-  const [itemCoord, setItemCoord] = React.useState<LatLng>(DEFAULT_COORDINATES);
-  const [userCoord, setUserCoord] = React.useState<LatLng>(DEFAULT_COORDINATES);
+  const [itemCoords, setItemCoords] = React.useState<LatLng>(
+    DEFAULT_COORDINATES
+  );
+  const [userCoords, setUserCoords] = React.useState<LatLng>(
+    DEFAULT_COORDINATES
+  );
 
   // * Get item coordinates
   React.useEffect(() => {
     (async () => {
       try {
         await getData<LatLng>(
-          setItemCoord,
+          setItemCoords,
           ASYNC_FIELD.item_coordinate,
           DEFAULT_COORDINATES
         );
@@ -42,15 +46,15 @@ export const Map: React.FC<IMapProps> = ({ navigation }) => {
 
   // * Get user coordinates
   React.useEffect(() => {
-    navigator.watchPosition((posiiton) => {
-      const { coords } = posiiton;
+    navigator.watchPosition((position) => {
+      const { coords } = position;
       const { latitude, longitude } = coords;
-      setUserCoord({
+      setUserCoords({
         latitude,
         longitude,
       });
     });
-  }, [userCoord]);
+  }, [userCoords]);
 
   const moveToCoordinate = (coordinate: LatLng) => {
     const { latitude, longitude } = coordinate;
@@ -62,22 +66,22 @@ export const Map: React.FC<IMapProps> = ({ navigation }) => {
     });
   };
 
-  const moveToUser = () => moveToCoordinate(userCoord);
-  const moveToItem = () => moveToCoordinate(itemCoord);
+  const moveToUser = () => moveToCoordinate(userCoords);
+  const moveToItem = () => moveToCoordinate(itemCoords);
 
   return (
     <MapStyle.Container>
       <MapStyle.Map initialRegion={region}>
-        <Marker coordinate={userCoord}></Marker>
-        <Marker coordinate={itemCoord}></Marker>
+        <Marker coordinate={userCoords}></Marker>
+        <Marker coordinate={itemCoords}></Marker>
       </MapStyle.Map>
       <MapStyle.Navigator
-        backgroundCollor={COLORS.MAP.user_move_button}
+        backgroundColor={COLORS.MAP.user_move_button}
         location="left"
         onPress={moveToUser}
       />
       <MapStyle.Navigator
-        backgroundCollor={COLORS.MAP.item_move_button}
+        backgroundColor={COLORS.MAP.item_move_button}
         location="right"
         onPress={moveToItem}
       />
