@@ -1,10 +1,10 @@
-import { getData } from '@services/async-storage';
-import { LatLng, Region } from 'react-native-maps';
 import React, { useState, useEffect } from 'react';
 
-import navigator from '@react-native-community/geolocation';
-import { ASYNC_FIELD } from '@constants/async-storage';
+import { getItemCoordinates } from './map.api';
 
+import { LatLng, Region } from 'react-native-maps';
+
+import navigator from '@react-native-community/geolocation';
 interface IMapState {
   userCoordinates: LatLng;
   region: Region;
@@ -51,16 +51,16 @@ export const useMapState = () => {
   }, [state.userCoordinates]);
   // * Watch item coordinates
   useEffect(() => {
-    (async () => {
-      const itemCoordinates = await getData(
-        ASYNC_FIELD.item_coordinate,
-        DEFAULT_STATE.itemCoordinates
-      );
-      setState({ ...state, itemCoordinates });
-    })();
+    const getCoordinates = async () => {
+      const userCoordinates = await getItemCoordinates();
+      setState({ ...state, userCoordinates });
+    };
   }, [state.itemCoordinates]);
 
   const setRegion = (region: Region) => setState({ ...state, region });
 
-  return [state, setRegion] as const;
+  return {
+    state,
+    setRegion,
+  };
 };

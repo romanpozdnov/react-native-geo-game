@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { COLORS } from '@constants/color';
 
@@ -17,7 +17,7 @@ const DEFAULT_COORDINATES: LatLng = {
 };
 
 export const Map: React.FC<IMapProps> = () => {
-  const [state, setRegion] = useMapState();
+  const { state, setRegion } = useMapState();
   const { itemCoordinates, region, userCoordinates } = state;
 
   const moveToCoordinate = (coordinate: LatLng) => {

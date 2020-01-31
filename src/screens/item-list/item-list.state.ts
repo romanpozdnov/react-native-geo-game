@@ -1,39 +1,26 @@
-import { getAllItems, getItemsByUserId } from './../../services/servers/user';
-import * as React from 'react';
-
-interface IItemListState {
-  items: IItem[];
-}
-
-const INITIAL_STATE: IItemListState = {
-  items: [],
-};
+import { getAllItems, getItemsByUserId, getUserId } from './item-list.api';
+import React, { useEffect } from 'react';
 
 export const useItemList = () => {
-  const [state, setState] = React.useState<IItemListState>(INITIAL_STATE);
+  const [items, setItems] = React.useState<IItem[]>([]);
 
   // * First load all items
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       const items = await getAllItems();
-      setState({ ...state, items });
+      setItems(items);
     })();
   }, []);
 
-  const setData = {
-    setUserItems: () => {
-      (async () => {
-        const items = await getItemsByUserId();
-        setState({ ...state, items });
-      })();
-    },
-    setAllItems: () => {
-      (async () => {
-        const items = await getAllItems();
-        setState({ ...state, items });
-      })();
-    },
+  const setUserItems = async () => {
+    const userId = await getUserId();
+    const items = await getItemsByUserId(userId);
+    setItems(items);
+  };
+  const setAllItems = async () => {
+    const items = await getAllItems();
+    setItems(items);
   };
 
-  return { state, setData };
+  return { items, setUserItems, setAllItems };
 };

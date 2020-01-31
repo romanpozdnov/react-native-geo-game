@@ -6,16 +6,22 @@ import { Field } from '@components/field';
 import { FIELD_NAME } from './login.constant';
 import { STRINGS } from '@constants/string';
 
+import { NavigationInjectedProps } from 'react-navigation';
+
 import { LogInStyle } from './login.style';
+import { ROUTES } from '@constants/routes';
 
-interface ILogInProps {}
+interface ILogInProps extends NavigationInjectedProps {
+  children?: React.ReactNode;
+}
 
-export const LogIn: React.FC<ILogInProps> = ({}) => {
+export const LogIn: React.FC<ILogInProps> = ({ navigation }) => {
   const form = useForm<IUserField>();
   const { handleSubmit } = form;
 
   const onSubmit = handleSubmit((data: IUserField) => {
     console.log(data);
+    navigation.navigate(ROUTES.ItemList);
   });
 
   return (

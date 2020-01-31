@@ -5,9 +5,7 @@ interface IFilterProps {
 }
 
 export const ItemListStyle = {
-  Wrapper: styled.TouchableHighlight`
-    flex: 1;
-  `,
+  ItemList: styled.View``,
   Container: styled.View`
     flex: 1;
   `,
