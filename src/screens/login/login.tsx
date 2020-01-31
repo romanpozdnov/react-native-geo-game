@@ -3,8 +3,6 @@ import { useForm, FormContext } from 'react-hook-form';
 
 import { Field } from '@components/field';
 
-import { IUserField } from '@services/server/userData.type';
-
 import { FIELD_NAME } from './login.constant';
 import { STRINGS } from '@constants/string';
 

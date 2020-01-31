@@ -5,11 +5,13 @@ interface IFilterProps {
 }
 
 export const ItemListStyle = {
+  Wrapper: styled.TouchableHighlight`
+    flex: 1;
+  `,
   Container: styled.View`
     flex: 1;
   `,
   FilterBar: styled.View`
-    flex: 1;
     justify-content: space-between;
     flex-direction: row;
   `,

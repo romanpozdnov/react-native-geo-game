@@ -12,9 +12,9 @@ import { ASYNC_FIELD } from '@constants/async-storage';
 AsyncStorage.setItem(ASYNC_FIELD.user_id, '1');
 
 const AppNavigator = createStackNavigator({
-  //[ROUTES.Map]: Map,
-  //[ROUTES.Log]: LogIn,
+  [ROUTES.Log]: LogIn,
   [ROUTES.List]: ItemList,
+  [ROUTES.Map]: Map,
 });
 
 export const App = createAppContainer(AppNavigator);

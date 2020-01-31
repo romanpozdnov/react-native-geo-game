@@ -5,7 +5,8 @@ export const getAllItems = async (): Promise<IItem[]> => await ITEMS;
 
 export const getItemsByUserId = async (): Promise<IItem[]> => {
   const userID: string = await getData(ASYNC_FIELD.user_id, '');
-  return (await getAllItems()).filter((item) => userID === item.id);
+  console.log(userID);
+  return (await getAllItems()).filter((item) => userID == item.idUser);
 };
 
 export const ITEMS: IItem[] = [
