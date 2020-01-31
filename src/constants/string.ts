@@ -6,4 +6,9 @@ export const STRINGS = {
     password_error_text: 'Not correct password',
     submit_button: 'Submit',
   },
+
+  ITEMS: {
+    user_list: 'User list',
+    all_item_list: 'Item list',
+  },
 };

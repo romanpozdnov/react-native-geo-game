@@ -1,3 +1,13 @@
+import { ASYNC_FIELD } from '@constants/async-storage';
+import { getData } from '@services/async-storage';
+
+export const getAllItems = async (): Promise<IItem[]> => await ITEMS;
+
+export const getItemsByUserId = async (): Promise<IItem[]> => {
+  const userID: string = await getData(ASYNC_FIELD.user_id, '');
+  return (await getAllItems()).filter((item) => userID === item.id);
+};
+
 export const ITEMS: IItem[] = [
   {
     id: '1',

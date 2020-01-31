@@ -10,6 +10,13 @@ export const COLORS = {
   },
 
   LOGIN: {
-    error_text: "red"
+    error_text: 'red',
+  },
+
+  ITEM: {
+    found_icon: 'green',
+    not_found_icon: 'red',
+    user_item_list_button: 'lightblue',
+    all_item_list_button: 'lightgray',
   },
 };
