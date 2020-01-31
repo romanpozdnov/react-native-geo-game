@@ -29,7 +29,11 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
   };
 
   const Items = items.map((item) => (
-    <Item itemParameter={item} key={item.id} navigateToMap={navigateToMap} />
+    <Item
+      itemParameter={item}
+      key={item.id}
+      navigateToMap={() => navigateToMap(item.coordinates)}
+    />
   ));
 
   return (

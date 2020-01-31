@@ -2,10 +2,11 @@ import * as React from 'react';
 
 import { COLORS } from '@constants/color';
 
-import { LatLng } from 'react-native-maps';
+import { Marker, LatLng } from 'react-native-maps';
 
 import { MapStyle } from './map.style';
 import { useMapState } from './map.state';
+import { FontAwesomeIcon } from '@components/icon';
 
 interface IMapProps {
   children?: React.ReactNode;
@@ -16,7 +17,7 @@ const DEFAULT_COORDINATES: LatLng = {
   longitude: 40,
 };
 
-export const Map: React.FC<IMapProps> = () => {
+export const Map: React.FC<IMapProps> = (props) => {
   const { state, setRegion } = useMapState();
   const { itemCoordinates, region, userCoordinates } = state;
 
@@ -35,7 +36,22 @@ export const Map: React.FC<IMapProps> = () => {
 
   return (
     <MapStyle.Container>
-      <MapStyle.Map initialRegion={region}></MapStyle.Map>
+      <MapStyle.Map region={region}>
+        <Marker coordinate={userCoordinates}>
+          <FontAwesomeIcon
+            color={COLORS.MAP.user_icon}
+            name="running"
+            size={20}
+          />
+        </Marker>
+        <Marker coordinate={itemCoordinates}>
+          <FontAwesomeIcon
+            color={COLORS.MAP.item_icon}
+            name="archive"
+            size={20}
+          />
+        </Marker>
+      </MapStyle.Map>
       <MapStyle.Navigator
         backgroundColor={COLORS.MAP.user_move_button}
         location="left"

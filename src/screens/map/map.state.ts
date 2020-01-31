@@ -48,14 +48,14 @@ export const useMapState = () => {
         setState({ ...state, userCoordinates: DEFAULT_STATE.userCoordinates }),
       { timeout: 1000 }
     );
-  }, [state.userCoordinates]);
+  });
   // * Watch item coordinates
   useEffect(() => {
     const getCoordinates = async () => {
       const userCoordinates = await getItemCoordinates();
       setState({ ...state, userCoordinates });
     };
-  }, [state.itemCoordinates]);
+  });
 
   const setRegion = (region: Region) => setState({ ...state, region });
 

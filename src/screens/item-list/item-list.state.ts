@@ -6,10 +6,11 @@ export const useItemList = () => {
 
   // * First load all items
   useEffect(() => {
-    (async () => {
+    const load = async () => {
       const items = await getAllItems();
       setItems(items);
-    })();
+    };
+    load();
   }, []);
 
   const setUserItems = async () => {
