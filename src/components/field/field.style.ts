@@ -5,6 +5,7 @@ const Label = styled.Text`
   color: ${COLORS.text_color};
   font-size: 18px;
   font-weight: bold;
+  margin: 10px;
 `;
 
 export const FieldStyle = {
@@ -12,6 +13,7 @@ export const FieldStyle = {
   TextInput: styled.TextInput`
     border-bottom-color: ${COLORS.text_color};
     border-bottom-width: 2px;
+    margin: 10px;
     width: 100%;
   `,
   Label,

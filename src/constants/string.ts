@@ -4,5 +4,6 @@ export const STRINGS = {
     email_error_text: 'Not correct email',
     password_field_title: 'Password',
     password_error_text: 'Not correct password',
+    submit_button: 'Submit',
   },
 };

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useForm, FormContext } from 'react-hook-form';
+
 import { Field } from '@components/field';
 
 import { IUserField } from '@services/server/userData.type';
@@ -8,7 +9,6 @@ import { FIELD_NAME } from './login.constant';
 import { STRINGS } from '@constants/string';
 
 import { LogInStyle } from './login.style';
-import { View } from 'react-native';
 
 interface ILogInProps {}
 
@@ -35,9 +35,11 @@ export const LogIn: React.FC<ILogInProps> = ({}) => {
           errorText={STRINGS.LOGIN.password_error_text}
           required
         />
-        <View>
-          <LogInStyle.Submit title="Button" onPress={onSubmit} />
-        </View>
+
+        <LogInStyle.Submit
+          title={STRINGS.LOGIN.submit_button}
+          onPress={onSubmit}
+        />
       </FormContext>
     </LogInStyle.Container>
   );

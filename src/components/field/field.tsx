@@ -1,7 +1,7 @@
-import { FieldStyle } from './field.style';
 import * as React from 'react';
-import { useFormContext, Controller, EventFunction } from 'react-hook-form';
-import { TextInput } from 'react-native-gesture-handler';
+import { useFormContext, Controller } from 'react-hook-form';
+
+import { FieldStyle } from './field.style';
 
 interface IField {
   name: string;
