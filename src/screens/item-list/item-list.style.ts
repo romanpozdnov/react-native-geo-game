@@ -1,3 +1,4 @@
+import { COLORS } from '@constants/color';
 import styled from 'styled-components/native';
 
 interface IFilterProps {
@@ -16,5 +17,15 @@ export const ItemListStyle = {
   Filter: styled.Button<IFilterProps>`
     padding: 15px 30px;
     background-color: ${(props) => props.color};
+  `,
+  Create: styled.TouchableOpacity`
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    border-radius: 50;
+
+    background-color: ${COLORS.LOGIN.create_button_background};
+    justify-content: center;
+    align-items: center;
   `,
 };

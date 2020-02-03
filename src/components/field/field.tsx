@@ -8,7 +8,7 @@ interface IField {
   title: string;
   required?: boolean;
   errorText?: string;
-  validate?: (value: any) => boolean;
+  validate?: (value: string) => boolean;
   children?: React.ReactNode;
 }
 

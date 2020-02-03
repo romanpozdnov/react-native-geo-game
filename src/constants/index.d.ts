@@ -5,8 +5,8 @@ interface IUserField {
 interface IUserData extends IUserField {
   id: string;
 }
-interface IItem {
-  id: string;
+
+interface IItemField {
   name: string;
   idUser: string;
   isFound: boolean;
@@ -14,4 +14,7 @@ interface IItem {
     latitude: number;
     longitude: number;
   };
+}
+interface IItem extends IItemField {
+  id: string;
 }

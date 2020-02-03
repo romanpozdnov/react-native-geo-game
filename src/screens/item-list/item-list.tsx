@@ -4,6 +4,7 @@ import { NavigationInjectedProps } from 'react-navigation';
 import { LatLng } from 'react-native-maps';
 
 import { Item } from './item';
+import { FontAwesomeIcon } from '@components/icon';
 
 import { COLORS } from '@constants/color';
 import { STRINGS } from '@constants/string';
@@ -26,6 +27,10 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
   const navigateToMap = (coordinate: LatLng) => {
     navigation.navigate(ROUTES.Map);
     setItemCoordinates(coordinate);
+  };
+
+  const navigateToCreateItem = () => {
+    navigation.navigate(ROUTES.Create);
   };
 
   const Items = items.map((item) => (
@@ -51,6 +56,13 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
         />
       </ItemListStyle.FilterBar>
       <ItemListStyle.ItemList>{Items}</ItemListStyle.ItemList>
+      <ItemListStyle.Create onPress={navigateToCreateItem}>
+        <FontAwesomeIcon
+          color={COLORS.LOGIN.create_button_background}
+          size={25}
+          name="archive"
+        />
+      </ItemListStyle.Create>
     </ItemListStyle.Container>
   );
 };

@@ -11,4 +11,10 @@ export const STRINGS = {
     user_list: 'User list',
     all_item_list: 'Item list',
   },
+  CREATE_ITEM: {
+    item_name_title: 'Item name',
+    item_error_text: 'You need write name from this element',
+    submit_button: 'Create item',
+    to_user_move_button_text: 'Move to user',
+  },
 };

@@ -11,6 +11,7 @@ export const COLORS = {
 
   LOGIN: {
     error_text: 'red',
+    create_button_background: 'blue',
   },
 
   ITEM: {
@@ -18,5 +19,10 @@ export const COLORS = {
     not_found_icon: 'red',
     user_item_list_button: 'lightblue',
     all_item_list_button: 'lightgray',
+    create_button: 'gray',
+  },
+
+  CREATE_ITEM: {
+    submit_button: 'blue',
   },
 };
