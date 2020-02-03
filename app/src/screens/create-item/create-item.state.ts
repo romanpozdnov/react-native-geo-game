@@ -1,9 +1,9 @@
-import { onlyString } from './create-item.utils';
+import { ROUTES } from '@constants/routes';
 import { useEffect, useState } from 'react';
 import { Region, LatLng } from 'react-native-maps';
 import navigator from '@react-native-community/geolocation';
 
-import { fetchUserId } from './create-item.api';
+import { fetchUserId, createItem } from './create-item.api';
 
 interface ICreateItemState {
   region: Region;
@@ -25,7 +25,12 @@ const initialState: ICreateItemState = {
   itemCoordinates: DEFAULT_COORDINATES,
   userCoordinates: DEFAULT_COORDINATES,
   name: '',
-  isValidName: true,
+  isValidName: false,
+};
+
+const checkIsOnlyString = (value: string): boolean => {
+  const onlyWord: RegExp = /^(\w| ){6,30}$/;
+  return onlyWord.test(value);
 };
 
 export const useCreteItem = () => {
@@ -96,13 +101,6 @@ export const useCreteItem = () => {
       region,
     }));
 
-  // * set item name
-  const setName = (name: string) =>
-    setState((currentState) => ({
-      ...currentState,
-      name,
-    }));
-
   // * move region coordinate to user coordinates
   const setUserRegion = () =>
     setState((currentState) => {
@@ -120,16 +118,31 @@ export const useCreteItem = () => {
       };
     });
 
-  // * Check valid name field
-  const setValidName = () => {
+  // * Check valid name and set them
+  const setName = (newName: string) => {
     setState((currentState) => {
       const { name } = currentState;
-      const isValidName: boolean = onlyString(name);
+      const isValidName: boolean = checkIsOnlyString(name);
       return {
         ...currentState,
+        name: newName,
         isValidName,
       };
     });
+  };
+
+  const onSubmit = (navigation: any) => {
+    const { isValidName, itemCoordinates, name, idUser } = state;
+    if (isValidName) {
+      const item: IItemField = {
+        coordinates: itemCoordinates,
+        name,
+        idUser,
+        isFound: false,
+      };
+      createItem(item);
+      navigation.navigate(ROUTES.ItemList);
+    }
   };
 
   return {
@@ -137,6 +150,6 @@ export const useCreteItem = () => {
     setName,
     setUserRegion,
     setRegion,
-    setValidName,
+    onSubmit,
   };
 };

@@ -1,6 +1,6 @@
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
-import { ASYNC_STORAGE_FIELD } from './../../constants/async-storage';
+import { ASYNC_STORAGE_FIELD } from '@constants/async-storage';
 
 import { LatLng } from 'react-native-maps';
 

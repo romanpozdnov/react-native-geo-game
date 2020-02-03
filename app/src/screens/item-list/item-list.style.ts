@@ -22,6 +22,8 @@ export const ItemListStyle = {
     position: absolute;
     bottom: 50px;
     right: 50px;
+    width: 50px;
+    height: 50px;
     border-radius: 50;
 
     background-color: ${COLORS.LOGIN.create_button_background};

@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { LatLng, Region } from 'react-native-maps';
+import { Region } from 'react-native-maps';
 import { NavigationInjectedProps } from 'react-navigation';
 
 import { useCreteItem } from './create-item.state';
-import { createItem } from './create-item.api';
 
-import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/string';
 
 import { CreateItemStyle } from './create-item.style';
@@ -17,40 +15,17 @@ interface ICreateItemProps extends NavigationInjectedProps {
 export const CreateItem: React.FC<ICreateItemProps> = (props) => {
   const { navigation } = props;
   const {
-    idUser,
     isValidName,
     region,
-    itemCoordinates,
-    name,
     setName,
     setUserRegion,
     setRegion,
     userCoordinates,
-    setValidName,
+    onSubmit,
   } = useCreteItem();
 
-  const onSubmit = () => {
-    if (isValidName) {
-      const item: IItemField = {
-        coordinates: itemCoordinates,
-        name,
-        idUser,
-        isFound: false,
-      };
-      createItem(item);
-      navigation.navigate(ROUTES.ItemList);
-    }
-  };
-
-  const handleChange = (text: string) => {
-    setName(text);
-    console.log(text);
-    setValidName();
-  };
-
-  const handleRegionChange = (region: Region) => {
-    setRegion(region);
-  };
+  const handleChange = (text: string) => setName(text);
+  const handleRegionChange = (region: Region) => setRegion(region);
 
   return (
     <CreateItemStyle.Container>
@@ -58,17 +33,20 @@ export const CreateItem: React.FC<ICreateItemProps> = (props) => {
         {STRINGS.CREATE_ITEM.item_name_title}
       </CreateItemStyle.Label>
       <CreateItemStyle.Input onChangeText={handleChange} />
-      {isValidName && (
+      {!isValidName && (
         <CreateItemStyle.Error>
           {STRINGS.CREATE_ITEM.item_error_text}
         </CreateItemStyle.Error>
       )}
-      <CreateItemStyle.Map region={region} onRegionChange={handleRegionChange}>
+      <CreateItemStyle.Map
+        initialRegion={region}
+        onRegionChange={handleRegionChange}
+      >
         <CreateItemStyle.Marker coordinate={userCoordinates} />
       </CreateItemStyle.Map>
       <CreateItemStyle.Button
         title={STRINGS.CREATE_ITEM.submit_button}
-        onPress={onSubmit}
+        onPress={() => onSubmit(navigation)}
       />
       <CreateItemStyle.Button
         title={STRINGS.CREATE_ITEM.to_user_move_button_text}
