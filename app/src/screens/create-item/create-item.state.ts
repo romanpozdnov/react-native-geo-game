@@ -3,7 +3,7 @@ import { Region, LatLng } from 'react-native-maps';
 import navigator from '@react-native-community/geolocation';
 
 import { fetchAddressByCoordinates } from '@services/geocoder';
-import { fetchUserId, createItem } from './create-item.api';
+import { CreateItemApi } from './create-item.api';
 
 import { ROUTES } from '@constants/routes';
 
@@ -77,7 +77,7 @@ export const useCreteItem = () => {
   useEffect(() => {
     const fetchIdUser = async () => {
       try {
-        const idUser: string = (await fetchUserId()) ?? '';
+        const idUser: string = (await CreateItemApi.fetchUserId()) ?? '';
         setState((currentState) => ({
           ...currentState,
           idUser,
@@ -166,7 +166,7 @@ export const useCreteItem = () => {
         idUser,
         isFound: false,
       };
-      createItem(item);
+      CreateItemApi.createItem(item);
       navigation.navigate(ROUTES.ItemList);
     }
   };

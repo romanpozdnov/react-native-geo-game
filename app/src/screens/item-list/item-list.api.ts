@@ -1,61 +1,19 @@
+import axios from 'axios';
 import { LatLng } from 'react-native-maps';
-import AsyncStorage from '@react-native-community/async-storage';
 
-import { ASYNC_STORAGE_FIELD } from '@constants/async-storage';
+import { Storage } from '@services/createStorage';
 
-export const getAllItems = () => Promise.resolve(ITEMS);
+import { DATABASE } from '@constants/database';
 
-export const getItemsByUserId = (id: string) =>
-  Promise.resolve(ITEMS.filter((item) => item.idUser == id));
+export const ItemListApi = {
+  fetchAllItems: async (): Promise<IItem[]> =>
+    await axios.get(DATABASE.item).then((res) => res.data),
 
-export const getUserId = async (): Promise<string> =>
-  (await AsyncStorage.getItem(ASYNC_STORAGE_FIELD.user_id)) ?? '';
+  fetchItemsByUserId: async (id: string): Promise<IItem[]> =>
+    await axios.get(`${DATABASE.item}?idUser=${id}`),
 
-export const setItemCoordinates = (coordinates: LatLng) =>
-  AsyncStorage.setItem(
-    ASYNC_STORAGE_FIELD.item_coordinate,
-    JSON.stringify(coordinates)
-  );
+  fetchUserId: async (): Promise<string> => await Storage.getUserId(),
 
-const ITEMS = [
-  {
-    id: '1',
-    coordinates: {
-      latitude: 37,
-      longitude: 50,
-    },
-    idUser: '1',
-    isFound: false,
-    name: 'Car',
-  },
-  {
-    id: '2',
-    coordinates: {
-      latitude: 37.5,
-      longitude: 50,
-    },
-    idUser: '1',
-    isFound: false,
-    name: 'Man',
-  },
-  {
-    id: '3',
-    coordinates: {
-      latitude: 36.5,
-      longitude: 50,
-    },
-    idUser: '2',
-    isFound: true,
-    name: 'Woman',
-  },
-  {
-    id: '4',
-    coordinates: {
-      latitude: 37.2,
-      longitude: 50,
-    },
-    idUser: '2',
-    isFound: false,
-    name: 'Dog',
-  },
-];
+  setItemCoordinates: async (coordinates: LatLng) =>
+    await Storage.setItemCoordinates(coordinates),
+};

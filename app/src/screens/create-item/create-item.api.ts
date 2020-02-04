@@ -1,12 +1,15 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import Axios from 'axios';
 
-import { ASYNC_STORAGE_FIELD } from '@constants/async-storage';
+import { Storage } from '@services/createStorage';
 
-export const createItem = async (item: IItemField) => {
-  console.log(item);
-  await console.log('Item create');
-};
+import { DATABASE } from '@constants/database';
 
-export const fetchUserId = async (): Promise<string> => {
-  return (await AsyncStorage.getItem(ASYNC_STORAGE_FIELD.user_id)) ?? '';
+export const CreateItemApi = {
+  createItem: async (item: IItemField) =>
+    await Axios.post<IItemField>(DATABASE.item, item, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }),
+  fetchUserId: async (): Promise<string> => await Storage.getUserId(),
 };

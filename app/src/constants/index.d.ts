@@ -16,5 +16,5 @@ interface IItemField {
   };
 }
 interface IItem extends IItemField {
-  id: string;
+  _id: string;
 }

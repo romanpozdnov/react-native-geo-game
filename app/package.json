@@ -11,7 +11,6 @@
     "start:json-server": "json-server db.json -p 4000",
     "clean": "watchman watch-del-all && rm -rf node_modules/ && yarn cache clean && yarn install && yarn start -- --reset-cache"
   },
-  "proxy": "http://localhost:4000",
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
     "@react-native-community/geolocation": "^2.0.2",

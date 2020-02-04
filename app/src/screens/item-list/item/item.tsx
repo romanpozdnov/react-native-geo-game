@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { IIconProps } from '@components/icon';
-
 import { COLORS } from '@constants/color';
+
+import { IIconProps } from '@components/icon';
 
 import { IconButton } from '@components/icon-button';
 

@@ -10,7 +10,7 @@ import { STRINGS } from '@constants/string';
 import { ROUTES } from '@constants/routes';
 
 import { useItemList } from './item-list.state';
-import { setItemCoordinates } from './item-list.api';
+import { ItemListApi } from './item-list.api';
 
 import { ItemListStyle } from './item-list.style';
 
@@ -24,7 +24,7 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
 
   const navigateToMap = (coordinate: LatLng) => {
     navigation.navigate(ROUTES.Map);
-    setItemCoordinates(coordinate);
+    ItemListApi.setItemCoordinates(coordinate);
   };
 
   const navigateToCreateItem = () => {
@@ -32,11 +32,11 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
   };
 
   const Items = items.map((item) => {
-    const { coordinates, id } = item;
+    const { coordinates, _id } = item;
     return (
       <Item
         itemParameter={item}
-        key={id}
+        key={_id}
         navigateToMap={() => navigateToMap(coordinates)}
       />
     );

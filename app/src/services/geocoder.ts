@@ -1,7 +1,7 @@
 import Geocoder from 'react-native-geocoding';
 import { LatLng } from 'react-native-maps';
 
-export const fetchAddressByCoordinates = (
+export const fetchAddressByCoordinates = async (
   coordinates: LatLng,
   defaultAddress?: string
 ): Promise<string> => {
@@ -11,7 +11,7 @@ export const fetchAddressByCoordinates = (
   });
 
   const { latitude, longitude } = coordinates;
-  return geo
+  return await geo
     .getFromLatLng(latitude, longitude)
     .then((json) => {
       const addressComponent = json.results[0].address_components[0];
