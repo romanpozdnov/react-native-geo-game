@@ -1,14 +1,15 @@
 import MapView from 'react-native-maps';
 import styled from 'styled-components/native';
 
-type TNavigatorLocation = 'right' | 'left';
-interface INavigatorProps {
-  backgroundColor: string;
-  location: TNavigatorLocation;
-}
+import { COLORS } from '@constants/color';
 
-const createNavigatorLocation = (location: TNavigatorLocation) =>
-  location === 'left' ? 'left: 15%' : 'right: 15%';
+const Button = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 5%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50;
+`;
 
 export const MapStyle = {
   Container: styled.View`
@@ -22,13 +23,12 @@ export const MapStyle = {
     right: 0;
     left: 0;
   `,
-  Navigator: styled.TouchableOpacity<INavigatorProps>`
-    position: absolute;
-    bottom: 5%;
-    width: 50px;
-    height: 50px;
-    border-radius: 50;
-    background-color: ${(props) => props.backgroundColor};
-    ${(props) => createNavigatorLocation(props.location)}
+  ItemNavigator: styled(Button)`
+    background-color: ${COLORS.MAP.item_move_button};
+    left: 15%;
+  `,
+  UserNavigator: styled(Button)`
+    background-color: ${COLORS.MAP.user_move_button};
+    right: 15%;
   `,
 };

@@ -1,5 +1,6 @@
-import { COLORS } from '@constants/color';
 import styled from 'styled-components/native';
+
+import { COLORS } from '@constants/color';
 
 interface IFilterProps {
   color: string;

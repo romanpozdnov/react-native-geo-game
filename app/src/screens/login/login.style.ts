@@ -1,15 +1,16 @@
-import { COLORS } from '@constants/color';
 import styled from 'styled-components/native';
+
+import { COLORS } from '@constants/color';
 
 export const LogInStyle = {
   Container: styled.View`
     flex: 1;
     position: relative;
   `,
-  Submit: styled.Button`
+  Submit: styled.TouchableOpacity`
     padding: 15px 30px;
-    width: 50px;
-    height: 50px;
-    background-color: red;
+    justify-content: center;
+    align-items: center;
+    background-color: ${COLORS.LOGIN.create_button_background};
   `,
 };

@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { NavigationInjectedProps } from 'react-navigation';
 import { LatLng } from 'react-native-maps';
 
@@ -11,10 +10,9 @@ import { STRINGS } from '@constants/string';
 import { ROUTES } from '@constants/routes';
 
 import { useItemList } from './item-list.state';
+import { setItemCoordinates } from './item-list.api';
 
 import { ItemListStyle } from './item-list.style';
-
-import { setItemCoordinates } from './item-list.api';
 
 interface IItemListProps extends NavigationInjectedProps {
   children?: React.ReactNode;
@@ -33,13 +31,16 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
     navigation.navigate(ROUTES.Create);
   };
 
-  const Items = items.map((item) => (
-    <Item
-      itemParameter={item}
-      key={item.id}
-      navigateToMap={() => navigateToMap(item.coordinates)}
-    />
-  ));
+  const Items = items.map((item) => {
+    const { coordinates, id } = item;
+    return (
+      <Item
+        itemParameter={item}
+        key={id}
+        navigateToMap={() => navigateToMap(coordinates)}
+      />
+    );
+  });
 
   return (
     <ItemListStyle.Container>

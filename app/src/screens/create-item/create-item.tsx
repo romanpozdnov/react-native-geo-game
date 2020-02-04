@@ -22,6 +22,7 @@ export const CreateItem: React.FC<ICreateItemProps> = (props) => {
     setRegion,
     userCoordinates,
     onSubmit,
+    setAddress,
   } = useCreteItem();
 
   const handleChange = (text: string) => setName(text);
@@ -47,6 +48,10 @@ export const CreateItem: React.FC<ICreateItemProps> = (props) => {
       <CreateItemStyle.Button
         title={STRINGS.CREATE_ITEM.submit_button}
         onPress={() => onSubmit(navigation)}
+      />
+      <CreateItemStyle.Button
+        title={STRINGS.CREATE_ITEM.get_address_button}
+        onPress={setAddress}
       />
       <CreateItemStyle.Button
         title={STRINGS.CREATE_ITEM.to_user_move_button_text}

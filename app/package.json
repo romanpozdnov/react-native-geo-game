@@ -24,6 +24,7 @@
     "react-hook-form": "^4.7.1",
     "react-native": "0.61.5",
     "react-native-fingerprint-scanner": "^3.0.2",
+    "react-native-geocoding": "^0.4.0",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-maps": "0.26.1",
     "react-native-reanimated": "^1.7.0",

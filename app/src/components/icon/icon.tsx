@@ -7,7 +7,7 @@ type TIconName =
   | 'running' // * https://fontawesome.com/icons/running?style=solid
   | 'check'; // * https://fontawesome.com/icons/check?style=solid
 
-interface IIconProps {
+export interface IIconProps {
   name: TIconName;
   size: number;
   color: string;

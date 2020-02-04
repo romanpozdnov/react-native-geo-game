@@ -7,6 +7,6 @@ export const createItem = async (item: IItemField) => {
   await console.log('Item create');
 };
 
-export const fetchUserId = async () => {
-  return await AsyncStorage.getItem(ASYNC_STORAGE_FIELD.user_id);
+export const fetchUserId = async (): Promise<string> => {
+  return (await AsyncStorage.getItem(ASYNC_STORAGE_FIELD.user_id)) ?? '';
 };

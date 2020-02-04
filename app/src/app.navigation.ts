@@ -9,6 +9,7 @@ import { CreateItem } from './screens/create-item';
 import { ROUTES } from './constants/routes';
 
 import '@services/createStorage';
+import '@services/geocoder';
 
 const AppNavigator = createStackNavigator(
   {

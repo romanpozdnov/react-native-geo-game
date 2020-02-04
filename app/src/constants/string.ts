@@ -16,5 +16,6 @@ export const STRINGS = {
     item_error_text: 'You need write name minimal length 6 symbol',
     submit_button: 'Create item',
     to_user_move_button_text: 'Move to user',
+    get_address_button: 'Get address',
   },
 };

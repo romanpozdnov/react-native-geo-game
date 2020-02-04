@@ -1,12 +1,13 @@
 import * as React from 'react';
+import { Marker } from 'react-native-maps';
+
+import { FontAwesomeIcon } from '@components/icon';
+
+import { useMapState } from './map.state';
 
 import { COLORS } from '@constants/color';
 
-import { Marker } from 'react-native-maps';
-
 import { MapStyle } from './map.style';
-import { useMapState } from './map.state';
-import { FontAwesomeIcon } from '@components/icon';
 
 interface IMapProps {
   children?: React.ReactNode;
@@ -39,16 +40,8 @@ export const Map: React.FC<IMapProps> = (props) => {
           />
         </Marker>
       </MapStyle.Map>
-      <MapStyle.Navigator
-        backgroundColor={COLORS.MAP.user_move_button}
-        location="left"
-        onPress={moveToUser}
-      />
-      <MapStyle.Navigator
-        backgroundColor={COLORS.MAP.item_move_button}
-        location="right"
-        onPress={moveToItem}
-      />
+      <MapStyle.UserNavigator onPress={moveToUser} />
+      <MapStyle.ItemNavigator onPress={moveToItem} />
     </MapStyle.Container>
   );
 };

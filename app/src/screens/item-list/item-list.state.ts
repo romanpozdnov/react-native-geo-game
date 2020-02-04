@@ -1,14 +1,22 @@
+import { useEffect, useState } from 'react';
+
 import { getAllItems, getItemsByUserId, getUserId } from './item-list.api';
-import React, { useEffect } from 'react';
+interface IItemListState {
+  items: IItem[];
+}
+
+const initialState: IItemListState = {
+  items: [],
+};
 
 export const useItemList = () => {
-  const [items, setItems] = React.useState<IItem[]>([]);
+  const [state, setState] = useState<IItemListState>(initialState);
 
   // * First load all items
   useEffect(() => {
     const load = async () => {
       const items = await getAllItems();
-      setItems(items);
+      setState((currentState) => ({ ...currentState, items }));
     };
     load();
   }, []);
@@ -16,12 +24,12 @@ export const useItemList = () => {
   const setUserItems = async () => {
     const userId = await getUserId();
     const items = await getItemsByUserId(userId);
-    setItems(items);
+    setState((currentState) => ({ ...currentState, items }));
   };
   const setAllItems = async () => {
     const items = await getAllItems();
-    setItems(items);
+    setState((currentState) => ({ ...currentState, items }));
   };
 
-  return { items, setUserItems, setAllItems };
+  return { ...state, setUserItems, setAllItems };
 };

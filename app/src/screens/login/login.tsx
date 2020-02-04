@@ -3,13 +3,14 @@ import { useForm, FormContext } from 'react-hook-form';
 
 import { Field } from '@components/field';
 
-import { FIELD_NAME } from './login.constant';
-import { STRINGS } from '@constants/string';
-
+import { Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 
-import { LogInStyle } from './login.style';
+import { STRINGS } from '@constants/string';
 import { ROUTES } from '@constants/routes';
+import { FIELD_NAME } from './login.constant';
+
+import { LogInStyle } from './login.style';
 
 interface ILogInProps extends NavigationInjectedProps {
   children?: React.ReactNode;
@@ -40,10 +41,9 @@ export const LogIn: React.FC<ILogInProps> = ({ navigation }) => {
           required
         />
 
-        <LogInStyle.Submit
-          title={STRINGS.LOGIN.submit_button}
-          onPress={onSubmit}
-        />
+        <LogInStyle.Submit onPress={onSubmit}>
+          <Text>{STRINGS.LOGIN.submit_button}</Text>
+        </LogInStyle.Submit>
       </FormContext>
     </LogInStyle.Container>
   );

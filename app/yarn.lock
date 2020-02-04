@@ -5982,6 +5982,11 @@ react-native-fingerprint-scanner@^3.0.2:
   resolved "https://registry.yarnpkg.com/react-native-fingerprint-scanner/-/react-native-fingerprint-scanner-3.0.2.tgz#ca9994de4b30dcf5ad2f5b420bfdd4d8775e8831"
   integrity sha512-e6EkSgThwHAI9y5y2G3HdEbuKBka2lu3gRzpWzQs8FQF3t2DIB7fRHdA3/fnd33T39P0vU6hSCc9xwSpDbSdyg==
 
+react-native-geocoding@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-geocoding/-/react-native-geocoding-0.4.0.tgz#e22c97500bfccc25273499ab3af87c27ac6ede8f"
+  integrity sha512-iXIqdLHDGVyhWLJyWGRFRdvQa3hDQoCX4MLwKA9zja3gQxZ91v51CLGrbvxCckOGzoxu2/WA6e8TM74rrPxlsA==
+
 react-native-gesture-handler@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.5.3.tgz#191b44701fab7ba54c27a2438cb5eaa252666e66"
