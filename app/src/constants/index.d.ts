@@ -2,8 +2,8 @@ interface IUserField {
   email: string;
   password: string;
 }
-interface IUserData extends IUserField {
-  id: string;
+interface IUser extends IUserField {
+  _id: string;
 }
 
 interface IItemField {

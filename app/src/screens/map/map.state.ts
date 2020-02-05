@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { LatLng, Region } from 'react-native-maps';
 import navigator from '@react-native-community/geolocation';
 
-import { fetchItemCoordinates } from './map.api';
+import { MapAPI } from './map.api';
 
 interface IMapState {
   userCoordinates: LatLng;
@@ -56,7 +56,7 @@ export const useMapState = () => {
   // * Get item coordinates
   useEffect(() => {
     const getCoordinates = async () => {
-      const itemCoordinates = await fetchItemCoordinates();
+      const itemCoordinates = await MapAPI.fetchItemCoordinates();
       setState({ ...state, itemCoordinates });
     };
     getCoordinates();

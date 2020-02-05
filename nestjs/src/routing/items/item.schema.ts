@@ -1,13 +1,13 @@
 import * as mongoose from "mongoose";
 
-import { STRING, BOOLEAN, NUMBER, ID } from "../../constants/field";
+import { M_TYPE } from "@constants/field";
 
 export const ItemSchema = new mongoose.Schema({
-  idUser: ID,
-  name: STRING,
-  isFound: BOOLEAN,
+  idUser: M_TYPE.ID,
+  name: M_TYPE.STRING,
+  isFound: M_TYPE.BOOLEAN,
   coordinates: {
-    latitude: NUMBER,
-    longitude: NUMBER
+    latitude: M_TYPE.NUMBER,
+    longitude: M_TYPE.NUMBER
   }
 });

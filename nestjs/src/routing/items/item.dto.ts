@@ -1,6 +1,6 @@
 import { IItemField } from "./item.types";
 
-export class CreateItemDto implements Readonly<IItemField> {
+export class ItemDTO implements Readonly<IItemField> {
   readonly coordinates: {
     latitude: number;
     longitude: number;

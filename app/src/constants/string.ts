@@ -11,6 +11,7 @@ export const STRINGS = {
     user_list: 'User list',
     all_item_list: 'Item list',
   },
+
   CREATE_ITEM: {
     item_name_title: 'Item name',
     item_error_text: 'You need write name minimal length 6 symbol',

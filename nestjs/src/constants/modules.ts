@@ -1,3 +1,4 @@
 export const MODULES = {
-  item: "ITEM"
+  item: "ITEM",
+  user: "USER"
 };

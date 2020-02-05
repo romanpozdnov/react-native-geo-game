@@ -1,5 +1,6 @@
 import { Document } from "mongoose";
-import { CreateItemDto } from "./item.dto";
+
+import { ItemDTO } from "./item.dto";
 
 export interface IItemField {
   name: string;
@@ -16,9 +17,9 @@ export interface IItem extends IItemField, Document {
 
 export interface IItemFunc {
   findAll: () => Promise<IItem[]>;
-  findOne: (id: string) => Promise<IItem>;
-  createItem: (item: CreateItemDto) => Promise<IItem>;
-  updateItem: (id: string, newItem: CreateItemDto) => Promise<IItem>;
-  removeItem: (id: string) => Promise<IItem>;
+  findById: (id: string) => Promise<IItem>;
   findAllByUserId: (idUser: string) => Promise<IItem[]>;
+  create: (item: ItemDTO) => Promise<IItem>;
+  updateById: (id: string, newItem: ItemDTO) => Promise<IItem>;
+  removeById: (id: string) => Promise<IItem>;
 }
