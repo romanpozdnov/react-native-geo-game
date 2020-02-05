@@ -1,7 +1,9 @@
-import { DATABASE } from '@constants/database';
 import Axios from 'axios';
 
 import { Storage } from '@services/createStorage';
+
+import { DATABASE } from '@constants/database';
+
 const headers = {
   'Content-Type': 'application/json',
 };

@@ -4,21 +4,23 @@ import {
   Post,
   Body,
   Res,
-  HttpStatus,
   Param,
   Delete,
   Put,
-  Header,
-  NotFoundException
+  Header
 } from "@nestjs/common";
 
 import { UserDTO } from "./user.dto";
 
 import { UserService } from "./user.service";
+import { utilCall } from "@constants/utils";
 
+import { STRINGS } from "@constants/string";
 import { ROUTING } from "@constants/routing";
 
 import { IUser } from "./user.types";
+
+const { USERS_ERROR } = STRINGS;
 
 @Controller(ROUTING.USER.root)
 export class UserController {
@@ -26,59 +28,48 @@ export class UserController {
 
   @Get()
   async findAll(@Res() res) {
-    try {
-      const users = await this.UserService.findAll();
-      if (!users) throw new NotFoundException("User does not exist!");
-      return res.status(HttpStatus.OK).json(users);
-    } catch {
-      throw new NotFoundException("User does not exist!");
-    }
+    return await utilCall(res, USERS_ERROR.find_all, this.UserService.findAll);
   }
 
   @Get(":id")
   async findById(@Res() res, @Param("id") id: string): Promise<IUser> {
-    try {
-      const user = await this.UserService.findById(id);
-      if (!user) throw new NotFoundException("User does not exist!");
-      return res.status(HttpStatus.OK).json(user);
-    } catch {
-      throw new NotFoundException("User does not exist!");
-    }
+    return await utilCall(
+      res,
+      USERS_ERROR.find_by_id,
+      this.UserService.findById,
+      id
+    );
   }
 
   @Get(":email")
   async findByEmail(@Res() res, @Param("email") email: string): Promise<IUser> {
-    try {
-      const user: IUser = await this.UserService.findByEmail(email);
-      console.log(email);
-      if (!user) throw new NotFoundException("User does not exist!");
-      return res.status(HttpStatus.OK).json(user);
-    } catch {
-      return res.status(HttpStatus.UNAUTHORIZED);
-    }
+    return await utilCall(
+      res,
+      USERS_ERROR.find_by_email,
+      this.UserService.findByEmail,
+      email
+    );
   }
 
   @Header("Content-Type", "application/json")
   @Post()
   async create(@Res() res, @Body() user: UserDTO): Promise<IUser> {
-    try {
-      const newUser = await this.UserService.create(user);
-      if (!newUser) throw new NotFoundException("User doesn`t create");
-      return res.status(HttpStatus.OK).json(newUser);
-    } catch {
-      throw new NotFoundException(`${user.email} ${user.password}`);
-    }
+    return await utilCall(
+      res,
+      USERS_ERROR.create,
+      this.UserService.create,
+      user
+    );
   }
 
   @Delete(":id")
   async removeById(@Res() res, @Param("id") id: string): Promise<IUser> {
-    try {
-      const user = await this.UserService.removeById(id);
-      if (!user) throw new NotFoundException("User does not exist!");
-      return res.status(HttpStatus.OK).json(user);
-    } catch {
-      throw new NotFoundException("User does not exist!");
-    }
+    return await utilCall(
+      res,
+      USERS_ERROR.remove,
+      this.UserService.removeById,
+      id
+    );
   }
 
   @Put(":id")
@@ -87,12 +78,11 @@ export class UserController {
     @Param("id") id: string,
     @Body() user: UserDTO
   ): Promise<IUser> {
-    try {
-      const updateUser = await this.UserService.updateById(id, user);
-      if (!updateUser) throw new NotFoundException("User does not exist!");
-      return res.status(HttpStatus.OK).json(updateUser);
-    } catch {
-      throw new NotFoundException("User does not exist!");
-    }
+    return await utilCall<IUser, { id: string; user: UserDTO }>(
+      res,
+      USERS_ERROR.update,
+      this.UserService.updateById,
+      { id, user }
+    );
   }
 }

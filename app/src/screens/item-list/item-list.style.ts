@@ -31,4 +31,8 @@ export const ItemListStyle = {
     justify-content: center;
     align-items: center;
   `,
+  Error: styled.Text`
+    color: ${COLORS.LOGIN.error_text};
+    font-size: 16px;
+  `,
 };

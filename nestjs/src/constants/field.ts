@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 
-import { STRING, STRING_GENERATOR } from "./string";
+import { STRINGS, STRING_GENERATOR } from "./string";
 
 const isValidEmail = (email: string): boolean =>
   /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(email);
@@ -41,7 +41,7 @@ export const M_TYPE = {
       validator: (email: string) => isValidEmail(email),
       message: props => STRING_GENERATOR.email_error_text(props.value)
     },
-    required: [true, STRING.email_required]
+    required: [true, STRINGS.email_required]
   },
 
   PASSWORD: {
@@ -50,6 +50,6 @@ export const M_TYPE = {
       validator: (password: string) => isValidPassword(password),
       message: props => STRING_GENERATOR.id_error_text(props.value)
     },
-    required: [true, STRING.id_required]
+    required: [true, STRINGS.id_required]
   }
 };

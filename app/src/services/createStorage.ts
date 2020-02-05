@@ -5,25 +5,14 @@ const STORAGE_FIELD = {
   item_coordinate: 'item_coordinate',
   user_id: 'user',
 };
-
-const ITEM_COORDINATES: LatLng = {
-  latitude: 0,
-  longitude: 0,
-};
-const USER_ID: string = '5e398796b092be484a73d9cf';
-
 export class Storage {
-  constructor() {
-    const coordinate: string = JSON.stringify(ITEM_COORDINATES);
-    AsyncStorage.setItem(STORAGE_FIELD.user_id, USER_ID);
-    AsyncStorage.setItem(STORAGE_FIELD.item_coordinate, coordinate);
-  }
+  constructor() {}
 
   static async getUserId(): Promise<string> {
     try {
       return (await AsyncStorage.getItem(STORAGE_FIELD.user_id)) ?? '';
     } catch {
-      return USER_ID;
+      throw new Error('Not found user id');
     }
   }
 
@@ -31,7 +20,7 @@ export class Storage {
     try {
       await AsyncStorage.setItem(STORAGE_FIELD.user_id, id);
     } catch (e) {
-      console.error(e);
+      throw new Error('Can`t set user id');
     }
   }
 
@@ -41,7 +30,7 @@ export class Storage {
         (await AsyncStorage.getItem(STORAGE_FIELD.item_coordinate)) ?? '';
       return JSON.parse(coordinates);
     } catch {
-      return ITEM_COORDINATES;
+      throw new Error('Not found item coordinates');
     }
   }
 
@@ -51,8 +40,8 @@ export class Storage {
         STORAGE_FIELD.item_coordinate,
         JSON.stringify(coordinates)
       );
-    } catch (e) {
-      console.log(e);
+    } catch {
+      throw new Error('Can`t set item coordinates');
     }
   }
 }

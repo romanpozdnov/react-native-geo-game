@@ -4,17 +4,18 @@ import {
   Post,
   Body,
   Res,
-  HttpStatus,
   Param,
   Delete,
   Put,
-  Header,
-  NotFoundException
+  Header
 } from "@nestjs/common";
 
 import { ItemService } from "./item.service";
 import { ItemDTO } from "./item.dto";
 
+import { utilCall } from "@constants/utils";
+
+import { STRINGS } from "@constants/string";
 import { ROUTING } from "@constants/routing";
 
 @Controller(ROUTING.ITEMS.root)
@@ -23,68 +24,65 @@ export class ItemController {
 
   @Get()
   async findAll(@Res() res) {
-    try {
-      const items = await this.ItemService.findAll();
-      if (!items) throw new NotFoundException("Item does not exist!");
-      return res.status(HttpStatus.OK).json(items);
-    } catch {
-      throw new NotFoundException("Item does not exist!");
-    }
+    return await utilCall(
+      res,
+      STRINGS.ITEMS_ERROR.find_all,
+      this.ItemService.findAll
+    );
   }
 
   @Get(":id")
   async findById(@Res() res, @Param("id") id: string) {
-    try {
-      const item = await this.ItemService.findById(id);
-      if (!item) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json(item);
-    } catch {
-      throw new NotFoundException("Items not found");
-    }
+    return await utilCall(
+      res,
+      STRINGS.ITEMS_ERROR.find_by_id,
+      this.ItemService.findById,
+      id
+    );
   }
 
   @Get(":idUser")
   async findAllByUserId(@Res() res, @Param("idUser") id: string) {
-    try {
-      const items = await this.ItemService.findAllByUserId(id);
-      if (!items) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json(items);
-    } catch {
-      throw new NotFoundException("Item does not exist!");
-    }
+    return await utilCall(
+      res,
+      STRINGS.ITEMS_ERROR.find_by_user_id,
+      this.ItemService.findAllByUserId,
+      id
+    );
   }
 
   @Header("Content-Type", "application/json")
   @Post()
   async create(@Res() res, @Body() item: ItemDTO) {
-    try {
-      const newItem = await this.ItemService.create(item);
-      if (!newItem) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json(newItem);
-    } catch {
-      throw new NotFoundException("Items data not valid");
-    }
+    return await utilCall(
+      res,
+      STRINGS.ITEMS_ERROR.create,
+      this.ItemService.create,
+      item
+    );
   }
 
   @Delete(":id")
   async removeById(@Res() res, @Param("id") id: string) {
-    try {
-      const item = await this.ItemService.removeById(id);
-      if (!item) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json(item);
-    } catch {
-      throw new NotFoundException("Items not found");
-    }
+    return await utilCall(
+      res,
+      STRINGS.ITEMS_ERROR.remove,
+      this.ItemService.removeById,
+      id
+    );
   }
 
   @Put(":id")
-  async updateById(@Res() res, @Param("id") id: string, @Body() user: ItemDTO) {
-    try {
-      const updateItem = await this.ItemService.updateById(id, user);
-      if (!updateItem) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json(updateItem);
-    } catch {
-      throw new NotFoundException("Items not found");
-    }
+  async updateById(
+    @Res() res,
+    @Param("id") id: string,
+    @Body() newItem: ItemDTO
+  ) {
+    return await utilCall(
+      res,
+      STRINGS.ITEMS_ERROR.remove,
+      this.ItemService.updateById,
+      { id, newItem }
+    );
   }
 }

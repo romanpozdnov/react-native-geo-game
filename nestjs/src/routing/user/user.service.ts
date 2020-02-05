@@ -18,7 +18,7 @@ export class UserService implements IUserFunction {
   async findByEmail(email: string): Promise<IUser> {
     return await this.UserModule.findOne({ email });
   }
-  async updateById(id: string, user: UserDTO): Promise<IUser> {
+  async updateById({ id, user }): Promise<IUser> {
     return await this.UserModule.findByIdAndUpdate(id, user);
   }
 

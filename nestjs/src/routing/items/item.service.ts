@@ -15,7 +15,7 @@ export class ItemService implements IItemFunc {
     private readonly itemModule: Model<IItem & Document>
   ) {}
 
-  async updateById(id: string, newItem: ItemDTO) {
+  async updateById({ id, newItem }) {
     return await this.itemModule.findByIdAndUpdate(id, newItem);
   }
 

@@ -63,9 +63,7 @@ export const useCreteItem = () => {
           isError: false,
         }));
       },
-      () => {
-        error();
-      }
+      () => error()
     );
   }, []);
 

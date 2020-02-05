@@ -16,6 +16,7 @@ export const STRINGS = {
   ITEMS: {
     user_list: 'User list',
     all_item_list: 'Item list',
+    error_text: 'Error',
   },
 
   CREATE_ITEM: {

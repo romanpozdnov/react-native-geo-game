@@ -12,8 +12,8 @@ import '@services/createStorage';
 import '@services/geocoder';
 
 const AppNavigator = createStackNavigator({
-  [ROUTES.ItemList]: ItemList,
   [ROUTES.Log]: LogIn,
+  [ROUTES.ItemList]: ItemList,
   [ROUTES.Create]: CreateItem,
   [ROUTES.Map]: Map,
 });

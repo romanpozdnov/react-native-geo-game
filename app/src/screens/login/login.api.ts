@@ -1,7 +1,9 @@
-import { STRINGS } from '@constants/string';
 import Axios from 'axios';
 
+import { STRINGS } from '@constants/string';
 import { DATABASE } from '@constants/database';
+
+const headers = { 'Content-Type': 'application/json' };
 
 export const LogInAPI = {
   getUserByEmail: async (email: string): Promise<IUser> => {
@@ -16,10 +18,10 @@ export const LogInAPI = {
 
   createUser: async (newUser: IUserField): Promise<IUser> => {
     try {
-      const headers = { 'Content-Type': 'application/json' };
       const req = await Axios.post<IUser>(DATABASE.URL.user, newUser, {
         headers,
       });
+      console.log(req.status);
       return req.data;
     } catch {
       throw new Error(STRINGS.LOGIN.error_not_create);

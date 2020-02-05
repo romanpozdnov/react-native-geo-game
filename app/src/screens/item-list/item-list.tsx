@@ -23,9 +23,8 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
     setUserItems,
     navigateToCreateItem,
     navigateToMap,
+    isError,
   } = useItemList(navigation);
-
-  console.log(items);
 
   const Items = items.map((item) => {
     const { coordinates, _id } = item;
@@ -60,6 +59,9 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
           name="archive"
         />
       </ItemListStyle.Create>
+      {isError && (
+        <ItemListStyle.Error>{STRINGS.ITEMS.error_text}</ItemListStyle.Error>
+      )}
     </ItemListStyle.Container>
   );
 };
