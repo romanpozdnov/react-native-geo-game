@@ -10,6 +10,7 @@ interface IField {
   errorText?: string;
   validate?: (value: string) => boolean;
   children?: React.ReactNode;
+  isSecure?: boolean;
 }
 
 const onChange = (args: any) => ({
@@ -17,16 +18,17 @@ const onChange = (args: any) => ({
 });
 
 export const Field: React.FC<IField> = (props) => {
-  const { name, title, validate, required, errorText } = props;
+  const { name, title, validate, required, errorText, isSecure } = props;
   const { errors, control } = useFormContext();
 
   const isError = errors[name] && required;
+  console.log('validation ', name, errors[name]);
   return (
     <FieldStyle.Container>
       <FieldStyle.Label>{title}</FieldStyle.Label>
       <Controller
         control={control}
-        as={<FieldStyle.TextInput />}
+        as={<FieldStyle.TextInput secureTextEntry={isSecure} />}
         onChange={onChange}
         name={name}
         defaultValue=""

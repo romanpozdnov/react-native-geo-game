@@ -11,16 +11,11 @@ import { ROUTES } from './constants/routes';
 import '@services/createStorage';
 import '@services/geocoder';
 
-const AppNavigator = createStackNavigator(
-  {
-    [ROUTES.Create]: CreateItem,
-    [ROUTES.Log]: LogIn,
-    [ROUTES.ItemList]: ItemList,
-    [ROUTES.Map]: Map,
-  },
-  {
-    initialRouteName: ROUTES.ItemList,
-  }
-);
+const AppNavigator = createStackNavigator({
+  [ROUTES.ItemList]: ItemList,
+  [ROUTES.Log]: LogIn,
+  [ROUTES.Create]: CreateItem,
+  [ROUTES.Map]: Map,
+});
 
 export const App = createAppContainer(AppNavigator);

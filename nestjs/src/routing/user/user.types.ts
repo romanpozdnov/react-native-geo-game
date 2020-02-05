@@ -7,6 +7,7 @@ export interface IUser {
 
 export interface IUserFunction {
   findAll: () => Promise<IUser[]>;
+  findByEmail: (email: string) => Promise<IUser>;
   findById: (id: string) => Promise<IUser>;
   create: (user: UserDTO) => Promise<IUser>;
   updateById: (id: string, user: UserDTO) => Promise<IUser>;

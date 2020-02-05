@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { NavigationInjectedProps } from 'react-navigation';
-import { LatLng } from 'react-native-maps';
 
 import { Item } from './item';
 import { FontAwesomeIcon } from '@components/icon';
 
+import { useItemList } from './item-list.state';
+
 import { COLORS } from '@constants/color';
 import { STRINGS } from '@constants/string';
-import { ROUTES } from '@constants/routes';
-
-import { useItemList } from './item-list.state';
-import { ItemListApi } from './item-list.api';
 
 import { ItemListStyle } from './item-list.style';
 
@@ -20,16 +17,15 @@ interface IItemListProps extends NavigationInjectedProps {
 
 export const ItemList: React.FC<IItemListProps> = (props) => {
   const { navigation } = props;
-  const { items, setAllItems, setUserItems } = useItemList();
+  const {
+    items,
+    setAllItems,
+    setUserItems,
+    navigateToCreateItem,
+    navigateToMap,
+  } = useItemList(navigation);
 
-  const navigateToMap = (coordinate: LatLng) => {
-    navigation.navigate(ROUTES.Map);
-    ItemListApi.setItemCoordinates(coordinate);
-  };
-
-  const navigateToCreateItem = () => {
-    navigation.navigate(ROUTES.Create);
-  };
+  console.log(items);
 
   const Items = items.map((item) => {
     const { coordinates, _id } = item;

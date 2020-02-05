@@ -18,3 +18,7 @@ interface IItemField {
 interface IItem extends IItemField {
   _id: string;
 }
+
+interface IErrorMessage {
+  message: string;
+}

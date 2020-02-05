@@ -1,36 +1,28 @@
+import { STRINGS } from '@constants/string';
 import Axios from 'axios';
+
 import { DATABASE } from '@constants/database';
 
-const isEnableUser = async (newUser: IUserField): Promise<boolean> => {
-  try {
-    const user: IUserField = await Axios.get(DATABASE.user).then(
-      (res) => res.data
-    );
-    const { email, password } = newUser;
-    return email === user.email && password === user.password;
-  } catch {
-    return true;
-  }
-};
-
 export const LogInAPI = {
-  isEnableUser,
-
-  createUser: async (newUser: IUserField): Promise<void> => {
+  getUserByEmail: async (email: string): Promise<IUser> => {
     try {
-      const isEnable: boolean = await isEnableUser(newUser);
-      if (!isEnable) {
-        await Axios.post(DATABASE.user, newUser, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-      } else {
-        // TODO: ERROR
-      }
+      const url = DATABASE.DATABASE_REQUEST.user_find_by_email(email);
+      const req = await Axios.get<IUser>(url);
+      return req.data;
     } catch {
-      // TODO: error
-      return;
+      throw new Error(STRINGS.LOGIN.error_user_not_found);
+    }
+  },
+
+  createUser: async (newUser: IUserField): Promise<IUser> => {
+    try {
+      const headers = { 'Content-Type': 'application/json' };
+      const req = await Axios.post<IUser>(DATABASE.URL.user, newUser, {
+        headers,
+      });
+      return req.data;
+    } catch {
+      throw new Error(STRINGS.LOGIN.error_not_create);
     }
   },
 };

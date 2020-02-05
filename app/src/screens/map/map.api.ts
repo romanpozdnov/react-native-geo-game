@@ -6,10 +6,7 @@ export const MapAPI = {
     try {
       return await Storage.getItemCoordinates();
     } catch {
-      return {
-        latitude: 0,
-        longitude: 0,
-      };
+      throw Error('Not get item coordinate');
     }
   },
 };

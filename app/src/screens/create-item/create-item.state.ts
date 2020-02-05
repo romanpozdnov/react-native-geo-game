@@ -3,21 +3,21 @@ import { Region, LatLng } from 'react-native-maps';
 import navigator from '@react-native-community/geolocation';
 
 import { fetchAddressByCoordinates } from '@services/geocoder';
-import { CreateItemApi } from './create-item.api';
+import { CreateItemAPI } from './create-item.api';
 
 import { ROUTES } from '@constants/routes';
 
 interface ICreateItemState {
-  region: Region;
-  idUser: string;
-
   name: string;
-  isValidName: boolean;
+  idUser: string;
+  address: string;
 
+  region: Region;
   itemCoordinates: LatLng;
   userCoordinates: LatLng;
 
-  address: string;
+  isValidName: boolean;
+  isError: boolean;
 }
 
 const DEFAULT_COORDINATES: LatLng = {
@@ -27,12 +27,13 @@ const DEFAULT_COORDINATES: LatLng = {
 
 const initialState: ICreateItemState = {
   region: { ...DEFAULT_COORDINATES, latitudeDelta: 0, longitudeDelta: 0 },
-  idUser: '',
   itemCoordinates: DEFAULT_COORDINATES,
   userCoordinates: DEFAULT_COORDINATES,
+  idUser: '',
   name: '',
-  isValidName: false,
   address: '',
+  isValidName: false,
+  isError: false,
 };
 
 const checkIsOnlyString = (value: string): boolean => {
@@ -42,7 +43,7 @@ const checkIsOnlyString = (value: string): boolean => {
 
 export const useCreteItem = () => {
   const [state, setState] = useState<ICreateItemState>(initialState);
-
+  const error = () => setState((state) => ({ ...state, isError: true }));
   // ! Set user coordinates and region
   useEffect(() => {
     navigator.getCurrentPosition(
@@ -59,16 +60,11 @@ export const useCreteItem = () => {
           userCoordinates: coordinates,
           itemCoordinates: coordinates,
           region: { ...coordinates, latitudeDelta: 1, longitudeDelta: 0.5 },
+          isError: false,
         }));
       },
       () => {
-        const { region, userCoordinates, itemCoordinates } = initialState;
-        setState((currentState) => ({
-          ...currentState,
-          itemCoordinates,
-          userCoordinates,
-          region,
-        }));
+        error();
       }
     );
   }, []);
@@ -77,16 +73,14 @@ export const useCreteItem = () => {
   useEffect(() => {
     const fetchIdUser = async () => {
       try {
-        const idUser: string = (await CreateItemApi.fetchUserId()) ?? '';
+        const idUser: string = (await CreateItemAPI.fetchUserId()) ?? '';
         setState((currentState) => ({
           ...currentState,
           idUser,
+          isError: false,
         }));
       } catch {
-        setState((currentState) => ({
-          ...currentState,
-          idUser: initialState.idUser,
-        }));
+        error();
       }
     };
 
@@ -102,12 +96,12 @@ export const useCreteItem = () => {
 
   // * set region coordinate to user coordinates
   const setUserRegion = () =>
-    setState((currentState) => {
-      const { userCoordinates, region } = currentState;
+    setState((state) => {
+      const { userCoordinates, region } = state;
       const { latitude, longitude } = userCoordinates;
       const { latitudeDelta, longitudeDelta } = region;
       return {
-        ...currentState,
+        ...state,
         region: {
           latitude,
           longitude,
@@ -119,11 +113,11 @@ export const useCreteItem = () => {
 
   // * Check valid name and set them
   const setName = (newName: string) => {
-    setState((currentState) => {
-      const { name } = currentState;
+    setState((state) => {
+      const { name } = state;
       const isValidName: boolean = checkIsOnlyString(name);
       return {
-        ...currentState,
+        ...state,
         name: newName,
         isValidName,
       };
@@ -131,43 +125,40 @@ export const useCreteItem = () => {
   };
 
   // * Set address
-  const setAddress = () => {
-    const set = async () => {
-      try {
-        const { itemCoordinates } = state;
-        const { address } = initialState;
-        const newAddress: string = await fetchAddressByCoordinates(
-          itemCoordinates,
-          address
-        );
-        setState((currentState) => {
-          return {
-            ...currentState,
-            address: newAddress,
-          };
-        });
-      } catch {
-        const { address } = initialState;
-        setState((currentState) => ({
+  const setAddress = async () => {
+    try {
+      const { itemCoordinates } = state;
+      const { address } = initialState;
+      const newAddress: string = await fetchAddressByCoordinates(
+        itemCoordinates,
+        address
+      );
+      setState((currentState) => {
+        return {
           ...currentState,
-          address,
-        }));
-      }
-    };
-    set();
+          address: newAddress,
+        };
+      });
+    } catch {
+      error();
+    }
   };
 
-  const onSubmit = (navigation: any) => {
-    const { isValidName, itemCoordinates, name, idUser } = state;
-    if (isValidName) {
-      const item: IItemField = {
-        coordinates: itemCoordinates,
-        name,
-        idUser,
-        isFound: false,
-      };
-      CreateItemApi.createItem(item);
-      navigation.navigate(ROUTES.ItemList);
+  const onSubmit = async (navigation: any) => {
+    try {
+      const { isValidName, itemCoordinates, name, idUser } = state;
+      if (isValidName) {
+        const item: IItemField = {
+          coordinates: itemCoordinates,
+          name,
+          idUser,
+          isFound: false,
+        };
+        await CreateItemAPI.createItem(item);
+        navigation.navigate(ROUTES.ItemList);
+      }
+    } catch {
+      error();
     }
   };
 

@@ -30,7 +30,7 @@ export const M_TYPE = {
     type: mongoose.Types.ObjectId,
     required: true,
     validate: {
-      validator: (id: string) => isValidEmail(id),
+      validator: (id: string) => mongoose.isValidObjectId(id),
       message: props => STRING_GENERATOR.email_error_text(props.value)
     }
   },
@@ -47,7 +47,7 @@ export const M_TYPE = {
   PASSWORD: {
     type: String,
     validate: {
-      validator: (password: string) => mongoose.isValidObjectId(password),
+      validator: (password: string) => isValidPassword(password),
       message: props => STRING_GENERATOR.id_error_text(props.value)
     },
     required: [true, STRING.id_required]

@@ -8,6 +8,8 @@ interface IMapState {
   userCoordinates: LatLng;
   region: Region;
   itemCoordinates: LatLng;
+
+  isError: boolean;
 }
 
 const DEFAULT_COORDINATES: LatLng = {
@@ -23,10 +25,12 @@ const DEFAULT_STATE: IMapState = {
     latitudeDelta: 0,
     longitudeDelta: 0,
   },
+  isError: false,
 };
 
 export const useMapState = () => {
   const [state, setState] = useState<IMapState>(DEFAULT_STATE);
+  const error = () => setState((state) => ({ ...state, isError: true }));
   // * Watch user coordinates
   useEffect(() => {
     // * Start watch user coordinates
@@ -42,11 +46,7 @@ export const useMapState = () => {
           },
         });
       },
-      () =>
-        setState((currentState) => ({
-          ...currentState,
-          userCoordinates: DEFAULT_STATE.userCoordinates,
-        })),
+      () => error(),
       { timeout: 1000 }
     );
     // * Stop watch
@@ -56,8 +56,12 @@ export const useMapState = () => {
   // * Get item coordinates
   useEffect(() => {
     const getCoordinates = async () => {
-      const itemCoordinates = await MapAPI.fetchItemCoordinates();
-      setState({ ...state, itemCoordinates });
+      try {
+        const itemCoordinates = await MapAPI.fetchItemCoordinates();
+        setState({ ...state, itemCoordinates });
+      } catch {
+        error();
+      }
     };
     getCoordinates();
   }, []);

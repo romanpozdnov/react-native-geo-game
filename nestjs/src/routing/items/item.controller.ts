@@ -1,5 +1,16 @@
-import { Controller, Get, Post, Body, Res, HttpStatus } from "@nestjs/common";
-import { Param, Delete, Put, Header, NotFoundException } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Res,
+  HttpStatus,
+  Param,
+  Delete,
+  Put,
+  Header,
+  NotFoundException
+} from "@nestjs/common";
 
 import { ItemService } from "./item.service";
 import { ItemDTO } from "./item.dto";
@@ -14,12 +25,10 @@ export class ItemController {
   async findAll(@Res() res) {
     try {
       const items = await this.ItemService.findAll();
-      return res.status(HttpStatus.OK).json({
-        message: "Find all items",
-        items
-      });
+      if (!items) throw new NotFoundException("Item does not exist!");
+      return res.status(HttpStatus.OK).json(items);
     } catch {
-      throw new NotFoundException("Items not found");
+      throw new NotFoundException("Item does not exist!");
     }
   }
 
@@ -28,10 +37,7 @@ export class ItemController {
     try {
       const item = await this.ItemService.findById(id);
       if (!item) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json({
-        message: "Found user by id",
-        item
-      });
+      return res.status(HttpStatus.OK).json(item);
     } catch {
       throw new NotFoundException("Items not found");
     }
@@ -42,12 +48,9 @@ export class ItemController {
     try {
       const items = await this.ItemService.findAllByUserId(id);
       if (!items) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json({
-        message: "Found user by id",
-        items
-      });
+      return res.status(HttpStatus.OK).json(items);
     } catch {
-      return [];
+      throw new NotFoundException("Item does not exist!");
     }
   }
 
@@ -57,10 +60,7 @@ export class ItemController {
     try {
       const newItem = await this.ItemService.create(item);
       if (!newItem) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json({
-        message: "Item create successful",
-        user: newItem
-      });
+      return res.status(HttpStatus.OK).json(newItem);
     } catch {
       throw new NotFoundException("Items data not valid");
     }
@@ -71,10 +71,7 @@ export class ItemController {
     try {
       const item = await this.ItemService.removeById(id);
       if (!item) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json({
-        message: "Item remove successful",
-        item
-      });
+      return res.status(HttpStatus.OK).json(item);
     } catch {
       throw new NotFoundException("Items not found");
     }
@@ -85,10 +82,7 @@ export class ItemController {
     try {
       const updateItem = await this.ItemService.updateById(id, user);
       if (!updateItem) throw new NotFoundException("Items not found");
-      return res.status(HttpStatus.OK).json({
-        message: "Item remove successful",
-        user: updateItem
-      });
+      return res.status(HttpStatus.OK).json(updateItem);
     } catch {
       throw new NotFoundException("Items not found");
     }

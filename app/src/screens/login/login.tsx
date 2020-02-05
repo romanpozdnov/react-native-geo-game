@@ -1,14 +1,9 @@
 import * as React from 'react';
-import { useForm, FormContext } from 'react-hook-form';
-
-import { Field } from '@components/field';
-
-import { Text } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
 
+import { useLogIn } from './login.state';
+
 import { STRINGS } from '@constants/string';
-import { ROUTES } from '@constants/routes';
-import { FIELD_NAME } from './login.constant';
 
 import { LogInStyle } from './login.style';
 
@@ -17,34 +12,61 @@ interface ILogInProps extends NavigationInjectedProps {
 }
 
 export const LogIn: React.FC<ILogInProps> = ({ navigation }) => {
-  const form = useForm<IUserField>();
-  const { handleSubmit } = form;
-
-  const onSubmit = handleSubmit((data: IUserField) => {
-    console.log(data);
-    navigation.navigate(ROUTES.ItemList);
-  });
+  const {
+    isError,
+    onCreate,
+    onLogIn,
+    setEmail,
+    setPassword,
+    email,
+    password,
+    isExist,
+    isValidEmail,
+    isValidPassword,
+    isNotFoundUser,
+  } = useLogIn(navigation);
 
   return (
     <LogInStyle.Container>
-      <FormContext {...form}>
-        <Field
-          name={FIELD_NAME.email}
-          title={STRINGS.LOGIN.email_field_title}
-          errorText={STRINGS.LOGIN.email_error_text}
-          required
-        />
-        <Field
-          name={FIELD_NAME.password}
-          title={STRINGS.LOGIN.password_field_title}
-          errorText={STRINGS.LOGIN.password_error_text}
-          required
-        />
+      <LogInStyle.Label>{STRINGS.LOGIN.email_title}</LogInStyle.Label>
+      <LogInStyle.Input value={email} onChangeText={setEmail} />
+      {!isValidEmail && (
+        <LogInStyle.Error>{STRINGS.LOGIN.error_email}</LogInStyle.Error>
+      )}
 
-        <LogInStyle.Submit onPress={onSubmit}>
-          <Text>{STRINGS.LOGIN.submit_button}</Text>
-        </LogInStyle.Submit>
-      </FormContext>
+      <LogInStyle.Label>{STRINGS.LOGIN.password_title}</LogInStyle.Label>
+      <LogInStyle.Input
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+      {!isValidPassword && (
+        <LogInStyle.Error>{STRINGS.LOGIN.error_password}</LogInStyle.Error>
+      )}
+
+      <LogInStyle.Submit onPress={onLogIn}>
+        <LogInStyle.SubmitText>
+          {STRINGS.LOGIN.login_button}
+        </LogInStyle.SubmitText>
+      </LogInStyle.Submit>
+
+      {isExist && (
+        <LogInStyle.Error>
+          {STRINGS.LOGIN.error_already_create}
+        </LogInStyle.Error>
+      )}
+      {isNotFoundUser && (
+        <LogInStyle.Error>
+          {STRINGS.LOGIN.error_user_not_found}
+        </LogInStyle.Error>
+      )}
+      <LogInStyle.Submit onPress={onCreate}>
+        <LogInStyle.SubmitText>
+          {STRINGS.LOGIN.create_button}
+        </LogInStyle.SubmitText>
+      </LogInStyle.Submit>
+
+      {isError && <LogInStyle.Error>"ERROR"</LogInStyle.Error>}
     </LogInStyle.Container>
   );
 };

@@ -6,13 +6,9 @@ import { UserModule } from "@routing/user";
 
 import { CONNECT_URL } from "./database";
 
-const Mongoose = MongooseModule.forRoot(CONNECT_URL, { useNewUrlParser: true });
+const Mongoose = MongooseModule.forRoot(CONNECT_URL);
 
 @Module({
-  imports: [
-    Mongoose,
-    ItemModule,
-    UserModule
-  ]
+  imports: [Mongoose, ItemModule, UserModule]
 })
 export class AppModule {}

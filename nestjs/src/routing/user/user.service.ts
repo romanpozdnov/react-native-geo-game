@@ -15,23 +15,26 @@ export class UserService implements IUserFunction {
     private readonly UserModule: Model<IUser & Document>
   ) {}
 
-  async updateById(id: string, user: UserDTO) {
+  async findByEmail(email: string): Promise<IUser> {
+    return await this.UserModule.findOne({ email });
+  }
+  async updateById(id: string, user: UserDTO): Promise<IUser> {
     return await this.UserModule.findByIdAndUpdate(id, user);
   }
 
-  async removeById(id: string) {
+  async removeById(id: string): Promise<IUser> {
     return await this.UserModule.findByIdAndRemove(id);
   }
 
-  async findAll() {
+  async findAll(): Promise<IUser[]> {
     return await this.UserModule.find();
   }
 
-  async findById(id: string) {
+  async findById(id: string): Promise<IUser> {
     return await this.UserModule.findById(id);
   }
 
-  async create(user: UserDTO) {
+  async create(user: UserDTO): Promise<IUser> {
     return await new this.UserModule(user).save();
   }
 }

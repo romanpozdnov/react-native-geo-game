@@ -1,10 +1,16 @@
 export const STRINGS = {
   LOGIN: {
-    email_field_title: 'E-mail',
-    email_error_text: 'Not correct email',
-    password_field_title: 'Password',
-    password_error_text: 'Not correct password',
-    submit_button: 'Submit',
+    email_title: 'E-mail',
+    password_title: 'Password',
+
+    login_button: 'Log in',
+    create_button: 'Create user',
+
+    error_already_create: 'User with this email already create',
+    error_password: 'Not correct password',
+    error_email: 'Not correct email',
+    error_not_create: 'User not create',
+    error_user_not_found: 'User not found',
   },
 
   ITEMS: {

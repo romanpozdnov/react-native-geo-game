@@ -1,4 +1,4 @@
-export const FIELD_NAME: Record<keyof IUserField, string> = {
-  email: 'Email',
-  password: 'Password',
+export const FIELD_NAME: Record<keyof IUserField, keyof IUserField> = {
+  email: 'email',
+  password: 'password',
 };
