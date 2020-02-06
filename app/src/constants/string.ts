@@ -24,7 +24,7 @@ export const STRINGS = {
   },
 
   CREATE_ITEM: {
-    item_name_title: 'Item name',
+    item_title: 'Item name',
     item_error_text: 'You need write name minimal length 6 symbol',
 
     button_submit: 'Create item',
@@ -42,5 +42,12 @@ export const STRINGS = {
 
     marker_user: 'User',
     marker_item: 'Item',
+  },
+
+  STORAGE: {
+    error_get_user_id: 'Can`t get user id',
+    error_set_user_id: 'Can`t set user id',
+    error_get_item_coordinate: 'Can`t get item coordinate',
+    error_set_item_coordinate: 'Can`t set item coordinate',
   },
 };

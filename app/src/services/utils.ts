@@ -1,6 +1,3 @@
-export const checkIsOnlyString = (value: string): boolean =>
-  /^(\w| ){6,30}$/.test(value);
-
 type TErrorFunction = () => void;
 type TCallbackFunction = () => Promise<void>;
 

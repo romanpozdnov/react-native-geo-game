@@ -1,20 +1,25 @@
-import { HttpStatus } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
+import { Response } from "express";
+import { HttpStatus } from "@nestjs/common";
 
 export const createModule = (name: string, schema: any) =>
   MongooseModule.forFeature([{ name, schema }]);
 
-export const utilCall = async <T, R>(
-  res: any,
+interface IData<T> {
+  status: number;
+  json?: T | { error: string };
+}
+
+export const utilCall = async <R>(
+  res: Response,
   errorMessage: string,
-  action: (payload: R) => Promise<T>,
-  payload?: R
-): Promise<T> => {
+  action: () => Promise<R>
+) => {
   try {
-    const result = await action(payload);
-    if (!result)
+    const data = await action();
+    if (!data)
       return res.status(HttpStatus.UNAUTHORIZED).json({ error: errorMessage });
-    return res.status(HttpStatus.OK).json(result);
+    return res.status(HttpStatus.OK).json(data);
   } catch {
     return res.status(HttpStatus.INTERNAL_SERVER_ERROR);
   }

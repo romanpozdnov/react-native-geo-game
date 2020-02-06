@@ -11,6 +11,6 @@ export interface IUserFunction {
   findByEmail: (email: string) => Promise<IUser>;
   findById: (id: string) => Promise<IUser>;
   create: (user: UserDTO) => Promise<IUser>;
-  updateById: (props: TUpdateProps) => Promise<IUser>;
+  updateById: (id: string, user: UserDTO) => Promise<IUser>;
   removeById: (id: string) => Promise<IUser>;
 }

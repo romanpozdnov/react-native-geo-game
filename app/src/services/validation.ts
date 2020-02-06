@@ -5,3 +5,6 @@ export const isPassword = (password: string): boolean =>
   /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$/.test(
     password
   );
+
+export const isOnlyString = (value: string): boolean =>
+  /^(\w| ){6,30}$/.test(value);
