@@ -16,14 +16,31 @@ export const STRINGS = {
   ITEMS: {
     user_list: 'User list',
     all_item_list: 'Item list',
+
     error_text: 'Error',
+    error_not_found_all_items: 'Not found all items',
+    error_not_found_items_by_user_id: 'Not found items by user id',
+    error_set_item_coordinate: 'Don`t set item coordinate',
   },
 
   CREATE_ITEM: {
     item_name_title: 'Item name',
     item_error_text: 'You need write name minimal length 6 symbol',
-    submit_button: 'Create item',
-    to_user_move_button_text: 'Move to user',
-    get_address_button: 'Get address',
+
+    button_submit: 'Create item',
+    button_to_user_move: 'Move to user',
+    button_get_address: 'Get address',
+
+    error_create_item: 'Can`t create item',
+    error_fetch_user_id: 'Can`t get user id',
+
+    marker_user: 'Your position',
+  },
+
+  MAP: {
+    error_get_item_coordinates: 'Error get item coordinates',
+
+    marker_user: 'User',
+    marker_item: 'Item',
   },
 };

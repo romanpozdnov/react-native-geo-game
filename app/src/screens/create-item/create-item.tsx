@@ -39,22 +39,26 @@ export const CreateItem: React.FC<ICreateItemProps> = (props) => {
           {STRINGS.CREATE_ITEM.item_error_text}
         </CreateItemStyle.Error>
       )}
+
       <CreateItemStyle.Map
         initialRegion={region}
         onRegionChange={handleRegionChange}
       >
-        <CreateItemStyle.Marker coordinate={userCoordinates} />
+        <CreateItemStyle.Marker
+          title={STRINGS.CREATE_ITEM.marker_user}
+          coordinate={userCoordinates}
+        />
       </CreateItemStyle.Map>
       <CreateItemStyle.Button
-        title={STRINGS.CREATE_ITEM.submit_button}
+        title={STRINGS.CREATE_ITEM.button_submit}
         onPress={() => onSubmit(navigation)}
       />
       <CreateItemStyle.Button
-        title={STRINGS.CREATE_ITEM.get_address_button}
+        title={STRINGS.CREATE_ITEM.button_get_address}
         onPress={setAddress}
       />
       <CreateItemStyle.Button
-        title={STRINGS.CREATE_ITEM.to_user_move_button_text}
+        title={STRINGS.CREATE_ITEM.button_to_user_move}
         onPress={setUserRegion}
       />
     </CreateItemStyle.Container>

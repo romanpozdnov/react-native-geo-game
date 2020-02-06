@@ -2,28 +2,22 @@ import Axios from 'axios';
 
 import { Storage } from '@services/createStorage';
 
-import { DATABASE } from '@constants/database';
+import { DATABASE, CONFIG } from '@constants/database';
+import { ajaxErrorCall } from '@services/utils';
+import { STRINGS } from '@constants/string';
 
-const headers = {
-  'Content-Type': 'application/json',
-};
+const { CREATE_ITEM } = STRINGS;
 
 export const CreateItemAPI = {
-  createItem: async (item: IItemField): Promise<void> => {
-    try {
-      await Axios.post<IItemField>(DATABASE.URL.item, item, {
-        headers,
-      });
-    } catch {
-      throw new Error('Item not create');
-    }
-  },
+  createItem: (item: IItemField): Promise<IItem> =>
+    ajaxErrorCall(async () => {
+      const req = await Axios.post<IItem>(DATABASE.URL.item, item, CONFIG);
+      return req.data;
+    }, CREATE_ITEM.error_create_item),
 
-  fetchUserId: async (): Promise<string> => {
-    try {
-      return await Storage.getUserId();
-    } catch {
-      throw new Error('Not found user id');
-    }
-  },
+  fetchUserId: async (): Promise<string> =>
+    ajaxErrorCall(
+      async () => await Storage.getUserId(),
+      CREATE_ITEM.error_fetch_user_id
+    ),
 };

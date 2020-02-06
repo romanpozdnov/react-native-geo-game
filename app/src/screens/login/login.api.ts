@@ -1,30 +1,23 @@
 import Axios from 'axios';
 
-import { STRINGS } from '@constants/string';
-import { DATABASE } from '@constants/database';
+import { ajaxErrorCall } from '@services/utils';
 
-const headers = { 'Content-Type': 'application/json' };
+import { STRINGS } from '@constants/string';
+import { DATABASE, CONFIG } from '@constants/database';
+
+const { LOGIN } = STRINGS;
 
 export const LogInAPI = {
-  getUserByEmail: async (email: string): Promise<IUser> => {
-    try {
+  getUserByEmail: (email: string): Promise<IUser> =>
+    ajaxErrorCall(async () => {
       const url = DATABASE.DATABASE_REQUEST.user_find_by_email(email);
       const req = await Axios.get<IUser>(url);
       return req.data;
-    } catch {
-      throw new Error(STRINGS.LOGIN.error_user_not_found);
-    }
-  },
+    }, LOGIN.error_user_not_found),
 
-  createUser: async (newUser: IUserField): Promise<IUser> => {
-    try {
-      const req = await Axios.post<IUser>(DATABASE.URL.user, newUser, {
-        headers,
-      });
-      console.log(req.status);
+  createUser: (newUser: IUserField): Promise<IUser> =>
+    ajaxErrorCall(async () => {
+      const req = await Axios.post<IUser>(DATABASE.URL.user, newUser, CONFIG);
       return req.data;
-    } catch {
-      throw new Error(STRINGS.LOGIN.error_not_create);
-    }
-  },
+    }, LOGIN.error_not_create),
 };

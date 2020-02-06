@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@components/icon';
 import { useMapState } from './map.state';
 
 import { COLORS } from '@constants/color';
+import { STRINGS } from '@constants/string';
 
 import { MapStyle } from './map.style';
 
@@ -25,14 +26,14 @@ export const Map: React.FC<IMapProps> = (props) => {
   return (
     <MapStyle.Container>
       <MapStyle.Map initialRegion={region}>
-        <Marker coordinate={userCoordinates}>
+        <Marker title={STRINGS.MAP.marker_user} coordinate={userCoordinates}>
           <FontAwesomeIcon
             color={COLORS.MAP.user_icon}
             name="running"
             size={20}
           />
         </Marker>
-        <Marker coordinate={itemCoordinates}>
+        <Marker title={STRINGS.MAP.marker_item} coordinate={itemCoordinates}>
           <FontAwesomeIcon
             color={COLORS.MAP.item_icon}
             name="archive"

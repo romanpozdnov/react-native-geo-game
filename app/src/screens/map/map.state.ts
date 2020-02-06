@@ -3,6 +3,7 @@ import { LatLng, Region } from 'react-native-maps';
 import navigator from '@react-native-community/geolocation';
 
 import { MapAPI } from './map.api';
+import { errorUtilCall } from '@services/utils';
 
 interface IMapState {
   userCoordinates: LatLng;
@@ -31,6 +32,8 @@ const DEFAULT_STATE: IMapState = {
 export const useMapState = () => {
   const [state, setState] = useState<IMapState>(DEFAULT_STATE);
   const error = () => setState((state) => ({ ...state, isError: true }));
+  const errorUtil = errorUtilCall(error);
+
   // * Watch user coordinates
   useEffect(() => {
     // * Start watch user coordinates
@@ -55,15 +58,10 @@ export const useMapState = () => {
 
   // * Get item coordinates
   useEffect(() => {
-    const getCoordinates = async () => {
-      try {
-        const itemCoordinates = await MapAPI.fetchItemCoordinates();
-        setState({ ...state, itemCoordinates });
-      } catch {
-        error();
-      }
-    };
-    getCoordinates();
+    errorUtil(async () => {
+      const itemCoordinates = await MapAPI.fetchItemCoordinates();
+      setState({ ...state, itemCoordinates });
+    });
   }, []);
 
   const moveToCoordinate = (coordinate: LatLng) =>

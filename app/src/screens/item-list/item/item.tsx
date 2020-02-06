@@ -16,12 +16,12 @@ export const Item: React.FC<IItemProps> = (props) => {
   const { isFound, name } = itemParameter;
   const iconProps: IIconProps = isFound
     ? {
-        color: COLORS.ITEM.found_icon,
+        color: COLORS.ITEMS_LIST.found_icon,
         name: 'check',
         size: 15,
       }
     : {
-        color: COLORS.ITEM.not_found_icon,
+        color: COLORS.ITEMS_LIST.not_found_icon,
         name: 'times',
         size: 15,
       };

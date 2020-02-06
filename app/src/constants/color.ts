@@ -14,12 +14,13 @@ export const COLORS = {
     create_button_background: 'blue',
   },
 
-  ITEM: {
+  ITEMS_LIST: {
     found_icon: 'green',
     not_found_icon: 'red',
     user_item_list_button: 'lightblue',
     all_item_list_button: 'lightgray',
-    create_button: 'gray',
+    create_button: 'lightblue',
+    create_icon_button: 'gray',
   },
 
   CREATE_ITEM: {

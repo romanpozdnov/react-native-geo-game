@@ -43,12 +43,12 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
         <ItemListStyle.Filter
           title={STRINGS.ITEMS.user_list}
           onPress={setUserItems}
-          color={COLORS.ITEM.user_item_list_button}
+          color={COLORS.ITEMS_LIST.user_item_list_button}
         />
         <ItemListStyle.Filter
           title={STRINGS.ITEMS.all_item_list}
           onPress={setAllItems}
-          color={COLORS.ITEM.all_item_list_button}
+          color={COLORS.ITEMS_LIST.all_item_list_button}
         />
       </ItemListStyle.FilterBar>
       <ItemListStyle.ItemList>{Items}</ItemListStyle.ItemList>

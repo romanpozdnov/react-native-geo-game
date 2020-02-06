@@ -1,12 +1,16 @@
-import { Storage } from '@services/createStorage';
 import { LatLng } from 'react-native-maps';
 
+import { Storage } from '@services/createStorage';
+import { ajaxErrorCall } from '@services/utils';
+
+import { STRINGS } from '@constants/string';
+
+const { MAP } = STRINGS;
+
 export const MapAPI = {
-  fetchItemCoordinates: async (): Promise<LatLng> => {
-    try {
-      return await Storage.getItemCoordinates();
-    } catch {
-      throw Error('Not get item coordinate');
-    }
-  },
+  fetchItemCoordinates: (): Promise<LatLng> =>
+    ajaxErrorCall(
+      async () => await Storage.getItemCoordinates(),
+      MAP.error_get_item_coordinates
+    ),
 };

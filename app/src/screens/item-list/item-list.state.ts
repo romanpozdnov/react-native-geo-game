@@ -9,6 +9,8 @@ import {
 import { ItemListApi } from './item-list.api';
 
 import { ROUTES } from '@constants/routes';
+import { TNavigator } from '@constants/types';
+import { errorUtilCall } from '@services/utils';
 interface IItemListState {
   items: IItem[];
   isError: boolean;
@@ -19,41 +21,35 @@ const initialState: IItemListState = {
   isError: false,
 };
 
-export const useItemList = (
-  navigation: NavigationScreenProp<
-    NavigationRoute<NavigationParams>,
-    NavigationParams
-  >
-) => {
+export const useItemList = (navigation: TNavigator) => {
   const [state, setState] = useState<IItemListState>(initialState);
   const error = () => setState((current) => ({ ...current, isError: true }));
+  const errorUtil = errorUtilCall(error);
 
   // * First load all items
   useEffect(() => {
     setAllItems();
   }, []);
 
-  const setUserItems = async () => {
-    try {
+  const setUserItems = () => {
+    errorUtil(async () => {
       const items: IItem[] = await ItemListApi.fetchItemsByUserId();
       setState((state) => ({ ...state, items, isError: false }));
-    } catch {
-      error();
-    }
+    });
   };
 
-  const setAllItems = async () => {
-    try {
+  const setAllItems = () => {
+    errorUtil(async () => {
       const items: IItem[] = await ItemListApi.fetchAllItems();
       setState((state) => ({ ...state, items, isError: false }));
-    } catch {
-      error();
-    }
+    });
   };
 
   const navigateToMap = (coordinate: LatLng) => {
-    navigation.navigate(ROUTES.Map);
-    ItemListApi.setItemCoordinates(coordinate);
+    errorUtil(async () => {
+      navigation.navigate(ROUTES.Map);
+      await ItemListApi.setItemCoordinates(coordinate);
+    });
   };
 
   const navigateToCreateItem = () => {

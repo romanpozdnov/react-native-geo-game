@@ -15,3 +15,5 @@ export const DATABASE = {
       `${DATABASE_ROOT_URL.item}?idUser=${idUser}`,
   },
 };
+
+export const CONFIG = { headers: { 'Content-Type': 'application/json' } };
