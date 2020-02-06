@@ -1,16 +1,11 @@
 import { LatLng } from 'react-native-maps';
 import { useEffect, useState } from 'react';
-import {
-  NavigationScreenProp,
-  NavigationRoute,
-  NavigationParams,
-} from 'react-navigation';
 
 import { ItemListApi } from './item-list.api';
+import { errorUtilCall } from '@services/utils';
 
 import { ROUTES } from '@constants/routes';
 import { TNavigator } from '@constants/types';
-import { errorUtilCall } from '@services/utils';
 interface IItemListState {
   items: IItem[];
   isError: boolean;
@@ -23,7 +18,7 @@ const initialState: IItemListState = {
 
 export const useItemList = (navigation: TNavigator) => {
   const [state, setState] = useState<IItemListState>(initialState);
-  const error = () => setState((current) => ({ ...current, isError: true }));
+  const error = () => setState((state) => ({ ...state, isError: true }));
   const errorUtil = errorUtilCall(error);
 
   // * First load all items

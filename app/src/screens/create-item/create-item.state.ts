@@ -4,7 +4,8 @@ import navigator from '@react-native-community/geolocation';
 
 import { CreateItemAPI } from './create-item.api';
 import { fetchAddressByCoordinates } from '@services/geocoder';
-import { checkIsOnlyString, errorUtilCall } from '@services/utils';
+import { errorUtilCall } from '@services/utils';
+import { isOnlyString } from '@services/validation';
 
 import { TNavigator } from '@constants/types';
 
@@ -41,7 +42,7 @@ const initialState: ICreateItemState = {
   isError: false,
 };
 
-export const useCreteItem = () => {
+export const useCreteItem = (navigation: TNavigator) => {
   const [state, setState] = useState<ICreateItemState>(initialState);
   const error = () => setState((state) => ({ ...state, isError: true }));
   const errorCall = errorUtilCall(error);
@@ -109,7 +110,7 @@ export const useCreteItem = () => {
   const setName = (newName: string) => {
     setState((state) => {
       const { name } = state;
-      const isValidName: boolean = checkIsOnlyString(name);
+      const isValidName: boolean = isOnlyString(name);
       return {
         ...state,
         name: newName,
@@ -135,7 +136,7 @@ export const useCreteItem = () => {
       });
     });
 
-  const onSubmit = (navigation: TNavigator) =>
+  const onSubmit = () =>
     errorCall(async () => {
       const { isValidName, itemCoordinates, name, idUser } = state;
       if (isValidName) {

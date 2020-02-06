@@ -1,6 +1,10 @@
 import { LatLng } from 'react-native-maps';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import { ajaxErrorCall } from './utils';
+
+import { STRINGS } from '@constants/string';
+
 const STORAGE_FIELD = {
   item_coordinate: 'item_coordinate',
   user_id: 'user',
@@ -8,40 +12,29 @@ const STORAGE_FIELD = {
 export class Storage {
   constructor() {}
 
-  static async getUserId(): Promise<string> {
-    try {
-      return (await AsyncStorage.getItem(STORAGE_FIELD.user_id)) ?? '';
-    } catch {
-      throw new Error('Not found user id');
-    }
-  }
+  static getUserId = (): Promise<string> =>
+    ajaxErrorCall(
+      async () => (await AsyncStorage.getItem(STORAGE_FIELD.user_id)) ?? '',
+      STRINGS.STORAGE.error_get_user_id
+    );
 
-  static async setUserId(id: string): Promise<void> {
-    try {
+  static setUserId = (id: string): Promise<void> =>
+    ajaxErrorCall(async () => {
       await AsyncStorage.setItem(STORAGE_FIELD.user_id, id);
-    } catch (e) {
-      throw new Error('Can`t set user id');
-    }
-  }
+    }, STRINGS.STORAGE.error_set_user_id);
 
-  static async getItemCoordinates(): Promise<LatLng> {
-    try {
-      const coordinates: string =
+  static getItemCoordinates = (): Promise<LatLng> =>
+    ajaxErrorCall(async () => {
+      const coordinate: string =
         (await AsyncStorage.getItem(STORAGE_FIELD.item_coordinate)) ?? '';
-      return JSON.parse(coordinates);
-    } catch {
-      throw new Error('Not found item coordinates');
-    }
-  }
+      return JSON.parse(coordinate);
+    }, STRINGS.STORAGE.error_get_item_coordinate);
 
-  static async setItemCoordinates(coordinates: LatLng): Promise<void> {
-    try {
+  static setItemCoordinates = (coordinates: LatLng): Promise<void> =>
+    ajaxErrorCall(async () => {
       await AsyncStorage.setItem(
         STORAGE_FIELD.item_coordinate,
         JSON.stringify(coordinates)
       );
-    } catch {
-      throw new Error('Can`t set item coordinates');
-    }
-  }
+    }, STRINGS.STORAGE.error_set_item_coordinate);
 }

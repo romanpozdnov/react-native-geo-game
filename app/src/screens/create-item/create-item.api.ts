@@ -1,9 +1,9 @@
 import Axios from 'axios';
 
 import { Storage } from '@services/createStorage';
+import { ajaxErrorCall } from '@services/utils';
 
 import { DATABASE, CONFIG } from '@constants/database';
-import { ajaxErrorCall } from '@services/utils';
 import { STRINGS } from '@constants/string';
 
 const { CREATE_ITEM } = STRINGS;

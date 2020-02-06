@@ -1,5 +1,5 @@
-export const PASSWORD: string = "DamnationCH";
-export const USERNAME: string = "SweDraw";
-export const DATABASE: string = "code";
+const DATABASE: string = "code";
 
-export const CONNECT_URL: string = `mongodb+srv://${USERNAME}:${PASSWORD}@code-eh2jr.mongodb.net/${DATABASE}?retryWrites=true&w=majority`;
+export const PORT: number = 4000;
+
+export const CONNECT_URL: string = `mongodb://127.0.0.1:27017/${DATABASE}`;

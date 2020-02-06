@@ -9,6 +9,7 @@ import {
   Put,
   Header
 } from "@nestjs/common";
+import { Response } from "express";
 
 import { UserDTO } from "./user.dto";
 
@@ -22,67 +23,54 @@ import { IUser } from "./user.types";
 
 const { USERS_ERROR } = STRINGS;
 
-@Controller(ROUTING.USER.root)
+@Controller(ROUTING.USER)
 export class UserController {
   constructor(private readonly UserService: UserService) {}
 
   @Get()
-  async findAll(@Res() res) {
-    return await utilCall(res, USERS_ERROR.find_all, this.UserService.findAll);
+  async findAll(@Res() res: Response) {
+    return await utilCall(res, USERS_ERROR.find_all, () =>
+      this.UserService.findAll()
+    );
   }
 
   @Get(":id")
-  async findById(@Res() res, @Param("id") id: string): Promise<IUser> {
-    return await utilCall(
-      res,
-      USERS_ERROR.find_by_id,
-      this.UserService.findById,
-      id
+  async findById(@Res() res: Response, @Param("id") id: string) {
+    return await utilCall(res, USERS_ERROR.find_by_id, () =>
+      this.UserService.findById(id)
     );
   }
 
   @Get(":email")
-  async findByEmail(@Res() res, @Param("email") email: string): Promise<IUser> {
-    return await utilCall(
-      res,
-      USERS_ERROR.find_by_email,
-      this.UserService.findByEmail,
-      email
+  async findByEmail(@Res() res: Response, @Param("email") email: string) {
+    return await utilCall(res, USERS_ERROR.find_by_email, () =>
+      this.UserService.findByEmail(email)
     );
   }
 
   @Header("Content-Type", "application/json")
   @Post()
-  async create(@Res() res, @Body() user: UserDTO): Promise<IUser> {
-    return await utilCall(
-      res,
-      USERS_ERROR.create,
-      this.UserService.create,
-      user
+  async create(@Res() res: Response, @Body() user: UserDTO) {
+    return await utilCall(res, USERS_ERROR.create, () =>
+      this.UserService.create(user)
     );
   }
 
   @Delete(":id")
-  async removeById(@Res() res, @Param("id") id: string): Promise<IUser> {
-    return await utilCall(
-      res,
-      USERS_ERROR.remove,
-      this.UserService.removeById,
-      id
+  async removeById(@Res() res: Response, @Param("id") id: string) {
+    return await utilCall(res, USERS_ERROR.remove, () =>
+      this.UserService.removeById(id)
     );
   }
 
   @Put(":id")
   async updateById(
-    @Res() res,
+    @Res() res: Response,
     @Param("id") id: string,
     @Body() user: UserDTO
-  ): Promise<IUser> {
-    return await utilCall<IUser, { id: string; user: UserDTO }>(
-      res,
-      USERS_ERROR.update,
-      this.UserService.updateById,
-      { id, user }
+  ) {
+    return await utilCall(res, USERS_ERROR.update, () =>
+      this.UserService.updateById(id, user)
     );
   }
 }

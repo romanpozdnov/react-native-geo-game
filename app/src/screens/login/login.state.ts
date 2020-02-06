@@ -2,11 +2,12 @@ import { useState } from 'react';
 
 import { LogInAPI } from './login.api';
 import { Storage } from '@services/createStorage';
-import { isEmail, isPassword } from './login.util';
+import { errorUtilCall } from '@services/utils';
+import { isEmail, isPassword } from '@services/validation';
 
 import { ROUTES } from '@constants/routes';
+
 import { TNavigator } from '@constants/types';
-import { errorUtilCall } from '@services/utils';
 
 interface ILogInState {
   isError: boolean;
@@ -38,6 +39,7 @@ export const useLogIn = (navigation: TNavigator) => {
       isError: true,
       isNotFoundUser: false,
     }));
+
   const removeError = () =>
     setState((currentState) => ({
       ...currentState,
@@ -49,9 +51,8 @@ export const useLogIn = (navigation: TNavigator) => {
 
   const onLogIn = () => {
     errorUtil(async () => {
-      const { email, password } = state;
-      const newUser: IUserField = { email, password };
-      const user: IUser = await LogInAPI.getUserByEmail(newUser.email);
+      const { email } = state;
+      const user: IUser = await LogInAPI.getUserByEmail(email);
 
       if (user._id) {
         await Storage.setUserId(user._id);

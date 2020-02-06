@@ -19,20 +19,4 @@ export const ItemListStyle = {
     padding: 15px 30px;
     background-color: ${(props) => props.color};
   `,
-  Create: styled.TouchableOpacity`
-    position: absolute;
-    bottom: 50px;
-    right: 50px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50;
-
-    background-color: ${COLORS.LOGIN.create_button_background};
-    justify-content: center;
-    align-items: center;
-  `,
-  Error: styled.Text`
-    color: ${COLORS.LOGIN.error_text};
-    font-size: 16px;
-  `,
 };

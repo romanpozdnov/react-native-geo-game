@@ -1,6 +1,7 @@
 export const COLORS = {
   text_color: 'black',
   background_color: 'white',
+  error_color: 'red',
 
   MAP: {
     user_move_button: 'blue',

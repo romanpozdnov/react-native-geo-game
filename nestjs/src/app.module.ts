@@ -6,7 +6,10 @@ import { UserModule } from "@routing/user";
 
 import { CONNECT_URL } from "./database";
 
-const Mongoose = MongooseModule.forRoot(CONNECT_URL);
+const Mongoose = MongooseModule.forRoot(CONNECT_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 @Module({
   imports: [Mongoose, ItemModule, UserModule]
