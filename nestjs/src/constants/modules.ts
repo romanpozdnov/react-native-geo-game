@@ -1,4 +1,5 @@
 export const MODULES = {
   item: "ITEM",
-  user: "USER"
+  user: "USER",
+  find: "FIND"
 };

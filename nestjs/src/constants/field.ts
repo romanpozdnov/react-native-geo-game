@@ -10,6 +10,8 @@ const isValidPassword = (password: string): boolean =>
     password
   );
 
+const ID_TYPE = mongoose.Types.ObjectId;
+
 export const M_TYPE = {
   STRING: {
     type: String,
@@ -27,7 +29,7 @@ export const M_TYPE = {
   },
 
   ID: {
-    type: mongoose.Types.ObjectId,
+    type: ID_TYPE,
     required: true,
     validate: {
       validator: (id: string) => mongoose.isValidObjectId(id),
@@ -50,6 +52,11 @@ export const M_TYPE = {
       validator: (password: string) => isValidPassword(password),
       message: props => STRING_GENERATOR.id_error_text(props.value)
     },
+    required: [true, STRINGS.id_required]
+  },
+
+  ID_ARRAY: {
+    type: [ID_TYPE],
     required: [true, STRINGS.id_required]
   }
 };
