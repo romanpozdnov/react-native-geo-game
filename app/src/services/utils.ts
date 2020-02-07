@@ -1,6 +1,5 @@
 type TErrorFunction = () => void;
 type TCallbackFunction = () => Promise<void>;
-
 type TCallbackData<R> = () => Promise<R>;
 
 export const errorUtilCall = (error: TErrorFunction) => async (
@@ -13,10 +12,10 @@ export const errorUtilCall = (error: TErrorFunction) => async (
   }
 };
 
-export const ajaxErrorCall = async <T>(
-  callback: TCallbackData<T>,
+export const ajaxErrorCall = async <Res>(
+  callback: TCallbackData<Res>,
   errorMessage: string
-): Promise<T> => {
+): Promise<Res> => {
   try {
     return await callback();
   } catch {

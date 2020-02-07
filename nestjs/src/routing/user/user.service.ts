@@ -20,22 +20,31 @@ export class UserService implements IUserFunction {
   }
 
   async findById(id: string): Promise<IUser> {
-    return await this.UserModule.findById(id);
+    return await this.UserModule.findById(id).exec();
   }
 
   async findByEmail(email: string): Promise<IUser> {
-    return await this.UserModule.findOne({ email });
+    return await this.UserModule.findOne({ email }).exec();
   }
 
   async updateById(id: string, user: UserDTO): Promise<IUser> {
-    return await this.UserModule.findByIdAndUpdate(id, user);
+    return await this.UserModule.findByIdAndUpdate(id, user).exec();
   }
 
   async removeById(id: string): Promise<IUser> {
-    return await this.UserModule.findByIdAndRemove(id);
+    return await this.UserModule.findByIdAndRemove(id).exec();
   }
 
   async create(user: UserDTO): Promise<IUser> {
-    return await new this.UserModule(user).save();
+    const newUser: IUser = {
+      ...user,
+      email: user.email.toLocaleLowerCase()
+    };
+
+    const checkUser = await this.UserModule.findOne({
+      email: newUser.email
+    }).exec();
+    if (!checkUser) return await new this.UserModule(newUser).save();
+    throw new Error("Already create");
   }
 }

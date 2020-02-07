@@ -1,18 +1,16 @@
-const URL = 'http://localhost:4000';
+const SERVER_URL = 'http://localhost:4000';
 
-const DATABASE_ROOT_URL = {
-  item: `${URL}/items`,
-  user: `${URL}/users`,
+const URL = {
+  item: `${SERVER_URL}/items`,
+  user: `${SERVER_URL}/users`,
 };
 
 export const DATABASE = {
-  URL: DATABASE_ROOT_URL,
+  URL,
   DATABASE_REQUEST: {
-    user_find_by_email: (email: string) =>
-      `${DATABASE_ROOT_URL.user}?email=${email}`,
-    user_with_id: (id: string) => `${DATABASE_ROOT_URL.user}?id=${id}`,
-    item_by_user_id: (idUser: string) =>
-      `${DATABASE_ROOT_URL.item}?idUser=${idUser}`,
+    user_find_by_email: (email: string) => `${URL.user}/email/${email}`,
+    user_with_id: (id: string) => `${URL.user}/id/${id}`,
+    item_by_user_id: (idUser: string) => `${URL.item}/idUser/${idUser}`,
   },
 };
 

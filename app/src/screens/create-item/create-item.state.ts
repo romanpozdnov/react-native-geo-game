@@ -73,9 +73,9 @@ export const useCreteItem = (navigation: TNavigator) => {
   // * get user id
   useEffect(() => {
     errorCall(async () => {
-      const idUser: string = (await CreateItemAPI.fetchUserId()) ?? '';
-      setState((currentState) => ({
-        ...currentState,
+      const idUser: string = await CreateItemAPI.fetchUserId();
+      setState((state) => ({
+        ...state,
         idUser,
         isError: false,
       }));
@@ -84,8 +84,8 @@ export const useCreteItem = (navigation: TNavigator) => {
 
   // * Set region
   const setRegion = (region: Region) =>
-    setState((currentRegion) => ({
-      ...currentRegion,
+    setState((state) => ({
+      ...state,
       region,
     }));
 
@@ -107,17 +107,12 @@ export const useCreteItem = (navigation: TNavigator) => {
     });
 
   // * Check valid name and set them
-  const setName = (newName: string) => {
-    setState((state) => {
-      const { name } = state;
-      const isValidName: boolean = isOnlyString(name);
-      return {
-        ...state,
-        name: newName,
-        isValidName,
-      };
-    });
-  };
+  const setName = (newName: string) =>
+    setState((state) => ({
+      ...state,
+      name: newName,
+      isValidName: isOnlyString(state.name),
+    }));
 
   // * Set address
   const setAddress = () =>

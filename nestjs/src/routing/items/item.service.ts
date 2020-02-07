@@ -32,8 +32,10 @@ export class ItemService implements IItemFunc {
   }
 
   async create(item: ItemDTO) {
-    const savedItem = new this.itemModule(item);
-    return await savedItem.save();
+    const { idUser, coordinates } = item;
+    const checkItem = this.itemModule.findOne({ idUser, coordinates });
+    if (!checkItem) return await new this.itemModule(item).save();
+    throw new Error("Already create item with this parameter");
   }
 
   async findAllByUserId(idUser: string) {

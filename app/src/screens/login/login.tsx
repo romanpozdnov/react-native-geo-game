@@ -49,11 +49,18 @@ export const LogIn: React.FC<ILogInProps> = ({ navigation }) => {
         value={password}
         isSecure
       />
+
       <OpacityButton
         handleClick={onLogIn}
         text={STRINGS.LOGIN.login_button}
         backgroundColor={COLORS.LOGIN.create_button_background}
       />
+      <OpacityButton
+        handleClick={onCreate}
+        text={STRINGS.LOGIN.create_button}
+        backgroundColor={COLORS.LOGIN.create_button_background}
+      />
+
       <ErrorText
         errorText={STRINGS.LOGIN.error_already_create}
         isError={isExist}
@@ -62,10 +69,9 @@ export const LogIn: React.FC<ILogInProps> = ({ navigation }) => {
         errorText={STRINGS.LOGIN.error_user_not_found}
         isError={isNotFoundUser}
       />
-      <OpacityButton
-        handleClick={onCreate}
-        text={STRINGS.LOGIN.create_button}
-        backgroundColor={COLORS.LOGIN.create_button_background}
+      <ErrorText
+        errorText={'Data is not valid. Please write valid data.'}
+        isError={!isValidEmail || !isValidPassword}
       />
       <ErrorText errorText={'ERROR'} isError={isError} />
     </LogInStyle.Container>

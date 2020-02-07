@@ -51,13 +51,11 @@ export const useLogIn = (navigation: TNavigator) => {
 
   const onLogIn = () => {
     errorUtil(async () => {
-      const { email } = state;
-      const user: IUser = await LogInAPI.getUserByEmail(email);
-
-      if (user._id) {
+      const user: IUser = await LogInAPI.getUserByEmail(state.email);
+      if (!!user._id) {
         await Storage.setUserId(user._id);
-        navigation.navigate(ROUTES.ItemList);
         removeError();
+        navigation.navigate(ROUTES.ItemList);
       } else {
         setState((state) => ({ ...state, isNotFoundUser: true }));
       }
@@ -67,11 +65,10 @@ export const useLogIn = (navigation: TNavigator) => {
   const onCreate = () => {
     errorUtil(async () => {
       const { email, password } = state;
-      const formUser: IUserField = { email, password };
-      const user = await LogInAPI.createUser(formUser);
+      const user = await LogInAPI.createUser({ email, password });
       await Storage.setUserId(user._id);
-      navigation.navigate(ROUTES.ItemList);
       removeError();
+      navigation.navigate(ROUTES.ItemList);
     });
   };
 

@@ -32,14 +32,14 @@ export class ItemController {
     );
   }
 
-  @Get(":id")
+  @Get("id/:id")
   async findById(@Res() res: Response, @Param("id") id: string) {
     return await utilCall(res, ITEMS_ERROR.find_by_id, () =>
       this.ItemService.findById(id)
     );
   }
 
-  @Get(":idUser")
+  @Get("idUser/:idUser")
   async findAllByUserId(@Res() res, @Param("idUser") id: string) {
     return await utilCall(res, STRINGS.ITEMS_ERROR.find_by_user_id, () =>
       this.ItemService.findAllByUserId(id)

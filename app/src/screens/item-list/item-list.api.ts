@@ -9,19 +9,18 @@ import { STRINGS } from '@constants/string';
 
 const { ITEMS } = STRINGS;
 
-export const ItemListApi = {
+export const ItemListAPI = {
   fetchAllItems: (): Promise<IItem[]> =>
-    ajaxErrorCall(async () => {
-      const fetch = await axios.get<IItem[]>(DATABASE.URL.item);
-      return fetch.data;
-    }, ITEMS.error_not_found_all_items),
+    ajaxErrorCall(
+      async () => (await axios.get<IItem[]>(DATABASE.URL.item)).data,
+      ITEMS.error_not_found_all_items
+    ),
 
   fetchItemsByUserId: (): Promise<IItem[]> =>
     ajaxErrorCall(async () => {
       const userId: string = await Storage.getUserId();
       const url: string = DATABASE.DATABASE_REQUEST.item_by_user_id(userId);
-      const items = await axios.get<IItem[]>(url);
-      return items.data;
+      return (await axios.get<IItem[]>(url)).data;
     }, ITEMS.error_not_found_items_by_user_id),
 
   setItemCoordinates: async (coordinates: LatLng): Promise<void> =>
