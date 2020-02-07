@@ -19,6 +19,10 @@ interface IItem extends IItemField {
   _id: string;
 }
 
-interface IErrorMessage {
-  message: string;
+interface IFoundField {
+  idUser: string;
+  itemsIdList: string[];
+}
+interface IFiend extends IFoundField {
+  _id: string;
 }

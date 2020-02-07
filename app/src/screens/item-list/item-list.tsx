@@ -19,12 +19,13 @@ interface IItemListProps extends TPageNavigation {}
 export const ItemList: React.FC<IItemListProps> = (props) => {
   const { navigation } = props;
   const {
-    items,
     setAllItems,
     setUserItems,
+    setUserFoundItems,
+    items,
+    isError,
     navigateToCreateItem,
     navigateToMap,
-    isError,
   } = useItemList(navigation);
 
   const Items = items.map((item) => {
@@ -42,6 +43,11 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
           backgroundColor={COLORS.ITEMS_LIST.user_item_list_button}
         />
         <OpacityButton
+          text={STRINGS.ITEMS.found_user_items}
+          handleClick={setUserFoundItems}
+          backgroundColor={COLORS.ITEMS_LIST.item_found_user}
+        />
+        <OpacityButton
           text={STRINGS.ITEMS.all_item_list}
           handleClick={setAllItems}
           backgroundColor={COLORS.ITEMS_LIST.all_item_list_button}
@@ -57,7 +63,7 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
           size: 25,
         }}
       />
-      <ErrorText errorText={STRINGS.ITEMS.error_text} isError={isError} />
+      <ErrorText errorText={STRINGS.ITEMS_ERROR.ERROR} isError={isError} />
     </ItemListStyle.Container>
   );
 };

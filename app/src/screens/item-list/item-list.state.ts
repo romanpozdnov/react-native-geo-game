@@ -41,8 +41,14 @@ export const useItemList = (navigation: TNavigator) => {
     });
   };
 
+  const setUserFoundItems = () => {
+    errorUtil(async () => {
+      const items: IItem[] = await ItemListAPI.fetchFoundUserItems();
+      setState((state) => ({ ...state, items, isError: false }));
+    });
+  };
+
   const navigateToMap = (coordinate: LatLng) => {
-    console.log(state.items);
     errorUtil(async () => {
       await ItemListAPI.setItemCoordinates(coordinate);
       navigation.navigate(ROUTES.Map);
@@ -57,6 +63,7 @@ export const useItemList = (navigation: TNavigator) => {
     ...state,
     setUserItems,
     setAllItems,
+    setUserFoundItems,
     navigateToMap,
     navigateToCreateItem,
   };

@@ -43,14 +43,14 @@ export class FoundController implements IFindController {
   @Get("idUser/:idUser")
   async findByUserId(@Res() res: Response, @Param("idUser") id: string) {
     return await utilCall(res, STRINGS.ITEMS_ERROR.find_by_user_id, () =>
-      this.FoundService.findAllByUserId(id)
+      this.FoundService.findByUserId(id)
     );
   }
 
   @Get("idItem/:idItem")
   async findByItemId(@Res() res: Response, @Param("idItem") id: string) {
     return await utilCall(res, STRINGS.ITEMS_ERROR.find_by_user_id, () =>
-      this.FoundService.findAllByUserId(id)
+      this.FoundService.findByItemId(id)
     );
   }
 

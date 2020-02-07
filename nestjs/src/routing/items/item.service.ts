@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model, Document } from "mongoose";
+import { Model, Document, Mongoose } from "mongoose";
 
 import { ItemDTO } from "./item.dto";
+import { ID_TYPE } from "@constants/field";
 
 import { MODULES } from "@constants/modules";
 
@@ -12,33 +13,39 @@ import { IItemFunc, IItem } from "./item.types";
 export class ItemService implements IItemFunc {
   constructor(
     @InjectModel(MODULES.item)
-    private readonly itemModule: Model<IItem & Document>
+    private readonly ItemModule: Model<IItem & Document>
   ) {}
 
   async updateById(id: string, newItem: ItemDTO) {
-    return await this.itemModule.findByIdAndUpdate(id, newItem);
+    return await this.ItemModule.findByIdAndUpdate(id, newItem);
   }
 
   async removeById(id: string) {
-    return await this.itemModule.findByIdAndRemove(id);
-  }
-
-  async findAll() {
-    return await this.itemModule.find();
-  }
-
-  async findById(id: string) {
-    return await this.itemModule.findById(id);
+    return await this.ItemModule.findByIdAndRemove(id);
   }
 
   async create(item: ItemDTO) {
     const { idUser, coordinates } = item;
-    const checkItem = this.itemModule.findOne({ idUser, coordinates });
-    if (!checkItem) return await new this.itemModule(item).save();
+    const checkItem = this.ItemModule.findOne({ idUser, coordinates });
+    if (!checkItem) return await new this.ItemModule(item).save();
     throw new Error("Already create item with this parameter");
   }
 
+  async findAll() {
+    return await this.ItemModule.find();
+  }
+
+  async findById(id: string) {
+    return await this.ItemModule.findById(id);
+  }
+
   async findAllByUserId(idUser: string) {
-    return await this.itemModule.find({ idUser });
+    return await this.ItemModule.find({ idUser });
+  }
+
+  async findItemsByIdList(ids: string[]) {
+    return await this.ItemModule.find({
+      _id: { $in: ids.map(id => ID_TYPE(id)) }
+    });
   }
 }

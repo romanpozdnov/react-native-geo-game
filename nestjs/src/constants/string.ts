@@ -8,7 +8,8 @@ export const STRINGS = {
     find_by_user_id: "Not found items by user id",
     create: "Not create item",
     remove: "Not remove item",
-    update: "Not update item"
+    update: "Not update item",
+    find_found_user_items: "Not found user found items"
   },
   USERS_ERROR: {
     find_all: "Not found users",

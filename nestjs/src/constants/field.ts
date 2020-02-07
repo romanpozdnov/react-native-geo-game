@@ -10,7 +10,7 @@ const isValidPassword = (password: string): boolean =>
     password
   );
 
-const ID_TYPE = mongoose.Types.ObjectId;
+export const ID_TYPE = mongoose.Types.ObjectId;
 
 export const M_TYPE = {
   STRING: {

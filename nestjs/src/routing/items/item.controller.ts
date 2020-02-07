@@ -41,22 +41,30 @@ export class ItemController {
 
   @Get("idUser/:idUser")
   async findAllByUserId(@Res() res, @Param("idUser") id: string) {
-    return await utilCall(res, STRINGS.ITEMS_ERROR.find_by_user_id, () =>
+    return await utilCall(res, ITEMS_ERROR.find_by_user_id, () =>
       this.ItemService.findAllByUserId(id)
+    );
+  }
+
+  @Header("Content-Type", "application/json")
+  @Post("ids")
+  async findItemsByIdList(@Res() res: Response, @Body() ids: string[]) {
+    return await utilCall(res, ITEMS_ERROR.find_found_user_items, () =>
+      this.ItemService.findItemsByIdList(ids)
     );
   }
 
   @Header("Content-Type", "application/json")
   @Post()
   async create(@Res() res, @Body() item: ItemDTO) {
-    return await utilCall(res, STRINGS.ITEMS_ERROR.create, () =>
+    return await utilCall(res, ITEMS_ERROR.create, () =>
       this.ItemService.create(item)
     );
   }
 
   @Delete(":id")
   async removeById(@Res() res, @Param("id") id: string) {
-    return await utilCall(res, STRINGS.ITEMS_ERROR.remove, () =>
+    return await utilCall(res, ITEMS_ERROR.remove, () =>
       this.ItemService.removeById(id)
     );
   }

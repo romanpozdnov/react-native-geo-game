@@ -9,7 +9,7 @@ import { MODULES } from "@constants/modules";
 import { IFindService, IFiend } from "./found.types";
 
 @Injectable()
-export class FindService implements IFindService {
+export class FoundService implements IFindService {
   constructor(
     @InjectModel(MODULES.find)
     private readonly FindModule: Model<IFiend>

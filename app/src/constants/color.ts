@@ -20,6 +20,7 @@ export const COLORS = {
     not_found_icon: 'red',
     user_item_list_button: 'lightblue',
     all_item_list_button: 'lightgray',
+    item_found_user: 'lightred',
     create_button: 'lightblue',
     create_icon_button: 'gray',
   },

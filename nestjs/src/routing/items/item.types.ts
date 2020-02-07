@@ -19,6 +19,7 @@ export interface IItemFunc {
   findAll: () => Promise<IItem[]>;
   findById: (id: string) => Promise<IItem>;
   findAllByUserId: (idUser: string) => Promise<IItem[]>;
+  findItemsByIdList: (ids: string[]) => Promise<IItem[]>;
   create: (item: ItemDTO) => Promise<IItem>;
   updateById: (id: string, newItem: ItemDTO) => Promise<IItem>;
   removeById: (id: string) => Promise<IItem>;
