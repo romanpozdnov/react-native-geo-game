@@ -40,7 +40,7 @@ export class ItemController {
   }
 
   @Get("idUser/:idUser")
-  async findAllByUserId(@Res() res, @Param("idUser") id: string) {
+  async findAllByUserId(@Res() res: Response, @Param("idUser") id: string) {
     return await utilCall(res, ITEMS_ERROR.find_by_user_id, () =>
       this.ItemService.findAllByUserId(id)
     );
@@ -56,14 +56,14 @@ export class ItemController {
 
   @Header("Content-Type", "application/json")
   @Post()
-  async create(@Res() res, @Body() item: ItemDTO) {
+  async create(@Res() res: Response, @Body() item: ItemDTO) {
     return await utilCall(res, ITEMS_ERROR.create, () =>
       this.ItemService.create(item)
     );
   }
 
   @Delete(":id")
-  async removeById(@Res() res, @Param("id") id: string) {
+  async removeById(@Res() res: Response, @Param("id") id: string) {
     return await utilCall(res, ITEMS_ERROR.remove, () =>
       this.ItemService.removeById(id)
     );
@@ -71,11 +71,11 @@ export class ItemController {
 
   @Put(":id")
   async updateById(
-    @Res() res,
+    @Res() res: Response,
     @Param("id") id: string,
     @Body() newItem: ItemDTO
   ) {
-    return await utilCall(res, STRINGS.ITEMS_ERROR.remove, () =>
+    return await utilCall(res, ITEMS_ERROR.remove, () =>
       this.ItemService.updateById(id, newItem)
     );
   }

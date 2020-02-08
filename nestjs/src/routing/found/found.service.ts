@@ -6,13 +6,13 @@ import { FoundDTO } from "./found.dto";
 
 import { MODULES } from "@constants/modules";
 
-import { IFindService, IFiend } from "./found.types";
+import { IFoundService, IFound } from "./found.types";
 
 @Injectable()
-export class FoundService implements IFindService {
+export class FoundService implements IFoundService {
   constructor(
-    @InjectModel(MODULES.find)
-    private readonly FindModule: Model<IFiend>
+    @InjectModel(MODULES.found)
+    private readonly FindModule: Model<IFound>
   ) {}
 
   async updateById(id: string, newFound: FoundDTO) {

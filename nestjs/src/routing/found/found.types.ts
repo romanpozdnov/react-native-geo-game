@@ -7,21 +7,21 @@ export interface IFoundField {
   idUser: string;
   itemsIdList: string[];
 }
-export interface IFiend extends IFoundField, Document {
+export interface IFound extends IFoundField, Document {
   _id: string;
 }
 
-export interface IFindService {
-  findAll: () => Promise<IFiend[]>;
-  findById: (id: string) => Promise<IFiend>;
-  findByUserId: (idUser: string) => Promise<IFiend>;
-  findByItemId: (idItem: string) => Promise<IFiend>;
-  create: (found: FoundDTO) => Promise<IFiend>;
-  updateById: (id: string, found: FoundDTO) => Promise<IFiend>;
-  removeById: (id: string) => Promise<IFiend>;
+export interface IFoundService {
+  findAll: () => Promise<IFound[]>;
+  findById: (id: string) => Promise<IFound>;
+  findByUserId: (idUser: string) => Promise<IFound>;
+  findByItemId: (idItem: string) => Promise<IFound>;
+  create: (found: FoundDTO) => Promise<IFound>;
+  updateById: (id: string, found: FoundDTO) => Promise<IFound>;
+  removeById: (id: string) => Promise<IFound>;
 }
 
-export interface IFindController {
+export interface IFoundController {
   findAll: (res: Response) => Promise<Response>;
   findById: (res: Response, id: string) => Promise<Response>;
   findByUserId: (res: Response, idUser: string) => Promise<Response>;

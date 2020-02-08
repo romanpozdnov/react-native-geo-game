@@ -10,9 +10,10 @@ const { CREATE_ITEM_ERROR } = STRINGS;
 
 export const CreateItemAPI = {
   createItem: (item: IItemField): Promise<IItem> =>
-    ajaxErrorCall(async () => {
-      return (await Axios.post<IItem>(URL.item, item, CONFIG)).data;
-    }, CREATE_ITEM_ERROR.create_item),
+    ajaxErrorCall(
+      async () => (await Axios.post<IItem>(URL.item, item, CONFIG)).data,
+      CREATE_ITEM_ERROR.create_item
+    ),
 
   fetchUserId: async (): Promise<string> =>
     ajaxErrorCall(

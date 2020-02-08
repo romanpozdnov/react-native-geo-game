@@ -11,6 +11,15 @@ export const STRINGS = {
     update: "Not update item",
     find_found_user_items: "Not found user found items"
   },
+  FOUND_ERROR: {
+    find_all: "Not found anything",
+    find_by_id: "Not found found list by this id",
+    find_by_user_id: "Not found found list by user id",
+    find_by_item_id: "Not found found list by item id",
+    create: "Not create found list",
+    remove: "Not remove found list",
+    update: "Not update found list"
+  },
   USERS_ERROR: {
     find_all: "Not found users",
     find_by_id: "Not found user by this id",
