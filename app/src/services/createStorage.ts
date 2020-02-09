@@ -9,6 +9,7 @@ const { STORAGE_ERROR } = STRINGS;
 const STORAGE_FIELD = {
   item_coordinate: 'item_coordinate',
   user_id: 'user',
+  item_id: 'item',
 };
 export class Storage {
   constructor() {}
@@ -38,4 +39,15 @@ export class Storage {
         JSON.stringify(coordinates)
       );
     }, STORAGE_ERROR.set_item_coordinate);
+
+  static getItemId = (): Promise<string> =>
+    ajaxErrorCall(
+      async () => await AsyncStorage.getItem<string>(STORAGE_FIELD.item_id),
+      STORAGE_ERROR.get_id_item
+    );
+
+  static setItemId = (idItem: string): Promise<void> =>
+    ajaxErrorCall(async () => {
+      await AsyncStorage.setItem(STORAGE_FIELD.item_coordinate, idItem);
+    }, STORAGE_ERROR.set_id_item);
 }

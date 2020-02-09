@@ -23,6 +23,6 @@ interface IFoundField {
   idUser: string;
   itemsIdList: string[];
 }
-interface IFiend extends IFoundField {
+interface IFound extends IFoundField {
   _id: string;
 }

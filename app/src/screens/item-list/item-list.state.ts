@@ -6,6 +6,7 @@ import { errorUtilCall } from '@services/utils';
 
 import { ROUTES } from '@constants/routes';
 import { TNavigator } from '@constants/types';
+import { Storage } from '@services/createStorage';
 interface IItemListState {
   items: IItem[];
   isError: boolean;
@@ -48,9 +49,10 @@ export const useItemList = (navigation: TNavigator) => {
     });
   };
 
-  const navigateToMap = (coordinate: LatLng) => {
+  const navigateToMap = (id: string, coordinate: LatLng) => {
     errorUtil(async () => {
       await ItemListAPI.setItemCoordinates(coordinate);
+      await Storage.setItemId(id);
       navigation.navigate(ROUTES.Map);
     });
   };

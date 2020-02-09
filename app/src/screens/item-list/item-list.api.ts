@@ -27,7 +27,7 @@ export const ItemListAPI = {
     ajaxErrorCall(async () => {
       const userId: string = await Storage.getUserId();
       const urlFoundItem = REQUEST.found_by_user_id(URL.found, userId);
-      const { itemsIdList } = (await axios.get<IFiend>(urlFoundItem)).data;
+      const { itemsIdList } = (await axios.get<IFound>(urlFoundItem)).data;
       return (await axios.post<IItem[]>(REQUEST.user_found_item, itemsIdList))
         .data;
     }, ITEMS_ERROR.not_found_user_item),

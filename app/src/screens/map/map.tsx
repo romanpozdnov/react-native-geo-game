@@ -21,6 +21,7 @@ export const Map: React.FC<IMapProps> = (props) => {
     userCoordinates,
     moveToItem,
     moveToUser,
+    onShacked,
   } = useMapState();
 
   return (

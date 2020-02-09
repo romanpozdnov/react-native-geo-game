@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { LatLng, Region } from 'react-native-maps';
 import navigator from '@react-native-community/geolocation';
+import isPointWithinRadius from 'geolib/es/isPointWithinRadius';
 
 import { MapAPI } from './map.api';
 import { errorUtilCall } from '@services/utils';
@@ -10,6 +11,7 @@ interface IMapState {
   region: Region;
   itemCoordinates: LatLng;
 
+  isClose: boolean;
   isError: boolean;
 }
 
@@ -27,6 +29,7 @@ const DEFAULT_STATE: IMapState = {
     longitudeDelta: 0,
   },
   isError: false,
+  isClose: false,
 };
 
 export const useMapState = () => {
@@ -78,12 +81,35 @@ export const useMapState = () => {
       };
     });
 
+  const checkIsClose = (distance: number) =>
+    setState((state) => ({
+      ...state,
+      isClose: isPointWithinRadius(
+        state.userCoordinates,
+        state.itemCoordinates,
+        distance
+      ),
+    }));
+
+  const addToFoundList = () =>
+    errorUtil(async () => {
+      if (state.isClose) await MapAPI.addToItemFoundList();
+    });
+
   const moveToUser = () => moveToCoordinate(state.userCoordinates);
   const moveToItem = () => moveToCoordinate(state.itemCoordinates);
+  const onShacked = (distance: number) =>
+    errorUtil(async () => {
+      await checkIsClose(distance);
+      await addToFoundList();
+    });
 
   return {
     ...state,
+    checkIsClose,
     moveToUser,
     moveToItem,
+    addToFoundList,
+    onShacked,
   };
 };

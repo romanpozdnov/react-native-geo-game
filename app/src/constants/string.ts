@@ -43,9 +43,12 @@ export const STRINGS = {
     fetch_user_id: 'Can`t get user id',
   },
 
-  MAP: {
-    error_get_item_coordinates: 'Error get item coordinates',
+  MAP_ERROR: {
+    get_item_coordinates: 'Error get item coordinates',
+    add_to_found_list: 'Can`t add this element to found list',
+  },
 
+  MAP: {
     marker_user: 'User',
     marker_item: 'Item',
   },
@@ -55,5 +58,7 @@ export const STRINGS = {
     set_user_id: 'Can`t set user id',
     get_item_coordinate: 'Can`t get item coordinate',
     set_item_coordinate: 'Can`t set item coordinate',
+    get_id_item: 'Can`t get item id',
+    set_id_item: 'Can`t set item id',
   },
 };
