@@ -4,6 +4,7 @@ export enum URL {
   found = `http://localhost:4000/found`,
 }
 export const REQUEST = {
+  by_id: (url: string, id: string) => `${url}/${id}`,
   found_by_email: (url: URL, email: string) => `${url}/email/${email}`,
   found_by_id: (url: URL, id: string) => `${url}/id/${id}`,
   found_by_user_id: (url: URL, idUser: string) => `${url}/idUser/${idUser}`,

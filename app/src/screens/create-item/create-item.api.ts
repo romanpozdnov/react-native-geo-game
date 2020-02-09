@@ -1,9 +1,7 @@
-import Axios from 'axios';
-
 import { Storage } from '@services/createStorage';
 import { ajaxErrorCall } from '@services/utils';
+import { ItemAPI } from '@services/api/api-item';
 
-import { URL, CONFIG } from '@constants/database';
 import { STRINGS } from '@constants/string';
 
 const { CREATE_ITEM_ERROR } = STRINGS;
@@ -11,7 +9,7 @@ const { CREATE_ITEM_ERROR } = STRINGS;
 export const CreateItemAPI = {
   createItem: (item: IItemField): Promise<IItem> =>
     ajaxErrorCall(
-      async () => (await Axios.post<IItem>(URL.item, item, CONFIG)).data,
+      async () => await ItemAPI.createItem(item),
       CREATE_ITEM_ERROR.create_item
     ),
 

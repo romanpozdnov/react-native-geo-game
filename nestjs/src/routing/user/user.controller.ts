@@ -19,8 +19,6 @@ import { utilCall } from "@constants/utils";
 import { STRINGS } from "@constants/string";
 import { ROUTING } from "@constants/routing";
 
-import { IUser } from "./user.types";
-
 const { USERS_ERROR } = STRINGS;
 
 @Controller(ROUTING.USER)

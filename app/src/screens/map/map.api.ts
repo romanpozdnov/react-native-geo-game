@@ -1,11 +1,10 @@
 import { LatLng } from 'react-native-maps';
-import axios from 'axios';
 
 import { Storage } from '@services/createStorage';
 import { ajaxErrorCall } from '@services/utils';
+import { FoundAPI } from '@services/api/api-found';
 
 import { STRINGS } from '@constants/string';
-import { URL, REQUEST } from '@constants/database';
 
 const { MAP_ERROR } = STRINGS;
 
@@ -20,8 +19,7 @@ export const MapAPI = {
     ajaxErrorCall(async () => {
       const idUser: string = await Storage.getUserId();
       const idItem: string = await Storage.getItemId();
-      const url: string = REQUEST.found_by_user_id(URL.found, idUser);
-      const userFound = (await axios.get<IFound>(url)).data;
+      const userFound = await FoundAPI.getByUserId(idUser);
       const itemsIdList: string[] = [...userFound.itemsIdList, idItem];
       const newFound: IFoundField = {
         idUser,
@@ -29,7 +27,7 @@ export const MapAPI = {
       };
 
       return !userFound
-        ? (await axios.post<IFound>(URL.found, newFound)).data
-        : (await axios.put<IFound>(URL.found, newFound)).data;
+        ? await FoundAPI.createFound(newFound)
+        : await FoundAPI.updateById(userFound._id, newFound);
     }, MAP_ERROR.get_item_coordinates),
 };
