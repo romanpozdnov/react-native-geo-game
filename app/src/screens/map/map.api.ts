@@ -6,13 +6,13 @@ import { FoundAPI } from '@services/api/api-found';
 
 import { STRINGS } from '@constants/string';
 
-const { MAP_ERROR } = STRINGS;
+const { MAP: ERROR } = STRINGS.ERROR;
 
 export const MapAPI = {
   fetchItemCoordinates: (): Promise<LatLng> =>
     ajaxErrorCall(
       async () => await Storage.getItemCoordinates(),
-      MAP_ERROR.get_item_coordinates
+      ERROR.get_item_coordinates
     ),
 
   addToItemFoundList: (): Promise<IFound> =>
@@ -29,5 +29,5 @@ export const MapAPI = {
       return !userFound
         ? await FoundAPI.createFound(newFound)
         : await FoundAPI.updateById(userFound._id, newFound);
-    }, MAP_ERROR.get_item_coordinates),
+    }, ERROR.get_item_coordinates),
 };

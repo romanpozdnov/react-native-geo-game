@@ -15,6 +15,9 @@ import { CreateItemStyle } from './create-item.style';
 
 interface ICreateItemProps extends TPageNavigation {}
 
+const { CREATE_ITEM } = STRINGS;
+const { CREATE_ITEM: CREATE_ITEM_COLOR } = COLORS;
+
 export const CreateItem: React.FC<ICreateItemProps> = (props) => {
   const { navigation } = props;
   const {
@@ -35,34 +38,34 @@ export const CreateItem: React.FC<ICreateItemProps> = (props) => {
   return (
     <CreateItemStyle.Container>
       <Field
-        errorText={STRINGS.CREATE_ITEM.item_error_text}
+        errorText={CREATE_ITEM.item_error_text}
         setValue={setName}
-        text={STRINGS.CREATE_ITEM.item_title}
+        text={CREATE_ITEM.item_title}
         isValid={isValidName}
         value={name}
       />
 
       <CreateItemStyle.Map initialRegion={region} onRegionChange={setRegion}>
         <CreateItemStyle.Marker
-          title={STRINGS.CREATE_ITEM.marker_user}
+          title={CREATE_ITEM.marker_user}
           coordinate={userCoordinates}
         />
       </CreateItemStyle.Map>
 
       <OpacityButton
-        text={STRINGS.CREATE_ITEM.button_submit}
+        text={CREATE_ITEM.button_submit}
         handleClick={onSubmit}
-        backgroundColor={COLORS.CREATE_ITEM.submit_button}
+        backgroundColor={CREATE_ITEM_COLOR.submit_button}
       />
       <OpacityButton
-        text={STRINGS.CREATE_ITEM.button_get_address}
+        text={CREATE_ITEM.button_get_address}
         handleClick={setAddress}
-        backgroundColor={COLORS.CREATE_ITEM.submit_button}
+        backgroundColor={CREATE_ITEM_COLOR.submit_button}
       />
       <OpacityButton
-        text={STRINGS.CREATE_ITEM.button_to_user_move}
+        text={CREATE_ITEM.button_to_user_move}
         handleClick={setUserRegion}
-        backgroundColor={COLORS.CREATE_ITEM.submit_button}
+        backgroundColor={CREATE_ITEM_COLOR.submit_button}
       />
 
       <ErrorText isError={!!error} errorText={error} />

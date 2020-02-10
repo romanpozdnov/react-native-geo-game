@@ -15,7 +15,8 @@ import { LogInStyle } from './login.style';
 
 interface ILogInProps extends TPageNavigation {}
 
-const { LOGIN_ERROR, LOGIN } = STRINGS;
+const { LOGIN } = STRINGS;
+const { LOGIN: LOGIN_ERROR } = STRINGS.ERROR;
 const { LOGIN: LOGIN_COLOR } = COLORS;
 
 export const LogIn: React.FC<ILogInProps> = ({ navigation }) => {

@@ -16,16 +16,17 @@ import { ItemListStyle } from './item-list.style';
 interface IItemListProps extends TPageNavigation {}
 
 const { ITEMS_LIST: ITEMS_COLOR } = COLORS;
-const { ITEMS: ITEMS_STRING, ITEMS_ERROR } = STRINGS;
+const { ITEMS: ITEMS_STRING } = STRINGS;
 
 export const ItemList: React.FC<IItemListProps> = (props) => {
   const { navigation } = props;
   const {
+    items,
+    error,
+
     setAllItems,
     setUserItems,
     setUserFoundItems,
-    items,
-    error,
     navigateToCreateItem,
     navigateToMap,
   } = useItemList(navigation);
@@ -48,7 +49,7 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
         />
         <OpacityButton
           isRound
-          text={STRINGS.ITEMS.found_user_items}
+          text={ITEMS_STRING.found_user_items}
           handleClick={setUserFoundItems}
           backgroundColor={ITEMS_COLOR.item_found_user}
           borderColor={ITEMS_COLOR.item_found_user_border}
