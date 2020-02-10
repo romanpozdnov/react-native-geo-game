@@ -1,4 +1,4 @@
-type TErrorFunction = () => void;
+type TErrorFunction = (e: Error) => void;
 type TCallbackFunction = () => Promise<void>;
 type TCallbackData<R> = () => Promise<R>;
 
@@ -7,8 +7,8 @@ export const errorUtilCall = (error: TErrorFunction) => async (
 ) => {
   try {
     await callback();
-  } catch {
-    error();
+  } catch (e) {
+    error(e);
   }
 };
 

@@ -3,8 +3,8 @@ import * as React from 'react';
 import { ErrorTextStyle } from './error-text.style';
 
 interface IErrorText {
-  errorText: string;
   isError: boolean;
+  errorText?: string;
   color?: string;
   children?: React.ReactNode;
 }

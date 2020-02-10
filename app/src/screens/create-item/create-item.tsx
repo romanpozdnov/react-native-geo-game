@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Field } from '@components/field';
 import { OpacityButton } from '@components/opacity-button';
+import { ErrorText } from '@components/error-text';
 
 import { useCreteItem } from './create-item.state';
 
@@ -18,14 +19,17 @@ export const CreateItem: React.FC<ICreateItemProps> = (props) => {
   const { navigation } = props;
   const {
     isValidName,
+
     region,
+    error,
+    name,
+
     setName,
     setUserRegion,
     setRegion,
     userCoordinates,
     onSubmit,
     setAddress,
-    name,
   } = useCreteItem(navigation);
 
   return (
@@ -60,6 +64,8 @@ export const CreateItem: React.FC<ICreateItemProps> = (props) => {
         handleClick={setUserRegion}
         backgroundColor={COLORS.CREATE_ITEM.submit_button}
       />
+
+      <ErrorText isError={!!error} errorText={error} />
     </CreateItemStyle.Container>
   );
 };

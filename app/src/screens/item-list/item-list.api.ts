@@ -32,6 +32,12 @@ export const ItemListAPI = {
   setItemCoordinates: async (coordinates: LatLng): Promise<void> =>
     ajaxErrorCall(
       async () => await Storage.setItemCoordinates(coordinates),
-      ITEMS_ERROR.set_item_coordinate
+      ITEMS_ERROR.not_set_item_coordinate
+    ),
+
+  setItemId: async (id: string): Promise<void> =>
+    ajaxErrorCall(
+      async () => await Storage.setItemId(id),
+      ITEMS_ERROR.not_set_item_id
     ),
 };

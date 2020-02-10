@@ -1,6 +1,7 @@
 export const COLORS = {
   text_color: 'black',
   background_color: 'white',
+  border_color: 'black',
   error_color: 'red',
 
   MAP: {
@@ -19,8 +20,11 @@ export const COLORS = {
     found_icon: 'green',
     not_found_icon: 'red',
     user_item_list_button: 'lightblue',
+    user_item_list_button_border: 'blue',
     all_item_list_button: 'lightgray',
-    item_found_user: 'lightred',
+    all_item_list_button_border: 'gray',
+    item_found_user: 'lightgreen',
+    item_found_user_border: 'green',
     create_button: 'lightblue',
     create_icon_button: 'gray',
   },

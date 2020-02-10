@@ -6,13 +6,19 @@ import isPointWithinRadius from 'geolib/es/isPointWithinRadius';
 import { MapAPI } from './map.api';
 import { errorUtilCall } from '@services/utils';
 
-interface IMapState {
+interface IMapStateData {
   userCoordinates: LatLng;
   region: Region;
   itemCoordinates: LatLng;
+  error: string;
 
   isClose: boolean;
-  isError: boolean;
+}
+
+interface IMapState extends IMapStateData {
+  moveToUser: () => void;
+  moveToItem: () => void;
+  onShacked: (distance: number) => void;
 }
 
 const DEFAULT_COORDINATES: LatLng = {
@@ -20,7 +26,7 @@ const DEFAULT_COORDINATES: LatLng = {
   longitude: 0,
 };
 
-const DEFAULT_STATE: IMapState = {
+const DEFAULT_STATE: IMapStateData = {
   itemCoordinates: DEFAULT_COORDINATES,
   userCoordinates: DEFAULT_COORDINATES,
   region: {
@@ -28,13 +34,15 @@ const DEFAULT_STATE: IMapState = {
     latitudeDelta: 0,
     longitudeDelta: 0,
   },
-  isError: false,
+  error: '',
+
   isClose: false,
 };
 
-export const useMapState = () => {
-  const [state, setState] = useState<IMapState>(DEFAULT_STATE);
-  const error = () => setState((state) => ({ ...state, isError: true }));
+export const useMapState = (): IMapState => {
+  const [state, setState] = useState<IMapStateData>(DEFAULT_STATE);
+  const error = (e: Error) =>
+    setState((state) => ({ ...state, error: e.message }));
   const errorUtil = errorUtilCall(error);
 
   // * Watch user coordinates
@@ -52,14 +60,12 @@ export const useMapState = () => {
           },
         });
       },
-      () => error(),
+      (e) => setState((state) => ({ ...state, error: e.message })),
       { timeout: 1000 }
     );
-    // * Stop watch
     return () => navigator.clearWatch(id);
   }, []);
 
-  // * Get item coordinates
   useEffect(() => {
     errorUtil(async () => {
       const itemCoordinates = await MapAPI.fetchItemCoordinates();
@@ -81,35 +87,26 @@ export const useMapState = () => {
       };
     });
 
-  const checkIsClose = (distance: number) =>
-    setState((state) => ({
-      ...state,
-      isClose: isPointWithinRadius(
-        state.userCoordinates,
-        state.itemCoordinates,
-        distance
-      ),
-    }));
-
-  const addToFoundList = () =>
-    errorUtil(async () => {
-      if (state.isClose) await MapAPI.addToItemFoundList();
-    });
-
   const moveToUser = () => moveToCoordinate(state.userCoordinates);
   const moveToItem = () => moveToCoordinate(state.itemCoordinates);
   const onShacked = (distance: number) =>
     errorUtil(async () => {
-      await checkIsClose(distance);
-      await addToFoundList();
+      const isClose = isPointWithinRadius(
+        state.userCoordinates,
+        state.itemCoordinates,
+        distance
+      );
+      setState((state) => ({
+        ...state,
+        isClose,
+      }));
+      if (state.isClose) await MapAPI.addToItemFoundList();
     });
 
   return {
     ...state,
-    checkIsClose,
     moveToUser,
     moveToItem,
-    addToFoundList,
     onShacked,
   };
 };

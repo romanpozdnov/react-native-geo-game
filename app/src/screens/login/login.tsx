@@ -15,17 +15,20 @@ import { LogInStyle } from './login.style';
 
 interface ILogInProps extends TPageNavigation {}
 
+const { LOGIN_ERROR, LOGIN } = STRINGS;
+const { LOGIN: LOGIN_COLOR } = COLORS;
+
 export const LogIn: React.FC<ILogInProps> = ({ navigation }) => {
   const {
     email,
     password,
+    error,
 
     setEmail,
     setPassword,
     onLogIn,
     onCreate,
 
-    isError,
     isExist,
     isNotFoundUser,
     isValidEmail,
@@ -35,45 +38,42 @@ export const LogIn: React.FC<ILogInProps> = ({ navigation }) => {
   return (
     <LogInStyle.Container>
       <Field
-        errorText={STRINGS.LOGIN.error_email}
+        errorText={LOGIN_ERROR.email}
         setValue={setEmail}
         isValid={isValidEmail}
-        text={STRINGS.LOGIN.email_title}
+        text={LOGIN.email_title}
         value={email}
       />
       <Field
-        errorText={STRINGS.LOGIN.error_password}
+        errorText={LOGIN_ERROR.password}
         setValue={setPassword}
         isValid={isValidPassword}
-        text={STRINGS.LOGIN.password_title}
+        text={LOGIN.password_title}
         value={password}
         isSecure
       />
 
       <OpacityButton
         handleClick={onLogIn}
-        text={STRINGS.LOGIN.login_button}
-        backgroundColor={COLORS.LOGIN.create_button_background}
+        text={LOGIN.login_button}
+        backgroundColor={LOGIN_COLOR.create_button_background}
       />
       <OpacityButton
         handleClick={onCreate}
-        text={STRINGS.LOGIN.create_button}
-        backgroundColor={COLORS.LOGIN.create_button_background}
+        text={LOGIN.create_button}
+        backgroundColor={LOGIN_COLOR.create_button_background}
       />
 
+      <ErrorText errorText={LOGIN_ERROR.already_create} isError={isExist} />
       <ErrorText
-        errorText={STRINGS.LOGIN.error_already_create}
-        isError={isExist}
-      />
-      <ErrorText
-        errorText={STRINGS.LOGIN.error_user_not_found}
+        errorText={LOGIN_ERROR.user_not_found}
         isError={isNotFoundUser}
       />
       <ErrorText
         errorText={'Data is not valid. Please write valid data.'}
         isError={!isValidEmail || !isValidPassword}
       />
-      <ErrorText errorText={'ERROR'} isError={isError} />
+      <ErrorText errorText={error} isError={!!error} />
     </LogInStyle.Container>
   );
 };

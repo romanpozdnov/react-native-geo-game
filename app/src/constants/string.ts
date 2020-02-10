@@ -5,12 +5,15 @@ export const STRINGS = {
 
     login_button: 'Log in',
     create_button: 'Create user',
+  },
 
-    error_already_create: 'User with this email already create',
-    error_password: 'Not correct password',
-    error_email: 'Not correct email',
-    error_not_create: 'User not create',
-    error_user_not_found: 'User not found',
+  LOGIN_ERROR: {
+    already_create: 'User with this email already create',
+    password: 'Not correct password',
+    email: 'Not correct email',
+    not_create: 'User not create',
+    not_set_user_id: '',
+    user_not_found: 'User not found',
   },
 
   ITEMS: {
@@ -20,11 +23,11 @@ export const STRINGS = {
   },
 
   ITEMS_ERROR: {
-    ERROR: 'Error',
     not_found_all_items: 'Not found all items',
     not_found_items_by_user_id: 'Not found items by user id',
-    set_item_coordinate: 'Don`t set item coordinate',
+    not_set_item_coordinate: 'Don`t set item coordinate',
     not_found_user_item: 'Not found items by this user id',
+    not_set_item_id: 'Not set item id',
   },
 
   CREATE_ITEM: {

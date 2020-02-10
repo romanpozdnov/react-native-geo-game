@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { Item } from './item';
 import { OpacityButton } from '@components/opacity-button';
-import { IconButton } from '@components/icon-button';
 import { ErrorText } from '@components/error-text';
 
 import { useItemList } from './item-list.state';
@@ -16,6 +15,9 @@ import { ItemListStyle } from './item-list.style';
 
 interface IItemListProps extends TPageNavigation {}
 
+const { ITEMS_LIST: ITEMS_COLOR } = COLORS;
+const { ITEMS: ITEMS_STRING, ITEMS_ERROR } = STRINGS;
+
 export const ItemList: React.FC<IItemListProps> = (props) => {
   const { navigation } = props;
   const {
@@ -23,7 +25,7 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
     setUserItems,
     setUserFoundItems,
     items,
-    isError,
+    error,
     navigateToCreateItem,
     navigateToMap,
   } = useItemList(navigation);
@@ -38,32 +40,38 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
     <ItemListStyle.Container>
       <ItemListStyle.FilterBar>
         <OpacityButton
-          text={STRINGS.ITEMS.user_list}
+          isRound
+          text={ITEMS_STRING.user_list}
           handleClick={setUserItems}
-          backgroundColor={COLORS.ITEMS_LIST.user_item_list_button}
+          backgroundColor={ITEMS_COLOR.user_item_list_button}
+          borderColor={ITEMS_COLOR.user_item_list_button_border}
         />
         <OpacityButton
+          isRound
           text={STRINGS.ITEMS.found_user_items}
           handleClick={setUserFoundItems}
-          backgroundColor={COLORS.ITEMS_LIST.item_found_user}
+          backgroundColor={ITEMS_COLOR.item_found_user}
+          borderColor={ITEMS_COLOR.item_found_user_border}
         />
         <OpacityButton
-          text={STRINGS.ITEMS.all_item_list}
+          isRound
+          text={ITEMS_STRING.all_item_list}
           handleClick={setAllItems}
-          backgroundColor={COLORS.ITEMS_LIST.all_item_list_button}
+          backgroundColor={ITEMS_COLOR.all_item_list_button}
+          borderColor={ITEMS_COLOR.all_item_list_button_border}
         />
       </ItemListStyle.FilterBar>
       <ItemListStyle.ItemList>{Items}</ItemListStyle.ItemList>
 
-      <IconButton
+      <ItemListStyle.CreateItemButton
         handleClick={navigateToCreateItem}
         iconProps={{
-          color: COLORS.LOGIN.create_button_background,
+          color: ITEMS_COLOR.create_icon_button,
           name: 'archive',
           size: 25,
         }}
       />
-      <ErrorText errorText={STRINGS.ITEMS_ERROR.ERROR} isError={isError} />
+      <ErrorText errorText={error} isError={!!error} />
     </ItemListStyle.Container>
   );
 };

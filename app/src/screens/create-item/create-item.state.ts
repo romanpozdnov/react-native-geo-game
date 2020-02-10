@@ -11,7 +11,7 @@ import { TNavigator } from '@constants/types';
 
 import { ROUTES } from '@constants/routes';
 
-interface ICreateItemState {
+interface ICreateItemStateData {
   name: string;
   idUser: string;
   address: string;
@@ -21,7 +21,15 @@ interface ICreateItemState {
   userCoordinates: LatLng;
 
   isValidName: boolean;
-  isError: boolean;
+  error: string;
+}
+
+interface ICreateItemState extends ICreateItemStateData {
+  setName: (newName: string) => void;
+  setUserRegion: () => void;
+  setRegion: (region: Region) => void;
+  onSubmit: () => void;
+  setAddress: () => void;
 }
 
 const DEFAULT_COORDINATES: LatLng = {
@@ -29,7 +37,7 @@ const DEFAULT_COORDINATES: LatLng = {
   longitude: 0,
 };
 
-const initialState: ICreateItemState = {
+const initialState: ICreateItemStateData = {
   region: { ...DEFAULT_COORDINATES, latitudeDelta: 0, longitudeDelta: 0 },
   itemCoordinates: DEFAULT_COORDINATES,
   userCoordinates: DEFAULT_COORDINATES,
@@ -37,14 +45,15 @@ const initialState: ICreateItemState = {
   idUser: '',
   name: '',
   address: '',
+  error: '',
 
   isValidName: false,
-  isError: false,
 };
 
-export const useCreteItem = (navigation: TNavigator) => {
-  const [state, setState] = useState<ICreateItemState>(initialState);
-  const error = () => setState((state) => ({ ...state, isError: true }));
+export const useCreteItem = (navigation: TNavigator): ICreateItemState => {
+  const [state, setState] = useState<ICreateItemStateData>(initialState);
+  const error = (e: Error) =>
+    setState((state) => ({ ...state, error: e.message }));
   const errorCall = errorUtilCall(error);
 
   // ! Set user coordinates and region
@@ -66,7 +75,7 @@ export const useCreteItem = (navigation: TNavigator) => {
           isError: false,
         }));
       },
-      () => error()
+      (error) => setState((state) => ({ ...state, error: error.message }))
     );
   }, []);
 
@@ -123,12 +132,10 @@ export const useCreteItem = (navigation: TNavigator) => {
         itemCoordinates,
         address
       );
-      setState((state) => {
-        return {
-          ...state,
-          address: newAddress,
-        };
-      });
+      setState((state) => ({
+        ...state,
+        address: newAddress,
+      }));
     });
 
   const onSubmit = () =>

@@ -6,21 +6,28 @@ import { errorUtilCall } from '@services/utils';
 
 import { ROUTES } from '@constants/routes';
 import { TNavigator } from '@constants/types';
-import { Storage } from '@services/createStorage';
-interface IItemListState {
+interface IItemListStateData {
   items: IItem[];
-  isError: boolean;
+  error?: string;
 }
 
-const initialState: IItemListState = {
+interface IItemListState extends IItemListStateData {
+  setUserItems: () => void;
+  setAllItems: () => void;
+  setUserFoundItems: () => void;
+  navigateToMap: (id: string, coordinate: LatLng) => void;
+  navigateToCreateItem: () => void;
+}
+
+const initialState: IItemListStateData = {
   items: [],
-  isError: false,
+  error: '',
 };
 
-export const useItemList = (navigation: TNavigator) => {
-  const [state, setState] = useState<IItemListState>(initialState);
-  const errorUtil = errorUtilCall(() =>
-    setState((state) => ({ ...state, isError: true }))
+export const useItemList = (navigation: TNavigator): IItemListState => {
+  const [state, setState] = useState<IItemListStateData>(initialState);
+  const errorUtil = errorUtilCall((e) =>
+    setState((state) => ({ ...state, error: e.message }))
   );
 
   // * First load all items
@@ -52,7 +59,7 @@ export const useItemList = (navigation: TNavigator) => {
   const navigateToMap = (id: string, coordinate: LatLng) => {
     errorUtil(async () => {
       await ItemListAPI.setItemCoordinates(coordinate);
-      await Storage.setItemId(id);
+      await ItemListAPI.setItemId(id);
       navigation.navigate(ROUTES.Map);
     });
   };
