@@ -8,6 +8,7 @@ import { useItemList } from './item-list.state';
 
 import { COLORS } from '@constants/color';
 import { STRINGS } from '@constants/string';
+import { CREATE_ITEM_ICON } from './item-list.constants';
 
 import { TPageNavigation } from '@constants/types';
 
@@ -66,11 +67,7 @@ export const ItemList: React.FC<IItemListProps> = (props) => {
 
       <ItemListStyle.CreateItemButton
         handleClick={navigateToCreateItem}
-        iconProps={{
-          color: ITEMS_COLOR.create_icon_button,
-          name: 'archive',
-          size: 25,
-        }}
+        iconProps={CREATE_ITEM_ICON}
       />
       <ErrorText errorText={error} isError={!!error} />
     </ItemListStyle.Container>

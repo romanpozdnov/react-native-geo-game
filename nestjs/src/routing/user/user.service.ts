@@ -6,10 +6,10 @@ import { UserDTO } from "./user.dto";
 
 import { MODULES } from "@constants/modules";
 
-import { IUserFunction, IUser } from "./user.types";
+import { IUserServices, IUser } from "./user.types";
 
 @Injectable()
-export class UserService implements IUserFunction {
+export class UserService implements IUserServices {
   constructor(
     @InjectModel(MODULES.user)
     private readonly UserModule: Model<IUser & Document>

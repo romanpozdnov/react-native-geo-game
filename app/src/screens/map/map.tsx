@@ -5,8 +5,8 @@ import { IconMarker } from '@components/icon-marker';
 
 import { useMapState } from './map.state';
 
-import { COLORS } from '@constants/color';
 import { STRINGS } from '@constants/string';
+import { USER_ICON, ITEM_ICON } from './map.constants';
 
 import { MapStyle } from './map.style';
 
@@ -14,9 +14,7 @@ interface IMapProps {
   children?: React.ReactNode;
 }
 
-const { MAP: MAP_COLOR } = COLORS;
 const { MAP } = STRINGS;
-const ICON_SIZE: number = 20;
 
 export const Map: React.FC<IMapProps> = (props) => {
   const {
@@ -35,20 +33,12 @@ export const Map: React.FC<IMapProps> = (props) => {
         <IconMarker
           markerTitle={MAP.marker_user}
           coordinate={userCoordinates}
-          iconProps={{
-            color: MAP_COLOR.user_icon,
-            name: 'running',
-            size: ICON_SIZE,
-          }}
+          iconProps={USER_ICON}
         />
         <IconMarker
           markerTitle={MAP.marker_item}
           coordinate={itemCoordinates}
-          iconProps={{
-            color: MAP_COLOR.item_icon,
-            name: 'archive',
-            size: ICON_SIZE,
-          }}
+          iconProps={ITEM_ICON}
         />
       </MapStyle.Map>
       <MapStyle.UserNavigator onPress={moveToUser} />

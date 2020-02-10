@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import { LatLng, Region } from 'react-native-maps';
-import navigator from '@react-native-community/geolocation';
+import navigator, {
+  GeolocationError,
+} from '@react-native-community/geolocation';
 import isPointWithinRadius from 'geolib/es/isPointWithinRadius';
 
 import { MapAPI } from './map.api';
 import { errorUtilCall } from '@services/utils';
+
+import { TIMEOUT_POSITION_CHECK, DEFAULT_COORDINATES } from './map.constants';
+import { Storage } from '@services/createStorage';
 
 interface IMapStateData {
   userCoordinates: LatLng;
@@ -21,11 +26,6 @@ interface IMapState extends IMapStateData {
   onShacked: (distance: number) => void;
 }
 
-const DEFAULT_COORDINATES: LatLng = {
-  latitude: 0,
-  longitude: 0,
-};
-
 const DEFAULT_STATE: IMapStateData = {
   itemCoordinates: DEFAULT_COORDINATES,
   userCoordinates: DEFAULT_COORDINATES,
@@ -41,29 +41,23 @@ const DEFAULT_STATE: IMapStateData = {
 
 export const useMapState = (): IMapState => {
   const [state, setState] = useState<IMapStateData>(DEFAULT_STATE);
-  const error = (e: Error) =>
+  const error = (e: Error | GeolocationError) =>
     setState((state) => ({ ...state, error: e.message }));
   const removeError = () =>
     setState((state) => ({ ...state, error: undefined }));
   const errorUtil = errorUtilCall(error, removeError);
 
-  // * Watch user coordinates
   useEffect(() => {
-    // * Start watch user coordinates
     const id: number = navigator.watchPosition(
       (position) => {
-        const { coords } = position;
-        const { latitude, longitude } = coords;
-        setState({
+        const { latitude, longitude } = position.coords;
+        setState((state) => ({
           ...state,
-          userCoordinates: {
-            latitude,
-            longitude,
-          },
-        });
+          userCoordinates: { latitude, longitude },
+        }));
       },
-      (e) => setState((state) => ({ ...state, error: e.message })),
-      { timeout: 1000 }
+      (e) => error(e),
+      { timeout: TIMEOUT_POSITION_CHECK }
     );
     return () => navigator.clearWatch(id);
   }, []);
@@ -71,21 +65,17 @@ export const useMapState = (): IMapState => {
   useEffect(() => {
     errorUtil(async () => {
       const itemCoordinates = await MapAPI.fetchItemCoordinates();
-      setState({ ...state, itemCoordinates });
+      setState((state) => ({ ...state, itemCoordinates }));
     });
   }, []);
 
   const moveToCoordinate = (coordinate: LatLng) =>
-    setState((currentState) => {
-      const { region } = currentState;
+    setState((state) => {
+      const { region } = state;
       const { latitude, longitude } = coordinate;
       return {
-        ...currentState,
-        region: {
-          ...region,
-          latitude,
-          longitude,
-        },
+        ...state,
+        region: { ...region, latitude, longitude },
       };
     });
 
@@ -98,11 +88,8 @@ export const useMapState = (): IMapState => {
         state.itemCoordinates,
         distance
       );
-      setState((state) => ({
-        ...state,
-        isClose,
-      }));
-      if (state.isClose) await MapAPI.addToItemFoundList();
+      setState((state) => ({ ...state, isClose }));
+      if (isClose) await MapAPI.addToItemFoundList();
     });
 
   return {

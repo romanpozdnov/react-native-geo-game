@@ -71,7 +71,7 @@ export const LogIn: React.FC<ILogInProps> = ({ navigation }) => {
         isError={isNotFoundUser}
       />
       <ErrorText
-        errorText={'Data is not valid. Please write valid data.'}
+        errorText={LOGIN_ERROR.not_valid_fields}
         isError={!isValidEmail || !isValidPassword}
       />
       <ErrorText errorText={error} isError={!!error} />

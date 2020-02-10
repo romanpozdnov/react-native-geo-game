@@ -19,10 +19,12 @@ import { utilCall } from "@constants/utils";
 import { STRINGS } from "@constants/string";
 import { ROUTING } from "@constants/routing";
 
+import { IUserController } from "./user.types";
+
 const { USERS_ERROR } = STRINGS;
 
 @Controller(ROUTING.USER)
-export class UserController {
+export class UserController implements IUserController {
   constructor(private readonly UserService: UserService) {}
 
   @Get("id/:id")

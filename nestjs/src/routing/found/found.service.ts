@@ -12,37 +12,37 @@ import { IFoundService, IFound } from "./found.types";
 export class FoundService implements IFoundService {
   constructor(
     @InjectModel(MODULES.found)
-    private readonly FindModule: Model<IFound>
+    private readonly FoundModule: Model<IFound>
   ) {}
 
   async updateById(id: string, newFound: FoundDTO) {
-    return await this.FindModule.findByIdAndUpdate(id, newFound);
+    return await this.FoundModule.findByIdAndUpdate(id, newFound);
   }
 
   async removeById(id: string) {
-    return await this.FindModule.findByIdAndRemove(id);
+    return await this.FoundModule.findByIdAndRemove(id);
   }
 
   async create(found: FoundDTO) {
     const { idUser, itemsIdList } = found;
-    const find = this.FindModule.findOne({ idUser, itemsIdList });
-    if (!find) return await new this.FindModule(found).save();
+    const find = this.FoundModule.findOne({ idUser, itemsIdList });
+    if (!find) return await new this.FoundModule(found).save();
     throw new Error("Already create item with this parameter");
   }
 
   async findAll() {
-    return await this.FindModule.find();
+    return await this.FoundModule.find();
   }
 
   async findById(id: string) {
-    return await this.FindModule.findById(id);
+    return await this.FoundModule.findById(id);
   }
 
   async findByUserId(idUser: string) {
-    return await this.FindModule.findOne({ idUser });
+    return await this.FoundModule.findOne({ idUser });
   }
 
   async findByItemId(idItem: string) {
-    return await this.FindModule.findOne({ idItem });
+    return await this.FoundModule.findOne({ idItem });
   }
 }

@@ -1,19 +1,19 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model, Document, Mongoose } from "mongoose";
+import { Model } from "mongoose";
 
 import { ItemDTO } from "./item.dto";
 import { ID_TYPE } from "@constants/field";
 
 import { MODULES } from "@constants/modules";
 
-import { IItemFunc, IItem } from "./item.types";
+import { IItem, IItemServices } from "./item.types";
 
 @Injectable()
-export class ItemService implements IItemFunc {
+export class ItemService implements IItemServices {
   constructor(
     @InjectModel(MODULES.item)
-    private readonly ItemModule: Model<IItem & Document>
+    private readonly ItemModule: Model<IItem>
   ) {}
 
   async updateById(id: string, newItem: ItemDTO) {

@@ -8,7 +8,7 @@ const Button = styled.TouchableOpacity`
   bottom: 5%;
   width: 50px;
   height: 50px;
-  border-radius: 50;
+  border-radius: 25px;
 `;
 
 export const MapStyle = {

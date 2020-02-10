@@ -59,6 +59,7 @@ export const STRINGS = {
       not_create: 'User not create',
       not_set_user_id: '',
       user_not_found: 'User not found',
+      not_valid_fields: 'This not valid data to log in/up',
     },
 
     CREATE_ITEM: {

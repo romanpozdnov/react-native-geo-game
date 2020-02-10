@@ -19,10 +19,12 @@ import { utilCall } from "@constants/utils";
 import { STRINGS } from "@constants/string";
 import { ROUTING } from "@constants/routing";
 
+import { IItemController } from "./item.types";
+
 const { ITEMS_ERROR } = STRINGS;
 
 @Controller(ROUTING.ITEMS)
-export class ItemController {
+export class ItemController implements IItemController {
   constructor(private readonly ItemService: ItemService) {}
 
   @Get()
