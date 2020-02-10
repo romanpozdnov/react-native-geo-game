@@ -10,7 +10,7 @@ interface IMapStateData {
   userCoordinates: LatLng;
   region: Region;
   itemCoordinates: LatLng;
-  error: string;
+  error?: string;
 
   isClose: boolean;
 }
@@ -43,7 +43,9 @@ export const useMapState = (): IMapState => {
   const [state, setState] = useState<IMapStateData>(DEFAULT_STATE);
   const error = (e: Error) =>
     setState((state) => ({ ...state, error: e.message }));
-  const errorUtil = errorUtilCall(error);
+  const removeError = () =>
+    setState((state) => ({ ...state, error: undefined }));
+  const errorUtil = errorUtilCall(error, removeError);
 
   // * Watch user coordinates
   useEffect(() => {

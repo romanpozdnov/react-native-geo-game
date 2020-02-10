@@ -26,9 +26,11 @@ const initialState: IItemListStateData = {
 
 export const useItemList = (navigation: TNavigator): IItemListState => {
   const [state, setState] = useState<IItemListStateData>(initialState);
-  const errorUtil = errorUtilCall((e) =>
-    setState((state) => ({ ...state, error: e.message }))
-  );
+  const error = (e: Error) =>
+    setState((state) => ({ ...state, error: e.message }));
+  const removeError = () =>
+    setState((state) => ({ ...state, error: undefined }));
+  const errorUtil = errorUtilCall(error, removeError);
 
   // * First load all items
   useEffect(() => {

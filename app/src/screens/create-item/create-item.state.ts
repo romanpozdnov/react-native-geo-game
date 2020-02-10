@@ -21,7 +21,7 @@ interface ICreateItemStateData {
   userCoordinates: LatLng;
 
   isValidName: boolean;
-  error: string;
+  error?: string;
 }
 
 interface ICreateItemState extends ICreateItemStateData {
@@ -54,7 +54,9 @@ export const useCreteItem = (navigation: TNavigator): ICreateItemState => {
   const [state, setState] = useState<ICreateItemStateData>(initialState);
   const error = (e: Error) =>
     setState((state) => ({ ...state, error: e.message }));
-  const errorCall = errorUtilCall(error);
+  const removeError = () =>
+    setState((state) => ({ ...state, error: undefined }));
+  const errorCall = errorUtilCall(error, removeError);
 
   // ! Set user coordinates and region
   useEffect(() => {

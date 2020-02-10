@@ -12,7 +12,7 @@ interface ILogInStateData {
   //isError: boolean;
   email: string;
   password: string;
-  error: string;
+  error?: string;
 
   isExist: boolean;
   isNotFoundUser: boolean;
@@ -43,10 +43,12 @@ export const useLogIn = (navigation: TNavigator): ILogInState => {
 
   const error = (e: Error) =>
     setState((state) => ({ ...state, error: e.message }));
+  const removeError = () =>
+    setState((state) => ({ ...state, error: undefined }));
   const notFoundError = () =>
     setState((state) => ({ ...state, isNotFoundUser: true }));
 
-  const errorUtil = errorUtilCall(error);
+  const errorUtil = errorUtilCall(error, removeError);
 
   const onLogIn = () => {
     errorUtil(async () => {
