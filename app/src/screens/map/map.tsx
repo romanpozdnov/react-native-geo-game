@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Marker } from 'react-native-maps';
 
-import { FontAwesomeIcon } from '@components/icon';
 import { ErrorText } from '@components/error-text';
+import { IconMarker } from '@components/icon-marker';
 
 import { useMapState } from './map.state';
 
@@ -17,6 +16,7 @@ interface IMapProps {
 
 const { MAP: MAP_COLOR } = COLORS;
 const { MAP } = STRINGS;
+const ICON_SIZE: number = 20;
 
 export const Map: React.FC<IMapProps> = (props) => {
   const {
@@ -32,20 +32,24 @@ export const Map: React.FC<IMapProps> = (props) => {
   return (
     <MapStyle.Container>
       <MapStyle.Map initialRegion={region}>
-        <Marker title={MAP.marker_user} coordinate={userCoordinates}>
-          <FontAwesomeIcon
-            color={MAP_COLOR.user_icon}
-            name="running"
-            size={20}
-          />
-        </Marker>
-        <Marker title={MAP.marker_item} coordinate={itemCoordinates}>
-          <FontAwesomeIcon
-            color={MAP_COLOR.item_icon}
-            name="archive"
-            size={20}
-          />
-        </Marker>
+        <IconMarker
+          markerTitle={MAP.marker_user}
+          coordinate={userCoordinates}
+          iconProps={{
+            color: MAP_COLOR.user_icon,
+            name: 'running',
+            size: ICON_SIZE,
+          }}
+        />
+        <IconMarker
+          markerTitle={MAP.marker_item}
+          coordinate={itemCoordinates}
+          iconProps={{
+            color: MAP_COLOR.item_icon,
+            name: 'archive',
+            size: ICON_SIZE,
+          }}
+        />
       </MapStyle.Map>
       <MapStyle.UserNavigator onPress={moveToUser} />
       <MapStyle.ItemNavigator onPress={moveToItem} />
